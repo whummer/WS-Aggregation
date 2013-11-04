@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="default" name="WS-Aggregation" xmlns:ant4eclipse="antlib:org.ant4eclipse" xmlns:antcontrib="antlib:net.sf.antcontrib">
+
+	<property name="mainClass" value="at.ac.tuwien.infosys.aggr.util.ServiceStarter"/>
+	<property name="mavenRepo" value="${user.home}/.m2/repository"/>
+	<property name="toolName" value="InfosysTools"/>
+	<property name="toolVersion" value="1-SNAPSHOT"/>
+	<property name="toolPath" value="at/ac/tuwien/infosys"/>
+
+    <target name="build" />
+
+    <target name="default">
+    	<exec command="mvn">
+			<arg value="exec:exec"/>
+			<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -javaagent:${mavenRepo}/${toolPath}/${toolName}/${toolVersion}/${toolName}-${toolVersion}.jar -Dfile.encoding=UTF-8 ${mainClass}"/>
+    	</exec>
+    </target>
+    <target name="aggregator">
+    	<exec command="mvn">
+			<arg value="compile"/>
+    		<arg value="exec:exec"/>
+    		<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -javaagent:${mavenRepo}/${toolPath}/${toolName}/${toolVersion}/${toolName}-${toolVersion}.jar -Dfile.encoding=UTF-8 ${mainClass} aggregator ${wsaggr.host} ${wsaggr.port} ${wsaggr.registry}"/>
+       </exec>
+    </target>
+    <target name="registry">
+    	<exec command="mvn">
+			<arg value="compile"/>
+			<arg value="exec:exec"/>
+			<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -Dfile.encoding=UTF-8 ${mainClass} registry"/>
+    	</exec>
+    </target>
+    <target name="gateway">
+    	<exec command="mvn">
+			<arg value="compile"/>
+			<arg value="exec:exec"/>
+			<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -Dfile.encoding=UTF-8 ${mainClass} gateway"/>
+        </exec>
+    </target>
+    <target name="gatewayAndAggregator">
+    	<exec command="mvn">
+			<arg value="compile"/>
+			<arg value="exec:exec"/>
+			<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -Dfile.encoding=UTF-8 ${mainClass} gatewayAndAggregator ${wsaggr.host} ${wsaggr.port} ${wsaggr.registry}"/>
+        </exec>
+    </target>
+    <target name="testServices">
+    	<exec command="mvn">
+			<arg value="compile"/>
+			<arg value="exec:exec"/>
+			<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -Dfile.encoding=UTF-8 ${mainClass} testServices"/>
+        </exec>
+    </target>
+    <target name="web">
+    	<exec command="mvn">
+			<arg value="compile"/>
+			<arg value="exec:exec"/>
+			<arg value="-Dexec.executable=java"/>
+			<arg value="-Dexec.args=-cp %classpath -Dfile.encoding=UTF-8 ${mainClass} web"/>
+        </exec>
+    </target>
+
+
+	<!--
+    <target name="server" depends="build">
+        <java classname="at.ac.tuwien.infosys.aggr.testbed.RequestServer" fork="true">
+			<classpath refid="endorsed.classpath"/>
+        	<classpath refid="eclipse.classpath"/>
+			<sysproperty key="java.endorsed.dirs" value="lib/endorsed" />
+        	<arg value="${wsaggr.port}"/>
+        </java>
+    </target>
+    <target name="gatewayAndAggregators" depends="build">
+        <java classname="${mainClass}" fork="true">
+			<classpath refid="endorsed.classpath"/>
+        	<classpath refid="eclipse.classpath"/>
+			<sysproperty key="java.endorsed.dirs" value="lib/endorsed" />
+        	<arg value="gatewayAndAggregators"/>
+        </java>
+    </target>
+    <target name="optimizer" depends="build">
+        <java classname="${mainClass}" fork="true">
+			<classpath refid="endorsed.classpath"/>
+        	<classpath refid="eclipse.classpath"/>
+			<sysproperty key="java.endorsed.dirs" value="lib/endorsed" />
+        	<arg value="optimizer"/>
+        </java>
+    </target>
+    <target name="testgraph" depends="build">
+		<javac srcdir="src/test/java" fork="true" destdir="target/test-classes" failonerror="false" source="1.5">
+			<classpath refid="endorsed.classpath"/>
+			<classpath refid="eclipse.classpath"/>
+		</javac>
+    	<java classname="at.ac.tuwien.infosys.aggr.test.SelfOptimizationTest" fork="true">
+			<classpath refid="endorsed.classpath"/>
+        	<classpath refid="eclipse.classpath"/>
+			<sysproperty key="java.endorsed.dirs" value="lib/endorsed" />
+        	<arg value="graph"/>
+        </java>
+    </target> 
+    -->
+
+</project>

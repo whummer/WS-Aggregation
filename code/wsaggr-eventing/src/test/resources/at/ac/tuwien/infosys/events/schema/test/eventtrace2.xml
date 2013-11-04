@@ -1,0 +1,210 @@
+<events>
+	<event p="1" t="Register" />
+	<event p="1" t="Analyze Defect" />
+	<event p="1" t="Analyze Defect" />
+	<event p="1" t="Repair (Complex)" />
+	<event p="1" t="Repair (Complex)" />
+	<event p="1" t="Test Repair" />
+	<event p="1" t="Test Repair" />
+	<event p="1" t="Inform User" />
+	<event p="1" t="Archive Repair" />
+	<event p="10" t="Register" />
+	<event p="10" t="Analyze Defect" />
+	<event p="10" t="Analyze Defect" />
+	<event p="10" t="Repair (Simple)" />
+	<event p="10" t="Repair (Simple)" />
+	<event p="10" t="Test Repair" />
+	<event p="10" t="Test Repair" />
+	<event p="10" t="Restart Repair" />
+	<event p="10" t="Repair (Simple)" />
+	<event p="10" t="Inform User" />
+	<event p="10" t="Repair (Simple)" />
+	<event p="10" t="Test Repair" />
+	<event p="10" t="Test Repair" />
+	<event p="10" t="Archive Repair" />
+	<event p="100" t="Register" />
+	<event p="100" t="Analyze Defect" />
+	<event p="100" t="Analyze Defect" />
+	<event p="100" t="Repair (Complex)" />
+	<event p="100" t="Repair (Complex)" />
+	<event p="100" t="Test Repair" />
+	<event p="100" t="Test Repair" />
+	<event p="100" t="Inform User" />
+	<event p="100" t="Archive Repair" />
+	<event p="1000" t="Register" />
+	<event p="1000" t="Analyze Defect" />
+	<event p="1000" t="Analyze Defect" />
+	<event p="1000" t="Repair (Simple)" />
+	<event p="1000" t="Repair (Simple)" />
+	<event p="1000" t="Test Repair" />
+	<event p="1000" t="Test Repair" />
+	<event p="1000" t="Inform User" />
+	<event p="1000" t="Archive Repair" />
+	<event p="1001" t="Register" />
+	<event p="1001" t="Analyze Defect" />
+	<event p="1001" t="Analyze Defect" />
+	<event p="1001" t="Repair (Complex)" />
+	<event p="1001" t="Inform User" />
+	<event p="1001" t="Repair (Complex)" />
+	<event p="1001" t="Test Repair" />
+	<event p="1001" t="Test Repair" />
+	<event p="1002" t="Register" />
+	<event p="1002" t="Analyze Defect" />
+	<event p="1002" t="Analyze Defect" />
+	<event p="1002" t="Repair (Simple)" />
+	<event p="1002" t="Inform User" />
+	<event p="1002" t="Repair (Simple)" />
+	<event p="1002" t="Test Repair" />
+	<event p="1002" t="Test Repair" />
+	<event p="1003" t="Register" />
+	<event p="1003" t="Analyze Defect" />
+	<event p="1003" t="Analyze Defect" />
+	<event p="1003" t="Repair (Simple)" />
+	<event p="1003" t="Repair (Simple)" />
+	<event p="1003" t="Test Repair" />
+	<event p="1003" t="Inform User" />
+	<event p="1003" t="Test Repair" />
+	<event p="1003" t="Restart Repair" />
+	<event p="1003" t="Repair (Simple)" />
+	<event p="1003" t="Repair (Simple)" />
+	<event p="1003" t="Test Repair" />
+	<event p="1003" t="Test Repair" />
+	<event p="1004" t="Register" />
+	<event p="1004" t="Analyze Defect" />
+	<event p="1004" t="Analyze Defect" />
+	<event p="1004" t="Repair (Simple)" />
+	<event p="1004" t="Repair (Simple)" />
+	<event p="1004" t="Test Repair" />
+	<event p="1004" t="Test Repair" />
+	<event p="1004" t="Inform User" />
+	<event p="1005" t="Register" />
+	<event p="1005" t="Analyze Defect" />
+	<event p="1005" t="Analyze Defect" />
+	<event p="1005" t="Repair (Simple)" />
+	<event p="1005" t="Repair (Simple)" />
+	<event p="1005" t="Test Repair" />
+	<event p="1005" t="Test Repair" />
+	<event p="1005" t="Inform User" />
+	<event p="1006" t="Register" />
+	<event p="1006" t="Analyze Defect" />
+	<event p="1006" t="Analyze Defect" />
+	<event p="1006" t="Repair (Complex)" />
+	<event p="1006" t="Inform User" />
+	<event p="1006" t="Repair (Complex)" />
+	<event p="1006" t="Test Repair" />
+	<event p="1006" t="Test Repair" />
+	<event p="1007" t="Register" />
+	<event p="1007" t="Analyze Defect" />
+	<event p="1007" t="Analyze Defect" />
+	<event p="1007" t="Inform User" />
+	<event p="1007" t="Repair (Simple)" />
+	<event p="1007" t="Repair (Simple)" />
+	<event p="1007" t="Test Repair" />
+	<event p="1007" t="Test Repair" />
+	<event p="1008" t="Register" />
+	<event p="1008" t="Analyze Defect" />
+	<event p="1008" t="Analyze Defect" />
+	<event p="1008" t="Repair (Simple)" />
+	<event p="1008" t="Inform User" />
+	<event p="1008" t="Repair (Simple)" />
+	<event p="1008" t="Test Repair" />
+	<event p="1008" t="Test Repair" />
+	<event p="1008" t="Restart Repair" />
+	<event p="1008" t="Repair (Simple)" />
+	<event p="1008" t="Repair (Simple)" />
+	<event p="1008" t="Test Repair" />
+	<event p="1008" t="Test Repair" />
+	<event p="1008" t="Restart Repair" />
+	<event p="1008" t="Repair (Simple)" />
+	<event p="1008" t="Repair (Simple)" />
+	<event p="1008" t="Test Repair" />
+	<event p="1008" t="Test Repair" />
+	<event p="1009" t="Register" />
+	<event p="1009" t="Analyze Defect" />
+	<event p="1009" t="Analyze Defect" />
+	<event p="1009" t="Repair (Complex)" />
+	<event p="1009" t="Repair (Complex)" />
+	<event p="1009" t="Test Repair" />
+	<event p="1009" t="Test Repair" />
+	<event p="1009" t="Inform User" />
+	<event p="101" t="Register" />
+	<event p="101" t="Analyze Defect" />
+	<event p="101" t="Analyze Defect" />
+	<event p="101" t="Inform User" />
+	<event p="101" t="Repair (Complex)" />
+	<event p="101" t="Repair (Complex)" />
+	<event p="101" t="Test Repair" />
+	<event p="101" t="Test Repair" />
+	<event p="101" t="Archive Repair" />
+	<event p="1010" t="Register" />
+	<event p="1010" t="Analyze Defect" />
+	<event p="1010" t="Analyze Defect" />
+	<event p="1010" t="Repair (Simple)" />
+	<event p="1010" t="Repair (Simple)" />
+	<event p="1010" t="Test Repair" />
+	<event p="1010" t="Test Repair" />
+	<event p="1010" t="Restart Repair" />
+	<event p="1010" t="Repair (Simple)" />
+	<event p="1010" t="Inform User" />
+	<event p="1010" t="Repair (Simple)" />
+	<event p="1010" t="Test Repair" />
+	<event p="1010" t="Test Repair" />
+	<event p="1011" t="Register" />
+	<event p="1011" t="Analyze Defect" />
+	<event p="1011" t="Analyze Defect" />
+	<event p="1011" t="Repair (Complex)" />
+	<event p="1011" t="Inform User" />
+	<event p="1011" t="Repair (Complex)" />
+	<event p="1011" t="Test Repair" />
+	<event p="1011" t="Test Repair" />
+	<event p="1012" t="Register" />
+	<event p="1012" t="Analyze Defect" />
+	<event p="1012" t="Analyze Defect" />
+	<event p="1012" t="Repair (Complex)" />
+	<event p="1012" t="Repair (Complex)" />
+	<event p="1012" t="Test Repair" />
+	<event p="1012" t="Test Repair" />
+	<event p="1012" t="Inform User" />
+	<event p="1013" t="Register" />
+	<event p="1013" t="Analyze Defect" />
+	<event p="1013" t="Analyze Defect" />
+	<event p="1013" t="Repair (Complex)" />
+	<event p="1013" t="Inform User" />
+	<event p="1013" t="Repair (Complex)" />
+	<event p="1013" t="Test Repair" />
+	<event p="1013" t="Test Repair" />
+	<event p="1014" t="Register" />
+	<event p="1014" t="Analyze Defect" />
+	<event p="1014" t="Analyze Defect" />
+	<event p="1014" t="Repair (Simple)" />
+	<event p="1014" t="Repair (Simple)" />
+	<event p="1014" t="Test Repair" />
+	<event p="1014" t="Inform User" />
+	<event p="1014" t="Test Repair" />
+	<event p="1015" t="Register" />
+	<event p="1015" t="Analyze Defect" />
+	<event p="1015" t="Analyze Defect" />
+	<event p="1015" t="Repair (Complex)" />
+	<event p="1015" t="Repair (Complex)" />
+	<event p="1015" t="Test Repair" />
+	<event p="1015" t="Test Repair" />
+	<event p="1015" t="Inform User" />
+	<event p="1016" t="Register" />
+	<event p="1016" t="Analyze Defect" />
+	<event p="1016" t="Analyze Defect" />
+	<event p="1016" t="Repair (Simple)" />
+	<event p="1016" t="Inform User" />
+	<event p="1016" t="Repair (Simple)" />
+	<event p="1016" t="Test Repair" />
+	<event p="1016" t="Test Repair" />
+	<event p="1016" t="Restart Repair" />
+	<event p="1016" t="Repair (Simple)" />
+	<event p="1016" t="Repair (Simple)" />
+	<event p="1016" t="Test Repair" />
+	<event p="1016" t="Test Repair" />
+	<event p="1016" t="Restart Repair" />
+	<event p="1016" t="Repair (Simple)" />
+	<event p="1016" t="Repair (Simple)" />
+	<event p="1016" t="Test Repair" />
+	<event p="1016" t="Test Repair" />
+</events>

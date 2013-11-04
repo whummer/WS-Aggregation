@@ -1,0 +1,40 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+   <persistence-unit name="WS-Aggregation_MySQL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+   		<class>at.ac.tuwien.infosys.util.IDocumentCache$CacheEntry</class>
+    	<properties>
+  	 		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+  	 		<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/wsaggr?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;charSet=UTF8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8" />
+   			<property name="hibernate.connection.username" value="root" />
+   			<property name="hibernate.connection.password" value="" />
+   			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect" />
+   			<property name="hibernate.show_sql" value="false" />
+   			<property name="hibernate.connection.useUnicode" value="true"/>
+			<property name="hibernate.connection.characterEncoding" value="utf8"/>
+			<property name="hibernate.connection.charSet" value="utf8"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.c3p0.max_size" value="10"/>
+			<property name="hibernate.c3p0.min_size" value="0"/>
+			<property name="hibernate.c3p0.timeout" value="5000"/>
+			<property name="hibernate.c3p0.max_statements" value="100"/>
+			<property name="hibernate.c3p0.idle_test_period" value="300"/>
+			<property name="hibernate.c3p0.acquire_increment" value="2"/>
+   		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="WS-Aggregation_HSQLDB" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+   		<class>at.ac.tuwien.infosys.util.IDocumentCache$CacheEntry</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+			<property name="hibernate.connection.username" value="sa"/>
+			<property name="hibernate.connection.password" value=""/>
+			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/wsaggr"/>
+		</properties>
+	</persistence-unit>
+</persistence>

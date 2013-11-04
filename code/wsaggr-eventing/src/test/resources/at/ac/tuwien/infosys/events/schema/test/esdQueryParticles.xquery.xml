@@ -1,0 +1,77 @@
+<query>
+
+	<particle type="preamble">
+declare namespace x = "wsaggr";
+declare variable $input external; 
+declare function x:nextDiffEl( $list as item()*, $start as xs:int, 
+	$name as xs:string) as xs:int {
+	let $result := if (count($list) lt $start) then -1
+	else if (local-name($list[$start]) ne $name) then $start
+	else x:nextDiffEl($list, $start + 1, $name)
+	return $result
+};
+	</particle>
+
+	<particle type="root"><![CDATA[
+let $sub0 := (for $i in $input/data return $i)
+return (
+for sliding window $w in $sub0
+start $s at $spos when local-name($s/*[1]) = '##next.name##'
+end $e at $epos when count(
+	##self.children##
+) ge 1
+let $list := (
+	##self.children##
+)
+where count($list) ge 1
+return <seq s="{$spos}" e="{$epos}">{$w}<tmp>{$list}</tmp></seq>
+)
+	]]></particle>
+
+	<particle type="sequence">
+let $sub##ID## := (for $i in $nextIndex##ID-1## to $epos return $sub##ID-1##[$i]),
+$nextIndex##ID## := 1,
+$children##ID## := (##self.children##),
+$result##ID## := if (empty($result)) then ()
+else if (remove($result,true()) ne $result) then $result
+else true()
+return $result##ID##
+	</particle>
+
+	<particle type="event">
+let $sub##ID## := (for $i in $nextIndex##ID-1## to $epos return $sub##ID-1##[$i]),
+$children##ID## := $sub##ID##/*,
+$nextIndexTmp##ID## := x:nextDiffEl($children##ID##,1,'##self.name##'),
+$nextIndex##ID## := if ($nextIndexTmp##ID## le 0) then 1 else $nextIndexTmp##ID##,
+$result##ID## := if ($nextIndexTmp##ID## le 0) then ()
+else if (not(matches(local-name($children##ID##[$nextIndexTmp##ID##]),'##next.name##'))) then 'false ##ID##.1'
+else if (##self.maxOccurs## gt 0 and ($nextIndexTmp##ID## - 1) gt ##self.maxOccurs##) then 'false ##ID##.2'
+else (##self.following-siblings##)
+return $result##ID##
+	</particle>
+
+	<particle type="choice">
+let $sub##ID## := (for $i in $nextIndex##ID-1## to $epos return $sub##ID-1##[$i]),
+$nextIndex##ID## := count($sub##ID##),
+$children##ID## := (##self.children##),
+$result##ID## := if (empty($children##ID##)) then (##self.following-siblings##)
+else if (remove($children##ID##,true()) ne $children##ID##) then true()
+else $children##ID##
+return $result##ID##
+	</particle>
+
+	<particle type="choiceInner">
+##self.children##
+	</particle>
+
+	<particle type="all">
+let $sub##ID## := (for $i in $nextIndex##ID-1## to $epos return $sub##ID-1##[$i]),
+$nextIndex##ID## := count($sub##ID##),
+$children##ID## := (##self.children##),
+$result##ID## := if (empty($children##ID##)) then (##self.following-siblings##)
+else if (remove($children##ID##,true()) eq ()) then true()
+else remove($children##ID##,true())
+return $result##ID##
+	</particle>
+
+</query>

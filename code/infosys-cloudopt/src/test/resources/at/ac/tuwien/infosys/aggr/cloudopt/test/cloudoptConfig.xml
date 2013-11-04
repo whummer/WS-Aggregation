@@ -1,0 +1,13 @@
+<config>
+
+	<properties>
+		<property name="queueLength" writable="true" class="..."/>
+		<property name="queueLength" writable="true" class="..."/>
+		<property name="queueLength" writable="true" operation="getQueueLength" serviceURL="..."/>
+	</properties>
+	
+	<goals>
+	
+	</goals>
+
+</config>

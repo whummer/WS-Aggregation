@@ -1,0 +1,35 @@
+<tests>
+	<test>
+		<schema>
+			<sequence>
+				<event type="login" />
+			</sequence>
+		</schema>
+	</test>
+	<test>
+		<schema>
+			<sequence>
+				<event type="login" />
+				<choice>
+					<event type="test" />
+					<event type="test1" />
+				</choice>
+				<event type="logout" />
+			</sequence>
+		</schema>
+	</test>
+	<test>
+		<schema>
+			<sequence>
+				<event type="login" />
+				<event type="access" min="0" max="unbounded"/>
+				<choice>
+					<event type="test" />
+					<event type="test1" />
+				</choice>
+				<event type="access"/>
+				<event type="logout" />
+			</sequence>
+		</schema>
+	</test>
+</tests>

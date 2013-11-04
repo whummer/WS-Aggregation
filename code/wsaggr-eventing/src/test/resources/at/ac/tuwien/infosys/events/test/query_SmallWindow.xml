@@ -1,0 +1,8 @@
+<query><![CDATA[
+
+	for tumbling window $w in $input
+	start $s when true()
+	end $e when true()
+	return $w/(//value)
+
+]]></query>

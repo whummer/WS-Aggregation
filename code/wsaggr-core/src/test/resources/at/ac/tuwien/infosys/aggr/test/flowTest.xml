@@ -1,0 +1,272 @@
+<testSuite>
+
+	<testRun>
+		<request>
+			<inputs>
+				<constant id="1">
+					<stockPrice stock="s" recursion="0">1234</stockPrice>
+				</constant>
+				<input id="2" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						$(for $i in (1 to 2), $j in (${//stockPrice[number(@recursion) < 6]}) return 
+									<stock recursion="{string(number($j/@recursion)+1)}">{ 
+										concat($j/@stock, '_x.', string($i)) 
+									}</stock>
+						)
+					</tns:getStockPrice>
+				]]></input>
+			</inputs>
+			<queries>
+				<preparationQuery forInputs="2"><![CDATA[
+				<r><stockPrice stock="{//stockPrice/@stock}" recursion="{$request//@recursion}">1234</stockPrice></r>
+				]]></preparationQuery>
+				<query><![CDATA[
+				<r>{for $i in //stockPrice order by $i/@stock return $i}</r>
+			 	]]></query>
+			</queries>
+		</request>
+		<resultAssertion>count(//stockPrice) eq 127</resultAssertion>
+		<resultAssertion>//stockPrice[@stock='s_x.2_x.2_x.1_x.2_x.2']</resultAssertion>
+		<resultAssertion>//stockPrice[@stock='s_x.2_x.2_x.2_x.2_x.2_x.2']</resultAssertion>
+	</testRun>
+	
+	<testRun>
+		<request>
+			<inputs>
+				<input id="1" serviceURL="http://localhost:8889/service1instance?wsdl"><![CDATA[
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>s0</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="2" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2) return 
+									concat($1{//stockPrice/@stock}, '_1.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="3" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($2{//stockPrice/@stock}) return 
+									concat($j, '_2.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="4" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($3{//stockPrice/@stock}) return 
+									concat($j, '_3.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="5" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($4{//stockPrice/@stock}) return 
+									concat($j, '_4.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="6" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($5{//stockPrice/@stock}) return 
+									concat($j, '_5.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="7" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($6{//stockPrice/@stock}) return 
+									concat($j, '_6.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="8" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($7{//stockPrice/@stock}) return 
+									concat($j, '_7.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="9" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($8{//stockPrice/@stock}) return 
+									concat($j, '_8.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+				<input id="10" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+					<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+						<stock>$(	for $i in (1 to 2), $j in ($9{//stockPrice/@stock}) return 
+									concat($j, '_9.', string($i))
+						)</stock>
+					</tns:getStockPrice>
+				]]></input>
+			</inputs>
+			<queries>
+				<preparationQuery forInputs="2"><![CDATA[
+				<r><stockPrice stock="{//stockPrice/@stock}" recursion="{$request//@recursion}">1234</stockPrice></r>
+				]]></preparationQuery>
+				<query><![CDATA[
+				<r>{for $i in //stockPrice order by $i/@stock return $i}</r>
+			 	]]></query>
+			</queries>
+		</request>
+		<resultAssertion>//stockPrice[@stock='s0_1.2_2.2_3.2_4.2_5.2_6.1_7.1']</resultAssertion>
+		<resultAssertion>//stockPrice[@stock='s0_1.1_2.1_3.1_4.1_5.2_6.1_7.1_8.1_9.1']</resultAssertion>
+		<resultAssertion>count(//stockPrice) = 1023</resultAssertion>
+	</testRun>
+	
+	<testRun exclude="true">
+		<request>
+			<inputs>
+				<input serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				for $s in ${//h3[1]/text()} return
+				<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+					<stock>{$s}</stock>
+				</tns:getStockPrice>
+				 ]]></input>
+			</inputs>
+		</request>
+		<result>
+		</result>
+	</testRun>
+
+	<testRun>
+		<request>
+			<inputs>
+				<input feature="Voting" to="ONE"><![CDATA[ 
+				<tns:getStocks xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+					<portfolio>pf1</portfolio>
+				</tns:getStocks>
+				]]></input>
+				<input serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+					<stock>$(${//stock/text()})</stock>
+				</tns:getStockPrice>
+				 ]]></input>
+				<input serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getStockInfo xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+					<stock>$(${//stock/text()})</stock>
+				</tns:getStockInfo>
+				 ]]></input>
+				<input serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getFlights xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+					<request>${//stockInfo}</request>
+					<resultsCount>1</resultsCount>
+				</tns:getFlights>
+				 ]]></input>
+				<constant id="c" contentType="waql"><![CDATA[ 
+				<const>value</const>
+			 	]]></constant>
+			</inputs>
+			<queries>
+				<preparationQuery forInputs="c"><![CDATA[ 
+				<value>{//const}</value>
+			 	]]></preparationQuery>
+				<query><![CDATA[ 
+				<r><s>{//stock}</s><v>{//value}</v></r>
+			 	]]></query>
+			</queries>
+		</request>
+		<resultAssertion>//stock[text() = 'pf1_stock1']</resultAssertion>
+		<resultAssertion>//stock[text() = 'pf1_stock2']</resultAssertion>
+		<resultAssertion>//stock[text() = 'pf1_stock3']</resultAssertion>
+		<resultAssertion>//const[text() = 'value']</resultAssertion>
+	</testRun>
+	
+	<testRun>
+		<request>
+			<inputs>
+				<input id="1" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getCountry xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+			 	 <city>Vienna</city>
+				</tns:getCountry>
+				]]></input>
+				<input id="2" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getVisaInfo xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+			 	 <country>${//country}</country>
+				</tns:getVisaInfo>
+				 ]]></input>
+				<input id="3" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getHotels xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+			 	 <city>Vienna</city>
+				</tns:getHotels>
+				 ]]></input>
+				<input id="4" serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+				<tns:getRooms xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+			 	 <hotel>$(${//hotels}/hotel/text())</hotel>
+				 <date>2010-12-31</date>
+				</tns:getRooms>
+				 ]]></input>
+			</inputs>
+			<queries>
+				<preparationQuery forInputs="1"><![CDATA[ 
+				 	<country>{
+					//country/name/text()
+					}</country>
+				]]></preparationQuery>
+				<preparationQuery forInputs="2"><![CDATA[ 
+				 	//visaInfo[@c='AT']
+				]]></preparationQuery>
+				<preparationQuery forInputs="3"><![CDATA[ 
+				 	<hotels>{for $h in //hotel[position()<6] return
+					<hotel>{$h/name/text()}</hotel>}</hotels>
+				]]></preparationQuery>
+				<query><![CDATA[ 
+				 	<div id="result"><div id="visaInfo">
+				 			<div>Country: {//country/text()}</div>
+				 			{//visaInfo/text()}
+				 		</div><div id="hotels">{ 
+				 		    let $hotels:=distinct-values(//hotel/text())
+				 			for $h in $hotels return
+				 			<div id="h_{index-of($hotels,$h)}">Hotel: {$h}
+				 			{ for $r in //*[hotel/text()=$h]//room return
+					 			<div>Beds: {$r/beds/text()}, Price: {$r/price/text()}</div> 
+				 			}</div> 
+				 		}</div>
+				 		<div id="wheather">
+				 			<p>Temperature: {//wheather/@temperature}</p>
+				 			<p>Humidity: {//wheather/@humidity}</p>
+				 	</div></div>
+				]]></query>
+			</queries>
+		</request>
+		<resultAssertion>//div[@id='h_1']</resultAssertion>
+		<resultAssertion>//div[@id='h_2']</resultAssertion>
+		<resultAssertion>//div[@id='h_5']</resultAssertion>
+	</testRun>
+	
+	<testRun exclude="true">
+		<request>
+			<inputs>
+			 	<input id="1" serviceURL="http://lamp.infosys.deakin.edu.au/era/?page=cforsel10" type="HTTP_GET"><![CDATA[ 
+				]]></input>
+			 	<input id="2" serviceURL="http://lamp.infosys.deakin.edu.au/era/$(${//links}/link/text())" type="HTTP_GET"><![CDATA[ 
+				]]></input>
+			 	<input feature="Voting" type="SOAP"><![CDATA[ 
+			 	<tns:getVote xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+			 		<request>${//oneTable[1]/table[@align]/@align}</request>
+			 	</tns:getVote>
+				]]></input>
+			</inputs>
+			<queries>
+				<preparationQuery forInputs="1"><![CDATA[ 
+				 	<links>{
+					 	for $row in //tr[td[@align='center' and a[substring(text(),1,2)='08']]]
+					 	return <link>{string($row/td[1]/a/@href)}</link>
+				 	}</links>
+				]]></preparationQuery>
+				<preparationQuery forInputs="2"><![CDATA[ 
+				 	<oneTable>{
+					 	//table[@align='center'][1]
+				 	}</oneTable>
+				]]></preparationQuery>
+				<query><![CDATA[ 
+					<table>{
+						for $t in //oneTable return $t//table/tr
+					}</table>
+				]]></query>
+			</queries>
+		</request>
+	</testRun>
+</testSuite>

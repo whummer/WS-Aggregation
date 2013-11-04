@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>wsaggr-events-core</artifactId>
+	<packaging>jar</packaging>
+	<name>wsaggr-events-core</name>
+	
+	<parent>
+		<groupId>at.ac.tuwien.infosys</groupId>
+		<artifactId>wsaggr-parent</artifactId>
+		<version>1-SNAPSHOT</version>
+	</parent>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+		        	<excludes>
+		          		<exclude>test</exclude>
+		        	</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<useProjectReferences>false</useProjectReferences>
+			 	</configuration>
+			 </plugin>
+		</plugins>
+	</build>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<esper>4.4.0</esper>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>at.ac.tuwien.infosys</groupId>
+			<artifactId>InfosysTools</artifactId>
+			<version>1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>at.ac.tuwien.infosys</groupId>
+			<artifactId>infosys-xmltools</artifactId>
+			<version>1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>eviware</groupId>
+			<artifactId>soapui</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>eviware</groupId>
+			<artifactId>soapui-xmlbeans</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xbean</artifactId>
+			<version>fixed-2.4.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.espertech</groupId>
+			<artifactId>esper</artifactId>
+			<version>${esper}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.espertech</groupId>
+			<artifactId>esperio-csv</artifactId>
+			<version>${esper}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans-xmlpublic</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+		      <id>eviware-repo</id>
+		      <name>eviware-repo</name>
+		      <url>http://www.eviware.com/repository/maven2/</url>
+		</repository>
+	</repositories>
+
+</project>

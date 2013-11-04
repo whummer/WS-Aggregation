@@ -1,0 +1,16 @@
+<tns:monitoringStartup xmlns:tns="http://infosys.tuwien.ac.at/WS-Monitoring">
+	<nodeConfig id="1">
+		<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+			<wsa:Address>http://127.0.0.1:5051/node</wsa:Address> 
+			<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+		</endTo>
+	</nodeConfig>
+	<eventTypeRepostitory class="at.ac.tuwien.infosys.events.LocalEventTypeRepository">
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.StockChangedEvent</eventType>
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.StockTickSendEvent</eventType>
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.StockMAChangedEvent</eventType>
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.TestOutputEvent</eventType>				
+	</eventTypeRepostitory>	
+	
+	<nodeRepository class="at.ac.tuwien.infosys.monitoring.EucalyptusNodeRepository" cluster="default" />
+</tns:monitoringStartup>

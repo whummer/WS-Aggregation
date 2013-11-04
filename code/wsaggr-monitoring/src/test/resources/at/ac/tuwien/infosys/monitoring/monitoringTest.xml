@@ -1,0 +1,65 @@
+<tns:monitoring xmlns:tns="http://infosys.tuwien.ac.at/WS-Monitoring">	
+	<inputs>
+		<listen id="1" serviceURL="http://localhost:9091/events?wsdl">
+			<publications>
+				<publication eventType="StockChanged" />
+			</publications>
+			<config>
+				<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<wsa:Address>http://127.0.0.1:8081/events</wsa:Address> 
+					<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+				</endTo>
+			</config>
+		</listen>
+		<listen id="2" serviceURL="http://localhost:9092/events?wsdl">
+			<publications>
+				<publication eventType="StockChanged" />
+			</publications>
+			<config>
+				<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					<wsa:Address>http://127.0.0.1:8082/events</wsa:Address> 
+					<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+				</endTo>
+			</config>
+		</listen>			
+	</inputs>	
+	<outputs>
+		<log id="1" priority="INFO">
+			<subscriptions>
+<!--  				<subscription eventType="StockChanged" /> -->
+<!--  				<subscription eventType="StockMAChanged" /> -->
+<!-- 				<subscription eventType="TestOutput" /> -->
+			</subscriptions>
+		</log>
+		<publish id="2">
+			<subscriptions>
+<!-- 				<subscription eventType="StockMAChanged" /> -->
+				<subscription eventType="TestOutput" />
+			</subscriptions>
+			<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+				<wsa:Address>http://127.0.0.1:9091/events</wsa:Address>
+				<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+			</endTo>				
+		</publish>			
+	</outputs>
+	<monitoringSet id="1" active="true">
+		<subscriptions>
+			<subscription eventType="StockTickSend" />
+		</subscriptions>
+		<publications>
+			<publication eventType="StockMAChanged" />		
+		</publications>
+		<query>insert into StockMAChanged select symbol, avg(price) as averagePrice from StockTickSend.win:time(3 sec) group by symbol</query>									
+	</monitoringSet>
+	<monitoringSet id="2" active="false">
+		<subscriptions>
+			<subscription eventType="StockMAChanged" />
+		</subscriptions>
+		<publications>
+			<publication eventType="TestOutput" />		
+		</publications>
+		<activateQuery>from StockMAChanged where averagePrice &lt; 400</activateQuery>
+		<deactivateQuery>from StockMAChanged where averagePrice &gt; 600</deactivateQuery>
+		<query>insert into TestOutput select symbol, averagePrice from StockMAChanged</query>
+	</monitoringSet>
+</tns:monitoring>

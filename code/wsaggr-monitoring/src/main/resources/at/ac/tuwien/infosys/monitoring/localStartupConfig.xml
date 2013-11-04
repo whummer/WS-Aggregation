@@ -1,0 +1,35 @@
+<tns:monitoringStartup xmlns:tns="http://infosys.tuwien.ac.at/WS-Monitoring">
+	<nodeConfig id="1">
+		<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+			<wsa:Address>http://127.0.0.1:5051/node</wsa:Address> 
+			<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+		</endTo>
+	</nodeConfig>
+	<eventTypeRepostitory class="at.ac.tuwien.infosys.events.LocalEventTypeRepository">
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.StockChangedEvent</eventType>
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.StockTickSendEvent</eventType>
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.StockMAChangedEvent</eventType>
+		<eventType>at.ac.tuwien.infosys.monitoring.events.stock.TestOutputEvent</eventType>				
+	</eventTypeRepostitory>	
+	
+	<nodeRepository class="at.ac.tuwien.infosys.monitoring.LocalNodeRepository" cluster="default">
+		<nodeConfig id="1">
+			<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+				<wsa:Address>http://127.0.0.1:5051/node</wsa:Address> 
+				<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+			</endTo>
+		</nodeConfig>
+		<nodeConfig id="2">
+			<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+				<wsa:Address>http://127.0.0.1:5052/node</wsa:Address> 
+				<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+			</endTo>
+		</nodeConfig>
+		<nodeConfig id="3">
+			<endTo xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+				<wsa:Address>http://127.0.0.1:5053/node</wsa:Address> 
+				<wsa:ServiceName PortName="ClientPort">tns:Client</wsa:ServiceName>
+			</endTo>
+		</nodeConfig>
+	</nodeRepository>
+</tns:monitoringStartup>

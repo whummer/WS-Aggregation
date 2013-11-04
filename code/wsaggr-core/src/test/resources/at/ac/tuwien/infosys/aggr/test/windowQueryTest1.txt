@@ -1,0 +1,20 @@
+declare namespace x = "wsaggr";
+declare variable $input external;
+declare function x:sorted($list as item()*)
+  as xs:boolean {
+     (every $i in 1 to (count($list) - 1) 
+	satisfies (number($list[$i]) lt number($list[$i + 1])))
+};
+
+let $input1 := (for $i in $input/stock return $i) return (
+for sliding window $w in $input1
+start $s at $spos when true()
+end $e at $epos when count(
+		let $sub := (for $i in $spos to $epos return $input1[$i])
+		return $sub[@symbol eq $s/@symbol]
+	) ge 3
+let $list := (let $sub := (for $i in $spos to $epos return $input1[$i])
+		return $sub[@symbol eq $s/@symbol])
+where x:sorted($list)
+return
+<rising symbol="{$s/@symbol}">{$list}</rising>)

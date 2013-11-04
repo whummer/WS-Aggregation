@@ -1,0 +1,19 @@
+<StrategyChain>
+	<strategy>
+		<className>at.ac.tuwien.infosys.aggr.strategy.AggregationStrategyPerRequest</className>
+	</strategy>
+	<strategy>
+<!--		<className>at.ac.tuwien.infosys.aggr.strategy.AggregationStrategyPerformance</className>-->
+		<className>at.ac.tuwien.infosys.aggr.strategy.AggregationStrategySimple</className>
+		<roundRobin>true</roundRobin>
+	</strategy>
+	<strategy>
+<!--		 <className>at.ac.tuwien.infosys.aggr.strategy.AggregationStrategySimple</className> -->
+		<className>at.ac.tuwien.infosys.aggr.strategy.AggregationStrategyMonitoring</className>
+	</strategy>
+	<strategy>
+		<!-- put this strategy on the last position of the chain, so that 
+		it can override all previously made master aggregator suggestions. -->
+		<className>at.ac.tuwien.infosys.aggr.strategy.AggregationStrategyDebugging</className>
+	</strategy>
+</StrategyChain>

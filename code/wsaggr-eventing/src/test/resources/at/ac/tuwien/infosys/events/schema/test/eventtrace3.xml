@@ -1,0 +1,38 @@
+<events>
+	<TruckArrived src="n1" dst="n2" time="1:00">
+		<DeliveryID>del123</DeliveryID>
+	</TruckArrived>
+	<UnloadRequest src="n2" dst="n4" time="1:01">
+		<DeliveryID>del123</DeliveryID>
+	</UnloadRequest>
+	<TruckArrived src="n1" dst="n2" time="1:02">
+		<DeliveryID>del456</DeliveryID>
+	</TruckArrived>
+	<PacketUnloaded src="n4" dst="n7" time="1:05">
+		<DeliveryID>del123</DeliveryID>
+		<PacketID>pkt123</PacketID>
+	</PacketUnloaded>
+	<UnloadRequest src="n2" dst="n4" time="1:01">
+		<DeliveryID>del456</DeliveryID>
+	</UnloadRequest>
+	<PacketUnloaded src="n4" dst="n7" time="1:05">
+		<DeliveryID>del123</DeliveryID>
+		<PacketID>pkt456</PacketID>
+	</PacketUnloaded>
+	<InventoryUpdated src="n6" dst="n7" time="1:06">
+		<NewProduct ID="prd123" PacketID="pkt123" />
+	</InventoryUpdated>
+	<PacketUnloaded src="n4" dst="n7" time="1:05">
+		<DeliveryID>del456</DeliveryID>
+		<PacketID>pkt789</PacketID>
+	</PacketUnloaded>
+	<InventoryUpdated src="n6" dst="n7" time="1:07">
+		<NewProduct ID="prd456" PacketID="pkt456" />
+	</InventoryUpdated>
+	<InventoryUpdated src="n6" dst="n7" time="1:08">
+		<NewProduct ID="prd789" PacketID="pkt789" />
+	</InventoryUpdated>
+	<UnloadFinished src="n6" dst="n7" time="1:09">
+		<DeliveryID>del123</DeliveryID>
+	</UnloadFinished>
+</events>

@@ -1,0 +1,176 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>at.ac.tuwien.infosys</groupId>
+    <artifactId>wsaggr-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1-SNAPSHOT</version>
+    <name>wsaggr-parent</name>
+    <build>
+        <finalName>wsaggr-parent</finalName>
+        <plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.2</version>
+			<configuration>
+				<source>1.6</source>
+				<target>1.6</target>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-eclipse-plugin</artifactId>
+			<version>2.8</version>
+			<configuration>
+				<useProjectReferences>false</useProjectReferences>
+		 	</configuration>
+		 </plugin>
+        </plugins>
+		<extensions>
+			<extension>
+			<groupId>org.apache.maven.wagon</groupId>
+			<artifactId>wagon-ssh</artifactId>
+			<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+				  <groupId>org.codehaus.mojo</groupId>
+				  <artifactId>exec-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+    </build>
+
+    <properties>
+        <jpa.version>1.0.2</jpa.version>
+        <junit.version>4.8.2</junit.version>
+		<mxquery.version>svn-20120404</mxquery.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <modules>
+        <module>infosys-cloudopt</module>
+        <module>infosys-xmltools</module>
+        <module>wsaggr-beans</module>
+        <module>wsaggr-core</module>
+        <module>wsaggr-eventing</module>
+        <module>wsaggr-events-core</module>
+        <module>wsaggr-main</module>
+        <module>wsaggr-monitoring</module>
+        <module>wsaggr-testbed</module>
+        <module>wsaggr-waql</module>
+    </modules>
+
+	<distributionManagement>
+	  	<repository>
+			<id>infosys-repo</id>
+			<name>infosys-repo</name>
+			<uniqueVersion>false</uniqueVersion>
+			<url>scp://hummer@www.infosys.tuwien.ac.at/web/website/mvn</url>
+		</repository>
+	  	<snapshotRepository>
+			<id>infosys-repo</id>
+			<name>infosys-repo</name>
+			<url>scp://hummer@www.infosys.tuwien.ac.at/web/website/mvn</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.projectlombok</groupId> -->
+<!-- 			<artifactId>lombok</artifactId> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
+    </dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-beans</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-eventing</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-events-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-monitoring</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-testbed</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>at.ac.tuwien.infosys</groupId>
+				<artifactId>wsaggr-waql</artifactId>
+				<version>0.3</version>
+			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.projectlombok</groupId> -->
+<!-- 				<artifactId>lombok</artifactId> -->
+<!-- 				<version>0.11.0</version> -->
+<!-- 				<scope>provided</scope> -->
+<!-- 			</dependency> -->
+		</dependencies>
+	</dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>maven2-repository.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+		<repository>
+			<id>maven-repo</id>
+			<name>maven-repo</name>
+			<url>http://repo2.maven.org/maven2</url>
+		</repository>
+        <repository>
+            <id>jboss-repo</id>
+            <name>jboss-repo</name>
+            <url>https://repository.jboss.org/nexus/</url>
+        </repository>
+        <repository>
+            <id>infosys-repo</id>
+            <name>infosys-repo</name>
+            <url>http://www.infosys.tuwien.ac.at/mvn/</url>
+			<releases>
+				<checksumPolicy>ignore</checksumPolicy>
+				<updatePolicy>always</updatePolicy> <!-- set to "never" for faster build -->
+			</releases>
+			<snapshots>
+				<checksumPolicy>ignore</checksumPolicy>
+				<updatePolicy>always</updatePolicy> <!-- set to "never" for faster build -->
+			</snapshots>
+        </repository>
+    </repositories>
+
+</project>

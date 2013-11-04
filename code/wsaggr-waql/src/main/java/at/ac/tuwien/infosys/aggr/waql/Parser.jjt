@@ -1,0 +1,512 @@
+/*
+ * Copyright (c)	2010 Michael Starzinger
+ *					2011 Waldemar Hummer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * things to replace from original EBNF:
+ *	"'" 			--> <T_APOS>
+ * 	pStringLiteral() 	--> <STRING_LITERAL>
+ * 	pS() 			--> <S>
+ *	pDecimalLiteral()	--> <DECIMAL_LITERAL>
+ *	pDoubleLiteral()	--> <DOUBLE_LITERAL>
+ *	pQuotAttrContentChar()	--> <QUOT_ATTR_CONTENT_CHAR>
+ *	pAposAttrContentChar()	--> <APOS_ATTR_CONTENT_CHAR>
+ *	pElementContentChar()	--> <ELEMENT_CONTENT_CHAR>
+ *	pPITarget()		--> <PI_TARGET>
+ * add LOOKAHEAD(n), where n is an integer, to:
+ *	pModule(), pProlog(), pSetter(), pImport(), ... (see javacc compiler warnings for details)
+ * add "{ nodeQueryBody = jjtThis; }" to pQueryBody()
+ * add chgState(..) to 
+ *	pEnclosedExpr(), pDirElemConstructor(), pDirAttributeValue()
+ */
+
+/*
+ * First we define some global options for the generated tree parser to
+ * suite our needs. The following is a short reasoning for the options.
+ * -) STATIC: We need to have several instances of the parser that can
+ *    work concurrently for different contexts.
+ * -) TRACK_TOKENS: We need to reconstruct parts of the input and hence
+ *    tracking which tokens belong to each AST node.
+ */
+
+options {
+	STATIC = false;
+	TRACK_TOKENS = true;
+}
+
+/*
+ * Second we define the actual parser class with all global and instance
+ * variables we need.
+ */
+
+PARSER_BEGIN(Parser)
+package at.ac.tuwien.infosys.aggr.waql;
+import java.util.LinkedList;
+public class Parser {
+	/** The single reference to the parsed "QueryBody" node. */
+	public SimpleNode nodeQueryBody;
+	/** Table of all parsed "DataDependency" nodes. */
+	public LinkedList<SimpleNode> tableDataDependency = new LinkedList<SimpleNode>();
+	/** Table of all parsed "TemplateList" nodes. */
+	public LinkedList<SimpleNode> tableTemplateList = new LinkedList<SimpleNode>();
+	/** Table of all parsed "EscapeDollar" nodes. */
+	public LinkedList<SimpleNode> tableEscapeDollar = new LinkedList<SimpleNode>();
+	/** Types describing in which context a "WAQLExtension" is used. */
+	public static enum UsageType { AS_EXPR, AS_TEXT }
+	/** Changes the lexical state from within the parser. */
+	private final int chgState(int newState) {
+		int oldState = token_source.curLexState;
+		token_source.SwitchTo(newState);
+		return oldState;
+	}
+}
+PARSER_END(Parser)
+
+/*
+ * The following rules represent the actual WAQL language constructs and
+ * also contain the necessary code to attribute the AST nodes with enough
+ * information for further compiler phases.
+ */
+
+public SimpleNode parse() : {} { pModule() <EOF> { return jjtThis; } }
+
+public SimpleNode pDataDependency() : {
+	Token t = null;
+}{
+	<T_DLR> ( t = <DIGITS> )? <T_CLB> pPathExpr() <T_CRB>
+	{
+		Integer id = (t != null) ? Integer.parseInt(t.image) : null;
+		jjtThis.jjtSetValue(id);
+		tableDataDependency.addFirst(jjtThis);
+		return jjtThis;
+	}
+}
+
+public SimpleNode pPathExprCdata() : {}{
+	(<CDATA_WAQL_EXPR>)+
+	{
+		return jjtThis;
+	}
+}
+public SimpleNode pDataDependencyCdata() : {
+	Token t = null;
+}{
+	(<CDATA_DLR> (t = <CDATA_ID_DIGITS>)? (<CDATA_WAQL_BR_OPEN>) pPathExprCdata() (<CDATA_WAQL_BR_CLOSE>))
+	{
+		Integer id = (t != null) ? Integer.parseInt(t.image) : null;
+		jjtThis.jjtSetValue(id);
+		tableDataDependency.addFirst(jjtThis);
+		return jjtThis;
+	}
+}
+
+public SimpleNode pTemplateList() : {
+	Token t = null;
+}{
+	<T_DLR> ( t = <DIGITS> )? "(" pExprSingle() ( "," pExprSingle() )* ")"
+	{
+		Integer id = (t != null) ? Integer.parseInt(t.image) : null;
+		jjtThis.jjtSetValue(id);
+		tableTemplateList.add(jjtThis);
+		return jjtThis;
+	}
+}
+
+private void pEscapeDollar() : {
+}{
+	<T_DLR_DLR>
+	{
+		tableEscapeDollar.add(jjtThis);
+	}
+}
+
+private void pWAQLExtension(UsageType usage) : {
+	int oldState = chgState(DEFAULT);
+}{
+	(LOOKAHEAD(3) pDataDependency() | pTemplateList())
+	{
+		jjtThis.jjtSetValue(usage);
+		chgState(oldState);
+	}
+}
+
+/*
+ * The following tokens will be used by the lexical analyzer to match
+ * certain characters, character sequences or character classes. Note that
+ * we use lexical states to distinguish between different contexts. Also
+ * note that we use the "SPECIAL_TOKEN" keyword instead of the "SKIP"
+ * keyword to ignore whitespace characters because we need to be able to
+ * reconstruct the input after parsing.
+ */
+
+SPECIAL_TOKEN : { < WHITESPACE : <S> > }
+TOKEN : { < DIGITS : (["0"-"9"])+ > }
+
+<DEFAULT,IN_ELEM,IN_QUOT,IN_APOS> TOKEN : { < T_CLB     : "{"  > }
+<IN_ELEM,IN_QUOT,IN_APOS>         TOKEN : { < T_CLB_CLB : "{{" > }
+<DEFAULT,IN_ELEM,IN_QUOT,IN_APOS> TOKEN : { < T_CRB     : "}"  > }
+<IN_ELEM,IN_QUOT,IN_APOS>         TOKEN : { < T_CRB_CRB : "}}" > }
+<DEFAULT,IN_ELEM,IN_QUOT,IN_APOS> TOKEN : { < T_DLR     : "$"  > }
+<IN_ELEM,IN_QUOT,IN_APOS>         TOKEN : { < T_DLR_DLR : "$$" > }
+<DEFAULT,IN_TAG>                  TOKEN : { < T_EQ      : "="  > }
+<DEFAULT,IN_ELEM>                 TOKEN : { < T_LT      : "<"  > }
+<IN_ELEM>                         TOKEN : { < T_LT_SLSH : "</" > }
+<DEFAULT,IN_TAG>                  TOKEN : { < T_GT      : ">"  > }
+<IN_TAG>                          TOKEN : { < T_SLSH_GT : "/>" > }
+<IN_QUOT,IN_TAG>                  TOKEN : { < T_QUOT    : "\"" > }
+<IN_APOS,IN_TAG>                  TOKEN : { < T_APOS    : "'"  > }
+
+/*
+ * The following rules were taken from the XQuery specification published
+ * as a W3C Recommendation and automaticaly converted into a valid JavaCC
+ * syntax with some hand-crafted adaptions to make them compile.
+ *
+ * Based on:
+ *   http://www.w3.org/TR/2007/REC-xquery-20070123/
+ *   http://www.w3.org/TR/2008/REC-xml-20081126/
+ *   http://www.w3.org/TR/2009/REC-xml-names-20091208/
+ */
+
+/*[1]*/ private void pModule() : {} { (LOOKAHEAD(2) pVersionDecl())? (LOOKAHEAD(2) pLibraryModule() | pMainModule()) }
+/*[2]*/ private void pVersionDecl() : {} { "xquery" (("encoding" <STRING_LITERAL>) | ("version" <STRING_LITERAL> ("encoding" <STRING_LITERAL>)?)) pSeparator() }
+/*[3]*/ private void pMainModule() : {} { pProlog() pQueryBody() }
+/*[4]*/ private void pLibraryModule() : {} { pModuleDecl() pProlog() }
+/*[5]*/ private void pModuleDecl() : {} { "module" "namespace" pNCName() "=" pURILiteral() pSeparator() }
+/*[6]*/ private void pProlog() : {} { (LOOKAHEAD(2) (LOOKAHEAD(3) pDefaultNamespaceDecl() | LOOKAHEAD(2) pSetter() | LOOKAHEAD(2) pNamespaceDecl() | pImport()) pSeparator())* (LOOKAHEAD(2) (LOOKAHEAD(2) pContextItemDecl() | LOOKAHEAD(2) pAnnotatedDecl() | LOOKAHEAD(2) pOptionDecl()) pSeparator())* }
+/*[7]*/ private void pSeparator() : {} { ";" }
+/*[8]*/ private void pSetter() : {} { LOOKAHEAD(2) pBoundarySpaceDecl() | LOOKAHEAD(3) pDefaultCollationDecl() | LOOKAHEAD(2) pBaseURIDecl() | LOOKAHEAD(2) pConstructionDecl() | LOOKAHEAD(2) pOrderingModeDecl() | LOOKAHEAD(2) pEmptyOrderDecl() | LOOKAHEAD(2) pCopyNamespacesDecl() | LOOKAHEAD(2) pDecimalFormatDecl() }
+/*[9]*/ private void pBoundarySpaceDecl() : {} { "declare" "boundary-space" ("preserve" | "strip") }
+/*[10]*/ private void pDefaultCollationDecl() : {} { "declare" "default" "collation" pURILiteral() }
+/*[11]*/ private void pBaseURIDecl() : {} { "declare" "base-uri" pURILiteral() }
+/*[12]*/ private void pConstructionDecl() : {} { "declare" "construction" ("strip" | "preserve") }
+/*[13]*/ private void pOrderingModeDecl() : {} { "declare" "ordering" ("ordered" | "unordered") }
+/*[14]*/ private void pEmptyOrderDecl() : {} { "declare" "default" "order" "empty" ("greatest" | "least") }
+/*[15]*/ private void pCopyNamespacesDecl() : {} { "declare" "copy-namespaces" pPreserveMode() "," pInheritMode() }
+/*[16]*/ private void pPreserveMode() : {} { "preserve" | "no-preserve" }
+/*[17]*/ private void pInheritMode() : {} { "inherit" | "no-inherit" }
+/*[18]*/ private void pDecimalFormatDecl() : {} { "declare" (("decimal-format" pEQName()) | ("default" "decimal-format")) (pDFPropertyName() "=" <STRING_LITERAL>)* }
+/*[19]*/ private void pDFPropertyName() : {} { "decimal-separator" | "grouping-separator" | "infinity" | "minus-sign" | "pNaN()" | "percent" | "per-mille" | "zero-digit" | "digit" | "pattern-separator" }
+/*[20]*/ private void pImport() : {} { LOOKAHEAD(2) pSchemaImport() | pModuleImport() }
+/*[21]*/ private void pSchemaImport() : {} { "import" "schema" (pSchemaPrefix())? pURILiteral() ("at" pURILiteral() ("," pURILiteral())*)? }
+/*[22]*/ private void pSchemaPrefix() : {} { ("namespace" pNCName() "=") | ("default" "element" "namespace") }
+/*[23]*/ private void pModuleImport() : {} { "import" "module" ("namespace" pNCName() "=")? pURILiteral() ("at" pURILiteral() ("," pURILiteral())*)? }
+/*[24]*/ private void pNamespaceDecl() : {} { "declare" "namespace" pNCName() "=" pURILiteral() }
+/*[25]*/ private void pDefaultNamespaceDecl() : {} { "declare" "default" ("element" | "function") "namespace" pURILiteral() }
+/*[26]*/ private void pAnnotatedDecl() : {} { "declare" (pAnnotation())* (pVarDecl() | pFunctionDecl()) }
+/*[27]*/ private void pAnnotation() : {} { "%" pEQName() ("(" pLiteral() ("," pLiteral())* ")")? }
+/*[28]*/ private void pVarDecl() : {} { "variable" "$" pVarName() (pTypeDeclaration())? ((":=" pVarValue()) | ("external" (":=" pVarDefaultValue())?)) }
+/*[29]*/ private void pVarValue() : {} { pExprSingle() }
+/*[30]*/ private void pVarDefaultValue() : {} { pExprSingle() }
+/*[31]*/ private void pContextItemDecl() : {} { "declare" "context" "item" ("as" pItemType())? ((":=" pVarValue()) | ("external" (":=" pVarDefaultValue())?)) }
+/*[32]*/ private void pFunctionDecl() : {} { "function" pEQName() "(" (pParamList())? ")" ("as" pSequenceType())? (pFunctionBody() | "external") /* xgc: reserved-function-namespXQ()30 */ }
+/*[33]*/ private void pParamList() : {} { pParam() ("," pParam())* }
+/*[34]*/ private void pParam() : {} { "$" pEQName() (pTypeDeclaration())? }
+/*[35]*/ private void pFunctionBody() : {} { pEnclosedExpr() }
+/*[36]*/ private void pEnclosedExpr() : { int s; } { <T_CLB> { s=chgState(DEFAULT); } pExpr() <T_CRB> { chgState(s); } }
+/*[37]*/ private void pOptionDecl() : {} { "declare" "option" pEQName() <STRING_LITERAL> }
+/*[38]*/ private void pQueryBody() : {} { pExpr() { nodeQueryBody = jjtThis; } }
+/*[39]*/ private void pExpr() : {} { pExprSingle() ("," pExprSingle())* }
+/*[40]*/ private void pExprSingle() : {} { LOOKAHEAD(2) pFLWORExpr() | LOOKAHEAD(3) pQuantifiedExpr() | LOOKAHEAD(3) pSwitchExpr() | LOOKAHEAD(3) pTypeswitchExpr() | LOOKAHEAD(2) pIfExpr() | LOOKAHEAD(2) pTryCatchExpr() | LOOKAHEAD(2) pOrExpr() }
+/*[41]*/ private void pFLWORExpr() : {} { pInitialClause() (pIntermediateClause())* pReturnClause() }
+/*[42]*/ private void pInitialClause() : {} { LOOKAHEAD(2) pForClause() | pLetClause() | pWindowClause() }
+/*[43]*/ private void pIntermediateClause() : {} { pInitialClause() | pWhereClause() | pGroupByClause() | pOrderByClause() | pCountClause() }
+/*[44]*/ private void pForClause() : {} { "for" pForBinding() ("," pForBinding())* }
+/*[45]*/ private void pForBinding() : {} { "$" pVarName() (pTypeDeclaration())? (pAllowingEmpty())? (pPositionalVar())? "in" pExprSingle() }
+/*[46]*/ private void pAllowingEmpty() : {} { "allowing" "empty" }
+/*[47]*/ private void pPositionalVar() : {} { "at" "$" pVarName() }
+/*[48]*/ private void pLetClause() : {} { "let" pLetBinding() ("," pLetBinding())* }
+/*[49]*/ private void pLetBinding() : {} { "$" pVarName() (pTypeDeclaration())? ":=" pExprSingle() }
+/*[50]*/ private void pWindowClause() : {} { "for" (pTumblingWindowClause() | pSlidingWindowClause()) }
+/*[51]*/ private void pTumblingWindowClause() : {} { "tumbling" "window" "$" pVarName() (pTypeDeclaration())? "in" pExprSingle() pWindowStartCondition() (pWindowEndCondition())? }
+/*[52]*/ private void pSlidingWindowClause() : {} { "sliding" "window" "$" pVarName() (pTypeDeclaration())? "in" pExprSingle() pWindowStartCondition() pWindowEndCondition() }
+/*[53]*/ private void pWindowStartCondition() : {} { "start" pWindowVars() "when" pExprSingle() }
+/*[54]*/ private void pWindowEndCondition() : {} { ("only")? "end" pWindowVars() "when" pExprSingle() }
+/*[55]*/ private void pWindowVars() : {} { ("$" pCurrentItem())? (pPositionalVar())? ("previous" "$" pPreviousItem())? ("next" "$" pNextItem())? }
+/*[56]*/ private void pCurrentItem() : {} { pEQName() }
+/*[57]*/ private void pPreviousItem() : {} { pEQName() }
+/*[58]*/ private void pNextItem() : {} { pEQName() }
+/*[59]*/ private void pCountClause() : {} { "count" "$" pVarName() }
+/*[60]*/ private void pWhereClause() : {} { "where" pExprSingle() }
+/*[61]*/ private void pGroupByClause() : {} { "group" "by" pGroupingSpecList() }
+/*[62]*/ private void pGroupingSpecList() : {} { pGroupingSpec() ("," pGroupingSpec())* }
+/*[63]*/ private void pGroupingSpec() : {} { "$" pVarName() ("collation" pURILiteral())? }
+/*[64]*/ private void pOrderByClause() : {} { (("order" "by") | ("stable" "order" "by")) pOrderSpecList() }
+/*[65]*/ private void pOrderSpecList() : {} { pOrderSpec() ("," pOrderSpec())* }
+/*[66]*/ private void pOrderSpec() : {} { pExprSingle() pOrderModifier() }
+/*[67]*/ private void pOrderModifier() : {} { ("ascending" | "descending")? ("empty" ("greatest" | "least"))? ("collation" pURILiteral())? }
+/*[68]*/ private void pReturnClause() : {} { "return" pExprSingle() }
+/*[69]*/ private void pQuantifiedExpr() : {} { ("some" | "every") "$" pVarName() (pTypeDeclaration())? "in" pExprSingle() ("," "$" pVarName() (pTypeDeclaration())? "in" pExprSingle())* "satisfies" pExprSingle() }
+/*[70]*/ private void pSwitchExpr() : {} { "switch" "(" pExpr() ")" (pSwitchCaseClause())+ "default" "return" pExprSingle() }
+/*[71]*/ private void pSwitchCaseClause() : {} { ("case" pSwitchCaseOperand())+ "return" pExprSingle() }
+/*[72]*/ private void pSwitchCaseOperand() : {} { pExprSingle() }
+/*[73]*/ private void pTypeswitchExpr() : {} { "typeswitch" "(" pExpr() ")" (pCaseClause())+ "default" ("$" pVarName())? "return" pExprSingle() }
+/*[74]*/ private void pCaseClause() : {} { "case" ("$" pVarName() "as")? pSequenceTypeUnion() "return" pExprSingle() }
+/*[75]*/ private void pSequenceTypeUnion() : {} { pSequenceType() ("|" pSequenceType())* }
+/*[76]*/ private void pIfExpr() : {} { "if" "(" pExpr() ")" "then" pExprSingle() "else" pExprSingle() }
+/*[77]*/ private void pTryCatchExpr() : {} { pTryClause() (pCatchClause())+ }
+/*[78]*/ private void pTryClause() : {} { "try" "{" pTryTargetExpr() "}" }
+/*[79]*/ private void pTryTargetExpr() : {} { pExpr() }
+/*[80]*/ private void pCatchClause() : {} { "catch" pCatchErrorList() (pCatchVars())? "{" pExpr() "}" }
+/*[81]*/ private void pCatchErrorList() : {} { pNameTest() ("|" pNameTest())* }
+/*[82]*/ private void pCatchVars() : {} { "(" pCatchErrorCode() ("," pCatchErrorDesc() ("," pCatchErrorVal())?)? ")" }
+/*[83]*/ private void pCatchErrorCode() : {} { "$" pVarName() }
+/*[84]*/ private void pCatchErrorDesc() : {} { "$" pVarName() }
+/*[85]*/ private void pCatchErrorVal() : {} { "$" pVarName() }
+/*[86]*/ private void pOrExpr() : {} { pAndExpr() ( "or" pAndExpr() )* }
+/*[87]*/ private void pAndExpr() : {} { pComparisonExpr() ( "and" pComparisonExpr() )* }
+/*[88]*/ private void pComparisonExpr() : {} { pRangeExpr() ( (pValueComp() | pGeneralComp() | pNodeComp()) pRangeExpr() )? }
+/*[89]*/ private void pRangeExpr() : {} { pAdditiveExpr() ( "to" pAdditiveExpr() )? }
+/*[90]*/ private void pAdditiveExpr() : {} { pMultiplicativeExpr() ( ("+" | "-") pMultiplicativeExpr() )* }
+/*[91]*/ private void pMultiplicativeExpr() : {} { pUnionExpr() ( ("*" | "div" | "idiv" | "mod") pUnionExpr() )* }
+/*[92]*/ private void pUnionExpr() : {} { pIntersectExceptExpr() ( ("union" | "|") pIntersectExceptExpr() )* }
+/*[93]*/ private void pIntersectExceptExpr() : {} { pInstanceofExpr() ( ("intersect" | "except") pInstanceofExpr() )* }
+/*[94]*/ private void pInstanceofExpr() : {} { pTreatExpr() ( "instance" "of" pSequenceType() )? }
+/*[95]*/ private void pTreatExpr() : {} { pCastableExpr() ( "treat" "as" pSequenceType() )? }
+/*[96]*/ private void pCastableExpr() : {} { pCastExpr() ( "castable" "as" pSingleType() )? }
+/*[97]*/ private void pCastExpr() : {} { pUnaryExpr() ( "cast" "as" pSingleType() )? }
+/*[98]*/ private void pUnaryExpr() : {} { ("-" | "+")* pValueExpr() }
+/*[99]*/ private void pValueExpr() : {} { LOOKAHEAD(2) pValidateExpr() | pPathExpr() | pExtensionExpr() }
+/*[100]*/ private void pGeneralComp() : {} { "=" | "!=" | "<" | "<=" | ">" | ">=" }
+/*[101]*/ private void pValueComp() : {} { "eq" | "ne" | "lt" | "le" | "gt" | "ge" }
+/*[102]*/ private void pNodeComp() : {} { "is" | "<<" | ">>" }
+/*[103]*/ private void pValidateExpr() : {} { "validate" (pValidationMode() | ("type" pTypeName()))? "{" pExpr() "}" }
+/*[104]*/ private void pValidationMode() : {} { "lax" | "strict" }
+/*[105]*/ private void pExtensionExpr() : {} { (pPragma())+ <T_CLB> (pExpr())? <T_CRB> }
+/*[106]*/ private void pPragma() : {} { <PRAGMA_START> pQName() (<PRAGMA_S> (<PRAGMA_CHAR>)*)? <PRAGMA_END> }
+/*[107]*/ // See below for special "PragmaContents" handling.
+/*[108]*/ private void pPathExpr() : {} { ("/" (LOOKAHEAD(2) pRelativePathExpr())?) | ("//" pRelativePathExpr()) | pRelativePathExpr() /* xgc: leading-lone-slashpXQ()30 */ }
+/*[109]*/ private void pRelativePathExpr() : {} { pStepExpr() (("/" | "//") pStepExpr())* }
+/*[110]*/ private void pStepExpr() : {} { LOOKAHEAD(2) pPostfixExpr() | pAxisStep() }
+/*[111]*/ private void pAxisStep() : {} { (LOOKAHEAD(2) pReverseStep() | pForwardStep()) pPredicateList() }
+/*[112]*/ private void pForwardStep() : {} { LOOKAHEAD(2) (pForwardAxis() pNodeTest()) | pAbbrevForwardStep() }
+/*[113]*/ private void pForwardAxis() : {} { ("child" "::") | ("descendant" "::") | ("attribute" "::") | ("self" "::") | ("descendant-or-self" "::") | ("following-sibling" "::") | ("following" "::") }
+/*[114]*/ private void pAbbrevForwardStep() : {} { ("@")? pNodeTest() }
+/*[115]*/ private void pReverseStep() : {} { (pReverseAxis() pNodeTest()) | pAbbrevReverseStep() }
+/*[116]*/ private void pReverseAxis() : {} { ("parent" "::") | ("ancestor" "::") | ("preceding-sibling" "::") | ("preceding" "::") | ("ancestor-or-self" "::") }
+/*[117]*/ private void pAbbrevReverseStep() : {} { ".." }
+/*[118]*/ private void pNodeTest() : {} { LOOKAHEAD(2) pKindTest() | pNameTest() }
+/*[119]*/ private void pNameTest() : {} { pEQName() | pWildcard() }
+/*[120] private void pWildcard() : {} { "*" | (pNCName() ":" "*") | ("*" ":" pNCName()) } */
+/*[120]*/ private void pWildcard() : {} { "*" | < WILDCARD1 : <NC_NAME> ":" "*" > | < WILDCARD2 : "*" ":" <NC_NAME> > }
+/*[121]*/ private void pPostfixExpr() : {} { pPrimaryExpr() (pPredicate() | pArgumentList())* }
+/*[122]*/ private void pArgumentList() : {} { "(" (pArgument() ("," pArgument())*)? ")" }
+/*[123]*/ private void pPredicateList() : {} { (pPredicate())* }
+/*[124]*/ private void pPredicate() : {} { "[" pExpr() "]" }
+/*[125]*/ // See below for extended "PrimaryExpr" rule.
+/*[126]*/ private void pLiteral() : {} { pNumericLiteral() | <STRING_LITERAL> }
+/*[127]*/ private void pNumericLiteral() : {} { pIntegerLiteral() | <DECIMAL_LITERAL> | <DOUBLE_LITERAL> }
+/*[128]*/ private void pVarRef() : {} { "$" pVarName() }
+/*[129]*/ private void pVarName() : {} { pEQName() }
+/*[130]*/ private void pParenthesizedExpr() : {} { "(" (pExpr())? ")" }
+/*[131]*/ private void pContextItemExpr() : {} { "." }
+/*[132]*/ private void pOrderedExpr() : {} { "ordered" "{" pExpr() "}" }
+/*[133]*/ private void pUnorderedExpr() : {} { "unordered" "{" pExpr() "}" }
+/*[134]*/ private void pFunctionCall() : {} { pEQName() pArgumentList() /* xgc: reserved-function-namespXQ()30 */ /* gn: parenspXQ()30 */ }
+/*[135]*/ private void pArgument() : {} { pExprSingle() | pArgumentPlaceholder() }
+/*[136]*/ private void pArgumentPlaceholder() : {} { "?" }
+/*[137]*/ private void pConstructor() : {} { pDirectConstructor() | pComputedConstructor() }
+/*[138]*/ private void pDirectConstructor() : {} { pDirElemConstructor() | pDirCommentConstructor() | pDirPIConstructor() }
+/*[139]*/ private void pDirElemConstructor() : { int s; } { <T_LT> { s=chgState(IN_TAG); } pQName() pDirAttributeList() (<T_SLSH_GT> { chgState(s); } | (<T_GT> { chgState(IN_ELEM); } (pDirElemContent())* <T_LT_SLSH> { chgState(IN_TAG); } pQName() (<S>)? <T_GT> { chgState(s); })) }
+/*[140]*/ private void pDirAttributeList() : {} { (<S> (pQName() (<S>)? "=" (<S>)? pDirAttributeValue())?)* /* ws: explicitpXQ()30 */ }
+/*[141]*/ private void pDirAttributeValue() : {} { (<T_QUOT> { chgState(IN_QUOT); } (<ESCAPE_QUOT> | pQuotAttrValueContent())* <T_QUOT> { chgState(IN_TAG); }) | (<T_APOS> { chgState(IN_APOS); } (<ESCAPE_APOS> | pAposAttrValueContent())* <T_APOS> { chgState(IN_TAG); }) }
+/*[142]*/ private void pQuotAttrValueContent() : {} { <QUOT_ATTR_CONTENT_CHAR> | pCommonContent() }
+/*[143]*/ private void pAposAttrValueContent() : {} { <APOS_ATTR_CONTENT_CHAR> | pCommonContent() }
+/*[144]*/ private void pDirElemContent() : {} { LOOKAHEAD(2) pCDataSection() | pDirectConstructor() | pCommonContent() | <ELEMENT_CONTENT_CHAR> }
+/*[145]*/ // See below for extended "CommonContent" rule.
+/*[103]*/ private void pDirCommentConstructor() : {} { <DIR_COMMENT_START> (<DIR_COMMENT_CHAR>)* <DIR_COMMENT_END> }
+/*[147]*/ // See below for special "DirCommentContents" handling.
+/*[148]*/ private void pDirPIConstructor() : {} { <DIR_PI_START> <PI_TARGET> (<DIR_PI_S> (<DIR_PI_CHAR>)*)? <DIR_PI_END> }
+/*[149]*/ // See below for special "DirPIContents" handling.
+/*[150] private void pCDataSection() : {} { <CDATA_SECTION_START> (<CDATA_SECTION_CHAR>)* <CDATA_SECTION_END> }*/
+/*[150] private void pCDataSection() : {} { <CDATA_SECTION_START> (LOOKAHEAD(3) pWAQLExtension(UsageType.AS_EXPR) | (LOOKAHEAD(2) <CDATA_SECTION_CHAR>)+)* <CDATA_SECTION_END> }*/
+/*[150] private void pCDataSection() : {} { "<![CDATA[" (<CDATA_CONTENT_CHAR> | pWAQLExtension(UsageType.AS_EXPR)) "]]>" }*/
+/*[150]*/ private void pCDataSection() : {} { <CDATA_SECTION_START> (LOOKAHEAD(3) pDataDependencyCdata() | (LOOKAHEAD(2) <CDATA_REGULAR_CHAR>)+)* <CDATA_SECTION_END> }
+/*[151]*/ // See below for special "CDataSectionContents" handling.
+/*[152]*/ private void pComputedConstructor() : {} { pCompDocConstructor() | pCompElemConstructor() | pCompAttrConstructor() | pCompNamespaceConstructor() | pCompTextConstructor() | pCompCommentConstructor() | pCompPIConstructor() }
+/*[153]*/ private void pCompDocConstructor() : {} { "document" "{" pExpr() "}" }
+/*[154]*/ private void pCompElemConstructor() : {} { "element" (pEQName() | ("{" pExpr() "}")) "{" (pContentExpr())? "}" }
+/*[155]*/ private void pContentExpr() : {} { pExpr() }
+/*[156]*/ private void pCompAttrConstructor() : {} { "attribute" (pEQName() | ("{" pExpr() "}")) "{" (pExpr())? "}" }
+/*[157]*/ private void pCompNamespaceConstructor() : {} { "namespace" (pPrefix() | ("{" pPrefixExpr() "}")) "{" (pURIExpr())? "}" }
+/*[158]*/ private void pPrefix() : {} { pNCName() }
+/*[159]*/ private void pPrefixExpr() : {} { pExpr() }
+/*[160]*/ private void pURIExpr() : {} { pExpr() }
+/*[161]*/ private void pCompTextConstructor() : {} { "text" "{" pExpr() "}" }
+/*[162]*/ private void pCompCommentConstructor() : {} { "comment" "{" pExpr() "}" }
+/*[163]*/ private void pCompPIConstructor() : {} { "processing-instruction" (pNCName() | ("{" pExpr() "}")) "{" (pExpr())? "}" }
+/*[164]*/ private void pFunctionItemExpr() : {} { LOOKAHEAD(2) pLiteralFunctionItem() | LOOKAHEAD(2) pInlineFunction() }
+/*[165]*/ private void pLiteralFunctionItem() : {} { pEQName() "#" pIntegerLiteral() /* xgc: reserved-function-namespXQ()30 */ }
+/*[166]*/ private void pInlineFunction() : {} { "function" "(" (pParamList())? ")" ("as" pSequenceType())? pEnclosedExpr() }
+/*[167]*/ private void pSingleType() : {} { pAtomicOrUnionType() ("?")? }
+/*[168]*/ private void pTypeDeclaration() : {} { "as" pSequenceType() }
+/*[169]*/ private void pSequenceType() : {} { LOOKAHEAD(2) ("empty-sequence" "(" ")") | (pItemType() (LOOKAHEAD(2) pOccurrenceIndicator())?) }
+/*[170]*/ private void pOccurrenceIndicator() : {} { "?" | "*" | "+" /* xgc: occurrence-indicatorspXQ()30 */ }
+/*[171]*/ private void pItemType() : {} { LOOKAHEAD(2) pKindTest() | LOOKAHEAD(2) ("item" "(" ")") | LOOKAHEAD(2) pFunctionTest() | LOOKAHEAD(2) pAtomicOrUnionType() | pParenthesizedItemType() }
+/*[172]*/ private void pAtomicOrUnionType() : {} { pEQName() }
+/*[173]*/ private void pKindTest() : {} { pDocumentTest() | pElementTest() | pAttributeTest() | pSchemaElementTest() | pSchemaAttributeTest() | pPITest() | pCommentTest() | pTextTest() | pNamespaceNodeTest() | pAnyKindTest() }
+/*[174]*/ private void pAnyKindTest() : {} { "node" "(" ")" }
+/*[175]*/ private void pDocumentTest() : {} { "document-node" "(" (pElementTest() | pSchemaElementTest())? ")" }
+/*[176]*/ private void pTextTest() : {} { "text" "(" ")" }
+/*[177]*/ private void pCommentTest() : {} { "comment" "(" ")" }
+/*[178]*/ private void pNamespaceNodeTest() : {} { "namespace-node" "(" ")" }
+/*[179]*/ private void pPITest() : {} { "processing-instruction" "(" (pNCName() | <STRING_LITERAL>)? ")" }
+/*[180]*/ private void pAttributeTest() : {} { "attribute" "(" (pAttribNameOrWildcard() ("," pTypeName())?)? ")" }
+/*[181]*/ private void pAttribNameOrWildcard() : {} { pAttributeName() | "*" }
+/*[182]*/ private void pSchemaAttributeTest() : {} { "schema-attribute" "(" pAttributeDeclaration() ")" }
+/*[183]*/ private void pAttributeDeclaration() : {} { pAttributeName() }
+/*[184]*/ private void pElementTest() : {} { "element" "(" (pElementNameOrWildcard() ("," pTypeName() ("?")?)?)? ")" }
+/*[185]*/ private void pElementNameOrWildcard() : {} { pElementName() | "*" }
+/*[186]*/ private void pSchemaElementTest() : {} { "schema-element" "(" pElementDeclaration() ")" }
+/*[187]*/ private void pElementDeclaration() : {} { pElementName() }
+/*[188]*/ private void pAttributeName() : {} { pEQName() }
+/*[189]*/ private void pElementName() : {} { pEQName() }
+/*[190]*/ private void pTypeName() : {} { pEQName() }
+/*[191]*/ private void pFunctionTest() : {} { (pAnnotation())* (LOOKAHEAD(3) pAnyFunctionTest() | LOOKAHEAD(3) pTypedFunctionTest()) }
+/*[192]*/ private void pAnyFunctionTest() : {} { "function" "(" "*" ")" }
+/*[193]*/ private void pTypedFunctionTest() : {} { "function" "(" (pSequenceType() ("," pSequenceType())*)? ")" "as" pSequenceType() }
+/*[194]*/ private void pParenthesizedItemType() : {} { "(" pItemType() ")" }
+/*[195]*/ private void pURILiteral() : {} { <STRING_LITERAL> }
+/*[196]*/ private void pEQName() : {} { pQName() | (pURILiteral() ":" pNCName()) /* ws: explicitpXQ()30 */ }
+/*[197]*/ private void pIntegerLiteral() : {} { <DIGITS> }
+/*[198]*/ TOKEN : { < DECIMAL_LITERAL : ("." <DIGITS>) | (<DIGITS> "." (["0"-"9"])*) > }
+/*[199]*/ TOKEN : { < DOUBLE_LITERAL : (("." <DIGITS>) | (<DIGITS> ("." (["0"-"9"])*)?)) ["e","E"] (["+","-"])? <DIGITS> > }
+/*[200]*/ TOKEN : { < STRING_LITERAL :  ("\"" (<PREDEFINED_ENTITY_REF> | <CHAR_REF> | <ESCAPE_QUOT> | ~["\"","&"])* "\"") | ("'" (<PREDEFINED_ENTITY_REF> | <CHAR_REF> | <ESCAPE_APOS> | ~["'","&"])* "'") > }
+/*[201]*/ <IN_ELEM,IN_QUOT,IN_APOS> TOKEN : { < PREDEFINED_ENTITY_REF : "&" ("lt" | "gt" | "amp" | "quot" | "apos") ";" > }
+/*[202]*/ <IN_QUOT> TOKEN : { < ESCAPE_QUOT : "\"\"" > }
+/*[203]*/ <IN_APOS> TOKEN : { < ESCAPE_APOS : "''" > }
+/*[204]*/ // See below for extended "ElementContentChar" rule.
+/*[205]*/ // See below for extended "QuotAttrContentChar" rule.
+/*[206]*/ // See below for extended "AposAttrContentChar" rule.
+/*[207]*/ // See below for special "Comment" handling.
+/*[208]*/ // See below for special "PITarget" handling.
+/*[209]*/ <IN_ELEM,IN_QUOT,IN_APOS> TOKEN : { < CHAR_REF : ("&#" <DIGITS> ";") | ("&#x" (["0"-"9","a"-"f","A"-"F"])+ ";") > }
+/*[210]*/ // See below for special "QName" handling.
+/*[211]*/ // See below for special "NCName" handling.
+/*[156]*/ <IN_TAG> TOKEN : { < S : (" " | "\t" | "\n" | "\r")+ > }
+
+
+
+
+/*
+ * Some parser rules have been altered to extend the original grammar with
+ * our own WAQL extensions defined at the top of the file.
+ */
+
+/*[84]*/ private void pPrimaryExpr() : {} {
+	/*LOOKAHEAD(2) pWAQLExtension(UsageType.AS_EXPR) | LOOKAHEAD(2) pLiteral() | pVarRef() | pParenthesizedExpr() | pContextItemExpr() | LOOKAHEAD(2) pFunctionCall() | pOrderedExpr() | pUnorderedExpr() | LOOKAHEAD(2) pConstructor()*/
+	LOOKAHEAD(3) pWAQLExtension(UsageType.AS_EXPR) | LOOKAHEAD(4) pLiteral() | pVarRef() | pParenthesizedExpr() | LOOKAHEAD(3) pContextItemExpr() | LOOKAHEAD(2) pFunctionCall() | LOOKAHEAD(2) pOrderedExpr() | pUnorderedExpr() | LOOKAHEAD(2) pConstructor()
+}
+
+/*[102]*/ private void pCommonContent() : {} {
+	pWAQLExtension(UsageType.AS_TEXT) | pEscapeDollar() | <PREDEFINED_ENTITY_REF> | <CHAR_REF> | <T_CLB_CLB> | <T_CRB_CRB> | pEnclosedExpr()
+}
+
+/*[148]*/ <IN_ELEM> TOKEN : { < ELEMENT_CONTENT_CHAR : ~["{","}","<","&","$"] > }
+/*[149]*/ <IN_QUOT> TOKEN : { < QUOT_ATTR_CONTENT_CHAR : ~["\"","{","}","<","&","$"] > }
+/*[150]*/ <IN_APOS> TOKEN : { < APOS_ATTR_CONTENT_CHAR : ~["'","{","}","<","&","$"] > }
+/*[150]*/ <IN_APOS> TOKEN : { < CDATA_CONTENT_CHAR : ~["$"] > }
+
+/*
+ * Some lexical analyzer matchers should actually match several different
+ * token types, so we rewrote them as parser rules.
+ */
+
+private void pNonReservedKeywords() : {} {
+	"allowing" | "ancestor" | "ancestor-or-self" | "and" | "as" | "ascending" | 
+	"at" | "attribute" | "base-uri" | "boundary-space" | "by" | "case" | "cast" |
+	"castable" | "catch" | "child" | "collation" | "comment" | "construction" |
+	"context" | "copy-namespaces" | "count" | "decimal-format" | "decimal-separator" |
+	"declare" | "default" | "descendant" |
+	"descendant-or-self" | "descending" | "digit" | "div" | "document" | "document-node" |
+	"element" | "else" | "empty" | "empty-sequence" | "encoding" | "end" | "eq" |
+	"every" | "except" | "external" | "following" | "following-sibling" | "for" |
+	"function" | "ge" | "greatest" | "group" | "grouping-separator" | "gt" | "idiv" | 
+	"if" | "import" | "in" | "infinity" |
+	"inherit" | "instance" | "intersect" | "is" | "item" | "lax" | "le" |
+	"least" | "let" | "lt" | "minus-sign" | "mod" | "module" | "namespace" | 
+	"namespace-node" | "NaN" | "ne" | "next" | "node" |
+	"no-inherit" | "no-preserve" | "nondeterministic" | "of" | "only" | "option" | 
+	"or" | "order" | "ordered" |
+	"ordering" | "parent" | "pattern-separator" | "per-mille" | "percent" | "preceding" | 
+	"preceding-sibling" | "preserve" | "previous" | "private" |
+	"processing-instruction" | "public" | "return" | "satisfies" | "schema" |
+	"schema-attribute" | "schema-element" | "self" | "sliding" | "some" | "stable" | "start" |
+	"strict" | "strip" | "switch" | "text" | "then" | "to" | "treat" | "try" | "tumbling" | 
+	"type" | "typeswitch" |
+	"union" | "unordered" | "validate" | "variable" | "version" | "when" | "where" | "window" |
+	"xquery" | "zero-digit"
+}
+
+private void pQName() : {} {
+	<Q_NAME> | <NC_NAME> | pNonReservedKeywords()
+}
+
+private void pNCName() : {} {
+	<NC_NAME>
+}
+
+/*[154]*/ <DEFAULT,IN_PRAGMA1,IN_TAG> TOKEN : { < Q_NAME : <NC_NAME> ":" <NC_NAME> > }
+/*[155]*/ <DEFAULT,IN_PRAGMA1,IN_TAG> TOKEN : { < NC_NAME : ["A"-"Z","a"-"z","_"] (["A"-"Z","a"-"z","_","-",".","0"-"9"])* > }
+
+/*
+ * Some lexical analyzer matchers have been rewritten using custom lexical
+ * states to achieve explicit whitespace behavior.
+ */
+
+TOKEN_MGR_DECLS : {
+	private int beforeInDirComment;
+	private int beforeInDirPI;
+	private int commentNestingDepth;
+	private int beforeInCdata;
+}
+
+/*[67]+ws:explicit*/
+<DEFAULT> TOKEN : { < PRAGMA_START : "(#" (<S>)? > : IN_PRAGMA1 }
+<IN_PRAGMA1> TOKEN : { < PRAGMA_S : <S> > : IN_PRAGMA2 }
+<IN_PRAGMA2> TOKEN : { < PRAGMA_CHAR : ~[] > }
+<IN_PRAGMA1,IN_PRAGMA2> TOKEN : { < PRAGMA_END : "#)" > : DEFAULT }
+
+/*[104]+ws:explicit*/
+<DEFAULT,IN_ELEM> TOKEN : { < DIR_COMMENT_START : "<!--" > { beforeInDirComment=curLexState; } : IN_DIR_COMMENT }
+<IN_DIR_COMMENT> TOKEN : { < DIR_COMMENT_CHAR : ~[] > }
+<IN_DIR_COMMENT> TOKEN : { < DIR_COMMENT_INVALID : "--" > }
+<IN_DIR_COMMENT> TOKEN : { < DIR_COMMENT_END : "-->" > { SwitchTo(beforeInDirComment); } }
+
+/*[106]+[152]+ws:explicit*/
+<DEFAULT,IN_ELEM> TOKEN : { < DIR_PI_START : "<?" > { beforeInDirPI=curLexState; } : IN_DIR_PI1 }
+<IN_DIR_PI1> TOKEN : { < PI_TARGET_INVALID : ("X" | "x") ("M" | "m") ("L" | "l") > }
+<IN_DIR_PI1> TOKEN : { < PI_TARGET : /*XXX actually this should be "Name"*/<NC_NAME> > }
+<IN_DIR_PI1> TOKEN : { < DIR_PI_S : <S> > : IN_DIR_PI2 }
+<IN_DIR_PI2> TOKEN : { < DIR_PI_CHAR : ~[] > }
+<IN_DIR_PI1,IN_DIR_PI2> TOKEN : { < DIR_PI_END : "?>" > { SwitchTo(beforeInDirPI); } }
+
+/*[108]+ws:explicit*/
+<IN_ELEM> TOKEN : { < CDATA_SECTION_START : "<![CDATA[" > { beforeInCdata=curLexState; } : IN_CDATA_SECTION }
+<IN_CDATA_SECTION> TOKEN : { < CDATA_REGULAR_CHAR : <CDATA_CONTENT_CHAR> > }
+<IN_CDATA_SECTION> TOKEN : { < CDATA_DLR : "$" > : CDATA_AFTER_DLR }
+<CDATA_AFTER_DLR> TOKEN : { < CDATA_ID_DIGITS : <DIGITS> > : CDATA_AFTER_ID }
+<CDATA_AFTER_ID,CDATA_AFTER_DLR> TOKEN : { < CDATA_WAQL_BR_OPEN : "{" > : CDATA_IN_WAQL }
+<CDATA_IN_WAQL> TOKEN : { < CDATA_WAQL_EXPR : ~["}"] > }
+<CDATA_IN_WAQL> TOKEN : { < CDATA_WAQL_BR_CLOSE : "}" > : IN_CDATA_SECTION }
+<IN_CDATA_SECTION> TOKEN : { < CDATA_SECTION_END : "]]>" > { SwitchTo(beforeInCdata); } }
+
+/*[151]+ws:explicit*/
+<DEFAULT>                MORE : { "(:" : IN_COMMENT }
+<IN_COMMENT,IN_COMMENT2> MORE : { "(:" { commentNestingDepth++; } : IN_COMMENT2 }
+<IN_COMMENT,IN_COMMENT2> MORE : { < ~[] > }
+<IN_COMMENT2>            MORE : { ":)" { commentNestingDepth--; if(commentNestingDepth==0)SwitchTo(IN_COMMENT); } }
+<IN_COMMENT>    SPECIAL_TOKEN : { ":)" : DEFAULT }
+

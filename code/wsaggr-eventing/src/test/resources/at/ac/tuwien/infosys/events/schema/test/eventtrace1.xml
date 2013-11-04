@@ -1,0 +1,44 @@
+<events>
+	<event p="3" t="register request" />
+	<event p="3" t="examine casually" />
+	<event p="3" t="check ticket" />
+	<event p="3" t="decide" />
+	<event p="3" t="reinitiate request" />
+	<event p="3" t="examine thoroughly" />
+	<event p="3" t="check ticket" />
+	<event p="3" t="decide" />
+	<event p="3" t="pay compensation" />
+	<event p="2" t="register request" />
+	<event p="2" t="check ticket" />
+	<event p="2" t="examine casually" />
+	<event p="2" t="decide" />
+	<event p="2" t="pay compensation" />
+	<event p="1" t="register request" />
+	<event p="1" t="examine thoroughly" />
+	<event p="1" t="check ticket" />
+	<event p="1" t="decide" />
+	<event p="1" t="reject request" />
+	<event p="6" t="register request" />
+	<event p="6" t="examine casually" />
+	<event p="6" t="check ticket" />
+	<event p="6" t="decide" />
+	<event p="6" t="pay compensation" />
+	<event p="5" t="register request" />
+	<event p="5" t="examine casually" />
+	<event p="5" t="check ticket" />
+	<event p="5" t="decide" />
+	<event p="5" t="reinitiate request" />
+	<event p="5" t="check ticket" />
+	<event p="5" t="examine casually" />
+	<event p="5" t="decide" />
+	<event p="5" t="reinitiate request" />
+	<event p="5" t="examine casually" />
+	<event p="5" t="check ticket" />
+	<event p="5" t="decide" />
+	<event p="5" t="reject request" />
+	<event p="4" t="register request" />
+	<event p="4" t="check ticket" />
+	<event p="4" t="examine thoroughly" />
+	<event p="4" t="decide" />
+	<event p="4" t="reject request" />
+</events>

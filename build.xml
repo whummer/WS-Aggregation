@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="default" name="WS-Aggregation" xmlns:ant4eclipse="antlib:org.ant4eclipse" xmlns:antcontrib="antlib:net.sf.antcontrib">
+
+	<target name="build">
+		<exec command="mvn" dir="code">
+			<arg value="install"/>
+		</exec>
+	</target>
+	<target name="clean">
+		<exec command="mvn" dir="code">
+			<arg value="clean"/>
+		</exec>
+	</target>
+
+	<target name="default">
+		<ant dir="code" target="default"/>
+	</target>
+	<target name="aggregator">
+		<ant dir="code" target="aggregator"/>
+	</target>
+	<target name="registry">
+		<ant dir="code" target="registry"/>
+	</target>
+	<target name="gateway">
+		<ant dir="code" target="gateway"/>
+	</target>
+	<target name="web">
+		<ant dir="code" target="web"/>
+	</target>
+	<target name="server">
+		<ant dir="code" target="server"/>
+	</target>
+	<target name="gatewayAndAggregators">
+		<ant dir="code" target="gatewayAndAggregators"/>
+	</target>
+	<target name="optimizer">
+		<ant dir="code" target="optimizer"/>
+	</target>
+	<target name="testgraph">
+		<ant dir="code" target="testgraph"/>
+	</target>
+
+</project>

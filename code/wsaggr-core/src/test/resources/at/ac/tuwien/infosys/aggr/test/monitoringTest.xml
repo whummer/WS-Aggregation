@@ -1,0 +1,45 @@
+<tns:aggregate xmlns:tns="http://infosys.tuwien.ac.at/WS-Aggregation">
+<monitor>
+<epr><wsa:Address xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://localhost:9022/wsaggrEvents</wsa:Address></epr>
+</monitor>
+<debug>true</debug>
+<inputs>
+ 	<input feature="Voting" to="ONE" type="SOAP"><![CDATA[ 
+ 	<tns:getVote xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+ 		<request>foo</request>
+ 	</tns:getVote>
+	]]></input>
+	<input feature="Voting" to="ONE" type="SOAP" contentType="waql"><![CDATA[ 
+	<tns:getStocks xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+		<portfolio>$(${//*:vote/text()})</portfolio>
+		<foo>$(${//*:vote[1]/text()})</foo>
+	</tns:getStocks>
+	]]></input>
+	<input serviceURL="http://localhost:8889/service1instance?wsdl" contentType="waql"><![CDATA[ 
+	<tns:getStockPrice xmlns:tns="http://test.aggr.infosys.tuwien.ac.at/">
+		<stock>$(${//stock/text()})</stock>
+	</tns:getStockPrice>
+	 ]]></input>
+	<constantInput contentType="waql"><![CDATA[ 
+	<foo>bar</foo>
+	 ]]></constantInput>
+</inputs>
+<queries>
+	<!-- <preparationQuery forInputs="1"><![CDATA[ 
+	 	<links>{
+		 	for $row in //tr[td[@align='center' and a[substring(text(),1,2)='08']]]
+		 	return <link>{string($row/td[1]/a/@href)}</link>
+	 	}</links>
+	]]></preparationQuery>
+	<preparationQuery forInputs="2"><![CDATA[ 
+	 	<oneTable>{
+		 	//table[@align='center'][1]
+	 	}</oneTable>
+	]]></preparationQuery>
+	<query><![CDATA[ 
+		<table>{
+			for $t in //oneTable return $t//table/tr
+		}</table>
+	]]></query>-->
+</queries>
+</tns:aggregate>

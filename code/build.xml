@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="default" name="WS-Aggregation" xmlns:ant4eclipse="antlib:org.ant4eclipse" xmlns:antcontrib="antlib:net.sf.antcontrib">
+
+	<property name="mainModule" value="wsaggr-main"/>
+
+	<target name="build">
+		<exec command="mvn" dir=".">
+			<arg value="install"/>
+		</exec>
+	</target>
+
+	<target name="default">
+		<ant dir="${mainModule}" target="default"/>
+	</target>
+	<target name="aggregator">
+		<ant dir="${mainModule}" target="aggregator"/>
+	</target>
+	<target name="registry">
+		<ant dir="${mainModule}" target="registry"/>
+	</target>
+	<target name="gateway">
+		<ant dir="${mainModule}" target="gateway"/>
+	</target>
+	<target name="web">
+		<ant dir="${mainModule}" target="web"/>
+	</target>
+	<target name="server">
+		<ant dir="${mainModule}" target="server"/>
+	</target>
+	<target name="gatewayAndAggregator">
+		<ant dir="${mainModule}" target="gatewayAndAggregator"/>
+	</target>
+	<target name="gatewayAndAggregators">
+		<ant dir="${mainModule}" target="gatewayAndAggregators"/>
+	</target>
+	<target name="optimizer">
+		<ant dir="${mainModule}" target="optimizer"/>
+	</target>
+	<target name="testgraph">
+		<ant dir="${mainModule}" target="testgraph"/>
+	</target>
+	<target name="testServices">
+		<ant dir="${mainModule}" target="testServices"/>
+	</target>
+
+</project>

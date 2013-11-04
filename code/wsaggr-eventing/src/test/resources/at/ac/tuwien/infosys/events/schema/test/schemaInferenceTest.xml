@@ -1,0 +1,36 @@
+<tests>
+	<events>
+		<login s="alice"/>
+		<login s="bob"/>
+		<activate s="bob" r="admin"/>
+		<access s="bob" o="server"/>
+		<activate s="alice" r="admin"/>
+		<access s="alice" o="server"/>
+		<logout s="bob"/>
+		<login s="bob"/>
+		<activate s="bob" r="admin"/>
+		<access s="bob" o="server"/>
+		<access s="alice" o="server"/>
+		<logout s="bob"/>
+		<logout s="alice"/>
+		
+		<login s="alice"/>
+		<activate s="alice" r="admin"/>
+		<logout s="alice"/>
+		<login s="alice"/>
+		<activate s="alice" r="admin"/>
+		<access s="alice" o="server"/>
+		<login s="bob"/>
+		<activate s="bob" r="admin"/>
+		<logout s="alice"/>
+		<access s="bob" o="server"/>
+		<logout s="bob"/>
+	</events>
+	<choice>
+		<sequence>
+			<event type="login"/>
+			<event type="login"/>
+		</sequence>
+		<any/>
+	</choice>
+</tests>

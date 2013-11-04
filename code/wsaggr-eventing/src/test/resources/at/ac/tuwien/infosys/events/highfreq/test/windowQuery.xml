@@ -1,0 +1,8 @@
+<query><![CDATA[
+
+	for sliding window $w in $input
+	start $s at $spos when ($spos mod 100) = 0
+	end $e at $epos when ($epos - $spos) >= 2999
+	return <sum>{sum($w/value)}</sum>
+
+]]></query>

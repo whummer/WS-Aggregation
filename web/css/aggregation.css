@@ -1,0 +1,254 @@
+html {
+	height:98%;
+	margin: 1px;
+	padding: 1px;
+}
+
+body {
+	background: #ffffff;
+	font-size: 10px;
+	margin:0;
+	padding:0;
+	height:100%; 
+}
+
+.container {
+	width: 100%;
+    margin-bottom: 4px;
+    background: #fafafe;
+    border: 1px solid #aaaabb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.errorContainer {
+	background: #fff0f0; border: 
+	1px solid #bfa0a0;
+}
+
+.clearboth {
+	clear: both;
+	height: 1px;
+}
+
+#tabs {
+	margin: auto;
+	min-height: 100%;
+	height:auto !important;
+}
+
+/* input */
+
+#storageInnerContainer {
+	height: 25px;
+	padding-top: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#storageContainer img {
+    position: relative; 
+    top: 3px;
+}
+
+#wsaggrStorageQueryName {
+	width: 150px;
+}
+
+#inputContainer {
+	min-height: 170px;
+}
+
+.inputRow {
+	border: 1px solid #aaaabb;
+	background: #f0f0fe;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	width: 50%;
+	margin: 5px;
+	padding: 3px;
+	min-height: 150px;
+	min-width: 800px;
+}
+
+.inputRowRightColumn {
+	float: left;
+	width: 40%;
+	height: 98%;
+	min-height: 150px;
+}
+.inputRowRightColumn div {
+	width: 100%; 
+	height: 100%;
+}
+
+.inputRowMainColumn {
+	float: left;
+	width: 60%;
+	height: 98%;
+	min-height: 150px;
+}
+
+.inputRowMainColumn textarea {
+	width: 98%;
+	height: 97%;
+}
+.inputRowRightColumn textarea {
+	width: 98%;
+	height: 97%;
+}
+
+
+#queryContainer {
+}
+
+#queryTable {
+	margin: 5px;
+	height: 90%;
+}
+
+#queryContainer textarea {
+	width: 96%;
+	height: 90%;
+}
+
+.assertHeaderContainer {
+	margin: 5px 20px;
+}
+
+.wsaggrHeaderName {
+	width: 30%;
+}
+.wsaggrHeaderValue {
+	width: 40%;
+}
+
+.wsaggrAssertContainer {
+	margin: 5px 20px;
+}
+
+
+#response.vertical {
+	margin: 20px 20px 10px 20px;
+	height: 95%;
+}
+
+#responseHTML.vertical {
+	margin: 10px 20px 0 20px;
+	//border: none;
+	height: 95%;
+}
+
+#response.horizontal {
+	margin: 20px 20px 10px 20px;
+	width: 95%;
+}
+
+#responseHTML.horizontal {
+	margin: 10px 20px 0 20px;
+	//border: none;
+	width: 95%; 
+}
+
+.wsaggrAssertContainer .error {
+	background-color: #fd7572;
+}
+
+.container #wsaggrGatewayURL, .container #wsaggrRegistryURL {
+	width: 500px;
+}
+
+
+
+
+#wiring-editor{
+	height: 300px;
+}
+
+button,select {
+	border: 1px solid #999999;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 1px;
+}
+
+td {
+	border-collapse: separate;
+	vertical-align: top
+}
+
+tr.row1 {
+	background: #dddddd;
+	font-weight: bold;
+}
+
+table.xmlToHtml {
+	border: 1px solid #dddddd;
+}
+
+.wsaggrGraphNode,.wsaggrGraphNodeError {
+	border: 0 none;
+	font-size: 8pt;
+	opacity: 0.8;
+	position: absolute;
+	z-index: 5;
+}
+
+.wsaggrGraphNodeError span {
+	padding: 3px;
+	background: #FF0000;
+}
+
+.wsaggrGraphNode div.body {
+	background-color: #EEEE66;
+}
+
+/* Monitoring */
+
+.nodeListContainer {
+	margin: 20px 0 0 0;
+}
+
+.nodeContainer {
+	font-weight: bold;
+	border-bottom: 2px solid grey;
+}
+
+.nodeContainer h3 {
+	font-weight: bold;
+	margin: 2px 0 5px 10px;
+}
+.nodeContainer div.nodeName {
+	font-weight: bold;
+	margin: 5px 0 3px 20px;
+}
+
+.nodeContainer div.nodeGraph {
+	float: left;
+	margin: 2px 10px 10px 0;
+}
+
+/* Browser Aggregator */	
+.styledSelect {
+	display:inline-block; 
+	vertical-align:top; 
+	overflow:hidden;
+}
+
+.styledSelect select {
+   background: transparent;
+   //width: inherit;
+   padding: 10px;
+   font-size: 16px;
+   margin:-5px -20px -5px -5px;
+}
+
+.baContainer {
+	padding: 5px;
+}
+
+#browserAggregatorPanel table tr td {
+	padding: 5px 25px 5px 5px;
+}

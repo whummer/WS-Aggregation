@@ -1,0 +1,78 @@
+<tns:aggregate xmlns:tns="http://infosys.tuwien.ac.at/WS-Aggregation">
+	<inputs>
+		<subscribe id="5" to="ONE" serviceURL="http://localhost:50431/events?wsdl">
+			<config>
+				<wse:Filter xmlns:wse="http://schemas.xmlsoap.org/ws/2004/08/eventing"><![CDATA[]]>
+				</wse:Filter>
+			</config>
+		</subscribe>
+		<subscribe id="7" to="ONE" serviceURL="http://localhost:50431/events?wsdl">
+			<config>
+				<wse:Filter xmlns:wse="http://schemas.xmlsoap.org/ws/2004/08/eventing"><![CDATA[]]>
+				</wse:Filter>
+			</config>
+		</subscribe>
+		<subscribe id="8" to="ONE" serviceURL="http://localhost:50431/events?wsdl">
+			<config>
+				<wse:Filter xmlns:wse="http://schemas.xmlsoap.org/ws/2004/08/eventing"><![CDATA[]]>
+				</wse:Filter>
+			</config>
+		</subscribe>
+	</inputs>
+	<queries>
+		<query><![CDATA[<r><table border="1"><tr><td>Stock</td><td>price</td><td>rising-2</td><td>rising-3</td><td>all-values</td></tr>{
+		for $i in distinct-values(//in//stock/@symbol) 
+		let $stocks := //in//stock
+		let $rising := //rising[@symbol=$i]
+		order by $i return
+		<tr><td>{$i}</td>
+		 <td>{let $values := $stocks[@symbol=$i][last()] return $values[last()]/text()}</td>
+		 <td>{string-join($rising[count(stock) ge 2][last()]/stock,', ')}</td>
+		 <td>{string-join($rising[count(stock) ge 3][last()]/stock,', ')}</td>
+		 <td>{let $values := $stocks[@symbol=$i] return string-join($values,',')}</td></tr>
+		}</table></r>]]></query>
+		<preparationQuery forInputs="5"><![CDATA[declare namespace x = "wsaggr";
+		declare variable $input external;
+		declare function x:sorted($list as item()*)
+		  as xs:boolean {
+		     (every $i in 1 to (count($list) - 1) 
+			satisfies (number($list[$i]) lt number($list[$i + 1])))
+		};
+		
+		let $input1 := (for $i in $input/stock return $i) return (
+		for sliding window $w in $input1
+		start $s at $spos when true()
+		end $e at $epos when count(
+				let $sub := (for $i in $spos to $epos return $input1[$i])
+				return $sub[@symbol eq $s/@symbol]
+			) ge 3
+		let $list := (let $sub := (for $i in $spos to $epos return $input1[$i])
+				return $sub[@symbol eq $s/@symbol])
+		where x:sorted($list)
+		return
+		<rising symbol="{$s/@symbol}">{$list}</rising>)
+		]]></preparationQuery>
+		<preparationQuery forInputs="7"><![CDATA[declare namespace x = "wsaggr";
+		declare variable $input external;
+		declare function x:sorted($list as item()*)
+		  as xs:boolean {
+		     (every $i in 1 to (count($list) - 1) 
+			satisfies (number($list[$i]) lt number($list[$i + 1])))
+		};
+		
+		let $input1 := (for $i in $input/stock return $i) return (
+		for sliding window $w in $input1
+		start $s at $spos when true()
+		end $e at $epos when count(
+				let $sub := (for $i in $spos to $epos return $input1[$i])
+				return $sub[@symbol eq $s/@symbol]
+			) ge 2
+		let $list := (let $sub := (for $i in $spos to $epos return $input1[$i])
+				return $sub[@symbol eq $s/@symbol])
+		where x:sorted($list)
+		return
+		<rising symbol="{$s/@symbol}">{$list}</rising>)
+		]]></preparationQuery>
+		<preparationQuery forInputs="8"><![CDATA[for $i in $input return <in>{$i}</in>]]></preparationQuery>
+	</queries>
+</tns:aggregate>
