@@ -20,6 +20,8 @@
 package at.ac.tuwien.infosys.aggr.cloudopt.collaboration;
 
 import io.hummer.util.Configuration;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,9 +30,6 @@ import java.util.Map;
 import javax.jws.WebService;
 
 import org.apache.log4j.Logger;
-
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 
 @WebService(targetNamespace=Configuration.NAMESPACE, endpointInterface="at.ac.tuwien.infosys.aggr.cloudopt.collaboration.ICollaborativeNode")

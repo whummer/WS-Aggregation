@@ -19,7 +19,7 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.performance;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
+import io.hummer.util.ws.AbstractNode;
 
 public abstract class PerformanceDataProviderNode extends AbstractNode {
 

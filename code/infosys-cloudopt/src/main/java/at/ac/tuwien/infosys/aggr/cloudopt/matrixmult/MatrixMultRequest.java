@@ -19,9 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.matrixmult;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import io.hummer.util.Configuration;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(namespace=Configuration.NAMESPACE, name="matrixMult")
 public class MatrixMultRequest {

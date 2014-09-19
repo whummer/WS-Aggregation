@@ -20,6 +20,9 @@
 package at.ac.tuwien.infosys.aggr.cloudopt.matrixmult;
 
 import io.hummer.util.Configuration;
+import io.hummer.util.ws.DynamicWSClient;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.IAbstractNode.TerminateRequest;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -34,9 +37,6 @@ import org.opt4j.core.Objective;
 import org.opt4j.core.Objective.Sign;
 
 import at.ac.tuwien.infosys.aggr.cloudopt.collaboration.ICollaborativeNode.MyString;
-import at.ac.tuwien.infosys.ws.DynamicWSClient;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.IAbstractNode.TerminateRequest;
 
 public class MatrixMultTest {
 	

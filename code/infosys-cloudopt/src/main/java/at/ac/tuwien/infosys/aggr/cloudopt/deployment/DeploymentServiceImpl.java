@@ -20,6 +20,9 @@
 package at.ac.tuwien.infosys.aggr.cloudopt.deployment;
 
 import io.hummer.util.Configuration;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.DynamicWSClient;
+import io.hummer.util.ws.EndpointReference;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -36,9 +39,6 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.cloudopt.matrixmult.IMatrixMultService;
 import at.ac.tuwien.infosys.aggr.cloudopt.matrixmult.MatrixMultServiceImpl;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.DynamicWSClient;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace=Configuration.NAMESPACE, endpointInterface="at.ac.tuwien.infosys.aggr.cloudopt.deployment.IDeploymentService")
 public class DeploymentServiceImpl extends AbstractNode implements IDeploymentService {
