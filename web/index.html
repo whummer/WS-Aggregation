@@ -89,7 +89,9 @@
 	<script type="text/javascript">/* <![CDATA[ */
 	$(document).ready(function(){
 
-		var res = $("#tabs").tabs({ disabled: [0,1,2,3,4,6] });
+		var res = $("#tabs").tabs({ disabled: [0,1,2,3,4,5,6] });
+		$('#tabs').tabs('disable', 0);
+		$('#tabs').tabs('select', 7);
 		//console.log("tabs ", res);
 
 		$("#requestDialog").dialog({ autoOpen: false, width: 600 })
@@ -168,7 +170,7 @@
 		<li><a href="#tabs-3">Debug</a></li>
 		<li><a href="#tabs-6">Monitoring</a></li>
 		<li><a href="#tabs-4">Topologies</a></li>
-		<li><a href="#tabs-7">BrowserAggregator</a></li>
+		<li><a href="#tabs-7">Browser</a></li>
 		<li><a href="#tabs-5">Tools</a></li>
 		<li style="float: right;"><a href="#tabs-login" id="wsaggrAccountLink" onclick="wsaggrToggleLogin()">Login</a></li>
 		<li style="float: right;"><span id="wsaggrLoginInfo" style="margin: 20px; line-height: 30px; font-weight: normal;"></span></li>
