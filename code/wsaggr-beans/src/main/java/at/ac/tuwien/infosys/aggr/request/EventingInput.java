@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -25,8 +28,6 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.events.ws.EventSubscribeFilter;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name=EventingInput.JAXB_ELEMENT_NAME, namespace="")
 @XmlJavaTypeAdapter(AbstractInput.Adapter.class)

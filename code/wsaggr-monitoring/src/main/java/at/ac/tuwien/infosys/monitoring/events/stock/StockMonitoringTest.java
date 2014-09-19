@@ -37,9 +37,9 @@ import at.ac.tuwien.infosys.monitoring.config.MonitoringConfig;
 import at.ac.tuwien.infosys.monitoring.config.NodeRepositoryNodeConfig;
 //import at.ac.tuwien.infosys.monitoring.esper.EsperMonitoringEngine;
 //import at.ac.tuwien.infosys.monitoring.esper.EsperMonitoringNodeEngine;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 //public class StockMonitoringTest {
 

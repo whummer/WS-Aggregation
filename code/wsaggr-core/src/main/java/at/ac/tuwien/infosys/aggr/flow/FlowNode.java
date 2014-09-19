@@ -18,6 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.flow;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
@@ -30,22 +35,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import at.ac.tuwien.infosys.aggr.waql.DataDependency;
-import at.ac.tuwien.infosys.aggr.waql.PreprocessorEngine;
-import at.ac.tuwien.infosys.aggr.waql.PreprocessorFactory;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.flow.DataFlow.DataSourceType;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
+import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
 import at.ac.tuwien.infosys.aggr.request.ConstantInput;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
+import at.ac.tuwien.infosys.aggr.waql.DataDependency;
+import at.ac.tuwien.infosys.aggr.waql.PreprocessorEngine;
+import at.ac.tuwien.infosys.aggr.waql.PreprocessorFactory;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
 import at.ac.tuwien.infosys.aggr.xml.XQueryProcessor;
 
@@ -58,7 +60,7 @@ public class FlowNode {
 	private static final String CDATA_PREFIX = "<a><![CDATA[";
 	private static final String CDATA_SUFFIX = "]]></a>";
 	
-	private static final Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(FlowNode.class);
+	private static final Logger logger = Util.getLogger(FlowNode.class);
 	
 	private final AbstractInput originalInput;
 	private final List<InputWrapper> generatedInputs = new LinkedList<InputWrapper>();

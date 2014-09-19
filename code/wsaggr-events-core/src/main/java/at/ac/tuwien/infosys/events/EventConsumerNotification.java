@@ -22,7 +22,7 @@ package at.ac.tuwien.infosys.events;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 @XmlRootElement(name="Notify", namespace=Configuration.NAMESPACE)
 public class EventConsumerNotification {

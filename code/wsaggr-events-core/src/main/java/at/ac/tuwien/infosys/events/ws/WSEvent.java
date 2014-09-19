@@ -19,6 +19,10 @@
 
 package at.ac.tuwien.infosys.events.ws;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.xml.XMLUtil;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Date;
@@ -36,14 +40,11 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 
-import com.espertech.esper.client.EventBean;
-
 import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.events.EventType;
 import at.ac.tuwien.infosys.events.EventTypeRepository;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+
+import com.espertech.esper.client.EventBean;
 
 @XmlRootElement(name = WSEvent.NAME, namespace = WSEvent.NAMESPACE)
 public class WSEvent extends Event {	

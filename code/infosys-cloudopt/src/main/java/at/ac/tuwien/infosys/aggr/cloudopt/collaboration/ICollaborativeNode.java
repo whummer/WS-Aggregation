@@ -22,6 +22,8 @@
  */
 package at.ac.tuwien.infosys.aggr.cloudopt.collaboration;
 
+import io.hummer.util.Configuration;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -30,7 +32,6 @@ import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.util.Configuration;
 import at.ac.tuwien.infosys.ws.EndpointReference;
 
 /**
@@ -39,7 +40,7 @@ import at.ac.tuwien.infosys.ws.EndpointReference;
  */
 @WebService(targetNamespace=Configuration.NAMESPACE)
 public interface ICollaborativeNode {
-	
+
 	@SOAPBinding(style=Style.DOCUMENT, use=Use.LITERAL, parameterStyle=ParameterStyle.BARE)
 	@WebMethod(operationName="endpointReference")
 	void registerNewNode(EndpointReference nodeEndpointReference);

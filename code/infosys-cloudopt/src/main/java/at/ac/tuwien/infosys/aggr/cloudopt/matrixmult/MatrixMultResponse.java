@@ -21,7 +21,7 @@ package at.ac.tuwien.infosys.aggr.cloudopt.matrixmult;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 @XmlRootElement(namespace=Configuration.NAMESPACE)
 public class MatrixMultResponse {

@@ -18,6 +18,8 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +30,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.performance.SortedAggregatorsList;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
@@ -100,8 +100,7 @@ public class AggregationStrategyPerformance extends AggregationStrategy {
 			Map<AbstractNode,List<RequestInput>> outRequests, AggregationRequest originalRequest) throws Exception {
 
 		int totalSize = getTotalNumberOfTargetServiceRequests(inInputs);
-		Util util = new Util();
-		
+
 		double requestCount = totalSize;
 		double requestsPerAggregator = requestCount;
 		double responsibleAggregators = 1;
@@ -171,8 +170,8 @@ public class AggregationStrategyPerformance extends AggregationStrategy {
 				if(in.getTo() == TargetType.ONE)
 					j ++;
 				else if(in.getTo() == TargetType.ALL) {
-					int featServFirst = util.test.isNullOrNegative(in.getFeatureServiceFirst()) ? -1 : in.getFeatureServiceFirst();
-					int featServLast = util.test.isNullOrNegative(in.getFeatureServiceLast()) ? -1 : in.getFeatureServiceLast();
+					int featServFirst = testUtil.isNullOrNegative(in.getFeatureServiceFirst()) ? -1 : in.getFeatureServiceFirst();
+					int featServLast = testUtil.isNullOrNegative(in.getFeatureServiceLast()) ? -1 : in.getFeatureServiceLast();
 					
 					int diff = featServLast - featServFirst + 1;
 					if(diff > 0) {

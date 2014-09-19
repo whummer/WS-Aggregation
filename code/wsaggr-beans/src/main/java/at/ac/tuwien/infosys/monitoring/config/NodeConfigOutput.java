@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.monitoring.config;
 
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import at.ac.tuwien.infosys.aggr.request.AbstractOutput;
-import at.ac.tuwien.infosys.monitoring.config.EventTypeEndpointReferenceMapping;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name=NodeConfigOutput.JAXB_ELEMENT_NAME)
 @XmlJavaTypeAdapter(AbstractOutput.Adapter.class)

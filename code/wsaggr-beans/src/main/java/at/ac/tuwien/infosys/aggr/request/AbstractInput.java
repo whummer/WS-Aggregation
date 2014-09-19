@@ -18,6 +18,10 @@
  */
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.request.RequestType;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,9 +53,6 @@ import at.ac.tuwien.infosys.aggr.xml.XQueryProcessor;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfigPublications;
 import at.ac.tuwien.infosys.monitoring.config.NodeConfigInput;
 import at.ac.tuwien.infosys.monitoring.config.SOAPEventInput;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 
 @XmlSeeAlso({
 	RequestInput.class,

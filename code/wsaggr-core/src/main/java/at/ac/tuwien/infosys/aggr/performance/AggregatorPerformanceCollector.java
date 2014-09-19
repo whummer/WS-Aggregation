@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.performance;
 
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -32,8 +35,6 @@ import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.InterAggr
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.StreamDataRate;
 import at.ac.tuwien.infosys.aggr.proxy.AggregatorNodeProxy;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
 
 public class AggregatorPerformanceCollector extends Thread {
 	

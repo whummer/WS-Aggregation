@@ -21,8 +21,8 @@ import at.ac.tuwien.infosys.bursthandling.strategy.loadshedding.FixedLoadShedder
 import at.ac.tuwien.infosys.bursthandling.strategy.loadshedding.IntervalLoadShedder;
 import at.ac.tuwien.infosys.bursthandling.strategy.loadshedding.LoadShedder;
 import at.ac.tuwien.infosys.bursthandling.strategy.loadshedding.ProbabilisticLoadShedder;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
 
 @XmlSeeAlso({ ProbabilisticLoadShedder.class, LoadShedder.class,
 		FixedLoadShedder.class, IntervalLoadShedder.class, ForwardStrategy.class })

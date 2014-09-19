@@ -28,8 +28,8 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.events.ws.EventSubscribeFilter;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 public abstract class AbstractEventSubscriptionManager implements EventSubscriptionManager{
 

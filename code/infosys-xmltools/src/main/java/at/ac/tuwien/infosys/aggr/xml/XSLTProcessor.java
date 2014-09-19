@@ -18,6 +18,8 @@
  */
 package at.ac.tuwien.infosys.aggr.xml;
 
+import io.hummer.util.Util;
+
 import java.io.StringReader;
 
 import javax.xml.transform.Source;
@@ -35,11 +37,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
-import at.ac.tuwien.infosys.util.Util;
-
 public class XSLTProcessor {
 	
-	private static Util Util = new Util();
+	private static Util util = new Util();
 	
 	public static Object execute(Source source/*, Source target*/) throws Exception {
 		
@@ -49,11 +49,11 @@ public class XSLTProcessor {
 		XsltTransformer trans = exec.load();
 		if(source != null)
 			trans.setSource(source);
-		Document result = Util.xml.newDocument();
+		Document result = util.xml.newDocument();
 		Destination dest = new DOMDestination(result);
 		trans.setDestination(dest);
 		trans.transform();
-		Util.xml.print(result.getDocumentElement());
+		util.xml.print(result.getDocumentElement());
 		return result;
 	}
 

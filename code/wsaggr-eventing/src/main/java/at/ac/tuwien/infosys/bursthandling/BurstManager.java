@@ -1,5 +1,8 @@
 package at.ac.tuwien.infosys.bursthandling;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +20,6 @@ import at.ac.tuwien.infosys.aggr.request.EventingInput;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling.EventBurstHandlingException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class BurstManager {
 	/**

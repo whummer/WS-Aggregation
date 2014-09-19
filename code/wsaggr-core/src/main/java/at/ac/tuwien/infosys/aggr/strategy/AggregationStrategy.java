@@ -18,6 +18,12 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.test.TestUtil;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +36,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
@@ -40,16 +45,14 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.InputTargetExtractor;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput.TargetType;
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 @XmlJavaTypeAdapter(AggregationStrategy.AggregationStrategyAdapter.class)
 public class AggregationStrategy {
 
 	public static Logger logger = Util.getLogger();
-	
+
 	private static Util util = new Util();
+	protected static TestUtil testUtil = new TestUtil();
 	
 	@XmlTransient
 	protected AbstractNode owner;
@@ -136,9 +139,9 @@ public class AggregationStrategy {
 			RequestInput input = (RequestInput)in;
 			if(input.getTo() == TargetType.ALL) {
 				List<DataServiceNode> services = registry.getDataServiceNodes(input.getFeature());
-				if(util.test.isNullOrNegative(input.getFeatureServiceLast()))
+				if(testUtil.isNullOrNegative(input.getFeatureServiceLast()))
 					input.setFeatureServiceLast(services.size() - 1);
-				if(util.test.isNullOrNegative(input.getFeatureServiceFirst()))
+				if(testUtil.isNullOrNegative(input.getFeatureServiceFirst()))
 					input.setFeatureServiceFirst(0);
 				totalSize += input.getFeatureServiceLast() - input.getFeatureServiceFirst() + 1;
 			} else if(input.getTo() == TargetType.ONE) {
@@ -162,8 +165,8 @@ public class AggregationStrategy {
 				inputs.remove(i);
 				i --;
 				List<DataServiceNode> services = registry.getDataServiceNodes(input.getFeature());
-				int start = util.test.isNullOrNegative(input.getFeatureServiceFirst()) ? 0 : input.getFeatureServiceFirst();
-				int end = util.test.isNullOrNegative(input.getFeatureServiceLast()) ? services.size() - 1 : input.getFeatureServiceLast();
+				int start = testUtil.isNullOrNegative(input.getFeatureServiceFirst()) ? 0 : input.getFeatureServiceFirst();
+				int end = testUtil.isNullOrNegative(input.getFeatureServiceLast()) ? services.size() - 1 : input.getFeatureServiceLast();
 				if(end > services.size() - 1) {
 					System.out.println("!! AggregationStrategy::extractRequestsThatTargetAllServices: input.featureServiceLast > services.size() - 1 : "+ end + " > " + (services.size() - 1));
 					end = services.size() - 1;

@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.performance;
 
+import io.hummer.util.Configuration;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
-import at.ac.tuwien.infosys.util.Configuration;
 
 @XmlRootElement(name="AggregatorPerformanceInfo", namespace=Configuration.NAMESPACE)
 public class AggregatorPerformanceInfo {

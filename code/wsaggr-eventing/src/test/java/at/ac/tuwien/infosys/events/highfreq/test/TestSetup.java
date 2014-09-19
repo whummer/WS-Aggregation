@@ -38,8 +38,8 @@ import at.ac.tuwien.infosys.aggr.util.BurstServiceStarter;
 import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.events.EventReceiverService;
 import at.ac.tuwien.infosys.events.test.EventingTestServiceStarter;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 @org.junit.Ignore
 public class TestSetup {

@@ -18,6 +18,15 @@
  */
 package at.ac.tuwien.infosys.aggr;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.ws.request.RequestType;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,18 +48,10 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 
 public class AggregationClient {
 
-	public static final Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(AggregationClient.class);
+	public static final Logger logger = Util.getLogger(AggregationClient.class);
 	
 	private Util util = new Util();
 	private EndpointReference target;

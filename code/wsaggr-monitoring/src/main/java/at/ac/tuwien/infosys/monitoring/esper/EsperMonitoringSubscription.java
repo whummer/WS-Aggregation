@@ -23,7 +23,7 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.espertech.esper.adapter.BaseSubscription;
 import com.espertech.esper.client.EventBean;

@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.flow;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.request.InvocationResult;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,16 +33,14 @@ import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.ConstantInput;
 import at.ac.tuwien.infosys.aggr.request.EventingInput;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
 
 public class FlowManager {
 
-	private static Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(FlowManager.class);
+	private static Logger logger = Util.getLogger(FlowManager.class);
 	
 	private static final int MAX_CACHE_SIZE = 10; // TODO: make configurable!?
 	

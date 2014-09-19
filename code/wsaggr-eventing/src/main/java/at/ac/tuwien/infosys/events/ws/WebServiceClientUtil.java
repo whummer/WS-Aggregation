@@ -19,13 +19,14 @@
 
 package at.ac.tuwien.infosys.events.ws;
 
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.xml.XMLUtil;
+
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 
 public class WebServiceClientUtil {
 

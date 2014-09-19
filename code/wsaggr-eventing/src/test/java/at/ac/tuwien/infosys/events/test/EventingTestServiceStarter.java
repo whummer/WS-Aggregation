@@ -26,8 +26,8 @@ import java.util.logging.Logger;
 
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.events.test.EventServiceStockTrade;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
 
 public class EventingTestServiceStarter {
 

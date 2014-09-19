@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring.config;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -26,8 +29,6 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name=NodeConfigInput.JAXB_ELEMENT_NAME)
 @XmlJavaTypeAdapter(AbstractInput.Adapter.class)

@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +32,6 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.flow.FlowManager.InputDataDependency;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
@@ -37,7 +39,6 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.InputTargetExtractor;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.util.Util;
 
 /** 
  * This class makes the initial assignment of request inputs to responsible

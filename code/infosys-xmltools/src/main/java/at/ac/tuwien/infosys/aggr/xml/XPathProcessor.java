@@ -18,6 +18,8 @@
  */
 package at.ac.tuwien.infosys.aggr.xml;
 
+import io.hummer.util.Util;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,12 +50,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
-import at.ac.tuwien.infosys.util.Util;
-
 public class XPathProcessor {
 	
-	private static Util Util = new Util();
-	private static Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(XPathProcessor.class);
+	private static Util util = new Util();
+	private static Logger logger = Util.getLogger(XPathProcessor.class);
 	private static final boolean DEFAULT_BACKWARDS_COMPATIBLE = false;
 
 	public static boolean matches(String XPath, Element element) throws Exception {
@@ -138,7 +138,7 @@ public class XPathProcessor {
 		// 'net.sf.saxon.s9api.SaxonApiException: 
 		//		Supplied node must be built using the same or a compatible Configuration'
 		if(element instanceof ElementOverNodeInfo)
-			element = Util.xml.clone(element); 
+			element = util.xml.clone(element); 
 		
 		if(element != null)
 			eval.setContextItem(builder.wrap(element));
@@ -192,7 +192,7 @@ public class XPathProcessor {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		Element e = Util.xml.toElement("<ns2:getStocksResponse " +
+		Element e = util.xml.toElement("<ns2:getStocksResponse " +
 								"xmlns:ns2=\"http://test.aggr.infosys.tuwien.ac.at/\">" +
 					        "<return foo=\"bar\" bar=\"\foo\">" +
 					            "<stock>s1</stock>" +

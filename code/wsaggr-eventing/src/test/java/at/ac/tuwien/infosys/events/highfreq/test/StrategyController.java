@@ -1,5 +1,7 @@
 package at.ac.tuwien.infosys.events.highfreq.test;
 
+import io.hummer.util.ws.DynamicWSClient;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -8,7 +10,6 @@ import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling.EventBurstHandlingException;
 import at.ac.tuwien.infosys.events.request.EscalationRequest;
 import at.ac.tuwien.infosys.events.request.StopEscalationRequest;
-import at.ac.tuwien.infosys.ws.DynamicWSClient;
 
 public class StrategyController {
 	private EventBurstHandling strategy;

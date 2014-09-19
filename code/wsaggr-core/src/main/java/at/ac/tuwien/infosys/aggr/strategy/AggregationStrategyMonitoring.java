@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -26,13 +29,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
+import at.ac.tuwien.infosys.aggr.monitor.DataServiceMonitor;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.aggr.monitor.DataServiceMonitor;
-import at.ac.tuwien.infosys.util.Util;
 
 @XmlRootElement(name="strategy")
 public class AggregationStrategyMonitoring extends AggregationStrategy {

@@ -18,7 +18,7 @@
  */
 package at.ac.tuwien.infosys.aggr.monitor;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
+import io.hummer.util.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 
 public interface MonitoringInterface {

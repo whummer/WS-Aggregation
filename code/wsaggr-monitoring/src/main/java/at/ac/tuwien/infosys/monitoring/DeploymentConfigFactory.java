@@ -40,8 +40,8 @@ import at.ac.tuwien.infosys.monitoring.config.NodeConfigInput;
 import at.ac.tuwien.infosys.monitoring.config.NodeConfigOutput;
 import at.ac.tuwien.infosys.monitoring.config.NodeRepositoryNodeConfig;
 import at.ac.tuwien.infosys.monitoring.esper.ChangeConfigEvent;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 public interface DeploymentConfigFactory {
 	
@@ -49,7 +49,7 @@ public interface DeploymentConfigFactory {
 	
 	public static class SimpleDeploymentConfigFactory implements DeploymentConfigFactory {
 		
-		private static Util UTIL = new Util();
+		private static Util util = new Util();
 		private static String INTERNAL_ID_PREFIX = "_NC";
 		
 		@Override
@@ -173,9 +173,9 @@ public interface DeploymentConfigFactory {
 														
 				//Create Monitoring Node Input
 				try {					
-					final Element e = UTIL.createElement("endTo");					
+					final Element e = util.xml.createElement("endTo");					
 					final EndpointReference endTo = getEventEpr(nodeConfig.getEndTo());		
-					UTIL.appendChild(e, endTo.toElement());
+					util.xml.appendChild(e, endTo.toElement());
 					NodeConfigInput nodeConfigInput = new NodeConfigInput(e);		
 					nodeConfigInput.setExternalID(INTERNAL_ID_PREFIX + nodeConfig.getIdentifier());
 					nodeConfig.getInputs().addInput(nodeConfigInput);

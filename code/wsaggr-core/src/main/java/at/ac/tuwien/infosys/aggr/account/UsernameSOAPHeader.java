@@ -19,11 +19,11 @@
 
 package at.ac.tuwien.infosys.aggr.account;
 
+import io.hummer.util.Configuration;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
-
-import at.ac.tuwien.infosys.util.Configuration;
 
 @XmlRootElement(name=UsernameSOAPHeader.LOCALNAME, namespace=Configuration.NAMESPACE)
 public class UsernameSOAPHeader {

@@ -18,6 +18,14 @@
  */
 package at.ac.tuwien.infosys.aggr.util;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.IAbstractNode.TerminateRequest;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.RequestType;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.File;
 import java.io.Serializable;
 import java.net.URL;
@@ -40,16 +48,9 @@ import org.w3c.dom.Element;
 import at.ac.tuwien.infosys.aggr.AggregationClient;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.IAbstractNode.TerminateRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 import at.ac.tuwien.infosys.aggr.proxy.AggregatorNodeProxy;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 @Ignore
 public class TestUtil implements Serializable {

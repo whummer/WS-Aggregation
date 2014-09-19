@@ -18,6 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,14 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 @XmlSeeAlso({AggregationStrategy.class})
 @XmlRootElement(name="StrategyChain")

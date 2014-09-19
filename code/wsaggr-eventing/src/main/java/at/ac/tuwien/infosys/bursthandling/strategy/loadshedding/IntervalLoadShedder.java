@@ -1,5 +1,7 @@
 package at.ac.tuwien.infosys.bursthandling.strategy.loadshedding;
 
+import io.hummer.util.Configuration;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -10,8 +12,6 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
 
 @XmlRootElement(name = IntervalLoadShedder.JAXB_ELEMENT_NAME, namespace = Configuration.NAMESPACE)
 @XmlJavaTypeAdapter(EventBurstHandling.Adapter.class)

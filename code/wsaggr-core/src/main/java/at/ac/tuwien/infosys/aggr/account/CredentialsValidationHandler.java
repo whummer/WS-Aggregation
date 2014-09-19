@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.account;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +36,7 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
+import at.ac.tuwien.infosys.aggr.node.Gateway;
 
 import com.sun.xml.ws.message.AbstractHeaderImpl;
 

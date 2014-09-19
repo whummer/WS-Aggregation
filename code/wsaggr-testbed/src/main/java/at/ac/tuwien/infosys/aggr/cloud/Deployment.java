@@ -23,8 +23,8 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
 
 public class Deployment {
 

@@ -37,7 +37,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult;
 
 import csplugins.layout.algorithms.graphPartition.AttributeCircleLayout;
 

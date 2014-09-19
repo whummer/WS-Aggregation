@@ -29,8 +29,8 @@ import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.events.ws.EventSubscribeFilter;
 import at.ac.tuwien.infosys.events.ws.EventSubscribeRequest;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 import com.espertech.esper.client.EPException;
 

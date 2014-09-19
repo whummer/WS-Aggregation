@@ -18,6 +18,13 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationResult;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,20 +38,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.ConstantInput;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput.TargetType;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.util.Util;
 
 @XmlRootElement(name="strategy")
 public class AggregationStrategyFixed extends AggregationStrategy {

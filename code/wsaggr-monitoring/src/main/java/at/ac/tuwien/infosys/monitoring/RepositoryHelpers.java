@@ -23,7 +23,6 @@ import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.events.EventTypeRepository;
 import at.ac.tuwien.infosys.monitoring.config.EventTypeRepositoryConfig;
 import at.ac.tuwien.infosys.monitoring.config.NodeRepositoryConfig;
-import at.ac.tuwien.infosys.monitoring.config.NodeRepositoryNodeConfig;
 import at.ac.tuwien.infosys.monitoring.esper.ChangeConfigEvent;
 
 public class RepositoryHelpers {

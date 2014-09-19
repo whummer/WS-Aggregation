@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Util;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -46,8 +49,6 @@ import at.ac.tuwien.infosys.monitoring.config.NodeConfigChangeOutput;
 import at.ac.tuwien.infosys.monitoring.config.NodeConfigOutput;
 import at.ac.tuwien.infosys.monitoring.config.NonConstantOutput;
 import at.ac.tuwien.infosys.monitoring.config.SOAPEventOutput;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 @XmlSeeAlso({ 
 	EventingOutput.class, 
@@ -321,7 +322,7 @@ public abstract class AbstractOutput {
 
 	@SuppressWarnings("all")
 	public <T extends AbstractOutput> T deepCopy() throws Exception {
-		return (T) util.toJaxbObject(getClass(), util.toElement(this));
+		return (T) util.xml.toJaxbObject(getClass(), util.xml.toElement(this));
 	}
 
 	@XmlTransient

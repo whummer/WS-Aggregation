@@ -22,7 +22,7 @@ package at.ac.tuwien.infosys.events.ws;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.ws.EndpointReference;
 
 @XmlRootElement(name = "SubscriptionEnd", namespace = WSEvent.NAMESPACE)
 public class EventSubscriptionEndRequest {

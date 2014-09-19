@@ -27,7 +27,7 @@ import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
 import at.ac.tuwien.infosys.monitoring.esper.AbstractInputAdapter;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.espertech.esper.adapter.AdapterState;
 import com.espertech.esper.client.EPException;

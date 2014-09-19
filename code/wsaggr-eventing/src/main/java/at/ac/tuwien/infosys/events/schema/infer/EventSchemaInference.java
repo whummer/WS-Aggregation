@@ -30,7 +30,7 @@ import at.ac.tuwien.infosys.aggr.events.query.EventStream;
 import at.ac.tuwien.infosys.events.schema.EventCorrelationSet;
 import at.ac.tuwien.infosys.events.schema.EventCorrelationSet.EventPropertySelector;
 import at.ac.tuwien.infosys.events.schema.XmlSchemaInference.SchemaSet;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 public abstract class EventSchemaInference 
 	extends DefaultPassThroughQuerier {

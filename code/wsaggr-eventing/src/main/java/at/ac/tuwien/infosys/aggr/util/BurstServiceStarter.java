@@ -1,14 +1,15 @@
 package at.ac.tuwien.infosys.aggr.util;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.perf.MemoryAgent;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.BurstCapableAggregatorNode;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.perf.MemoryAgent;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class BurstServiceStarter {
 

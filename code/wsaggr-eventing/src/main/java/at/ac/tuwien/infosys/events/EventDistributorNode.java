@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.events;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -33,8 +36,6 @@ import org.apache.log4j.Logger;
 import at.ac.tuwien.infosys.events.ws.EventSubscriptionManager;
 import at.ac.tuwien.infosys.events.ws.EventSubscriptionManagerProcessor;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace = WSEvent.NAMESPACE)
 public class EventDistributorNode extends EventSubscriptionNode implements EventSubscriptionManager {

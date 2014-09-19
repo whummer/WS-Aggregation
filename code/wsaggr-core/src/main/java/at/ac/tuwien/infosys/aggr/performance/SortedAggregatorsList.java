@@ -18,20 +18,21 @@
  */
 package at.ac.tuwien.infosys.aggr.performance;
 
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.proxy.AggregatorNodeProxy;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
 import at.ac.tuwien.infosys.aggr.robust.FailoverManager;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
 
 public class SortedAggregatorsList {
 

@@ -27,8 +27,8 @@ import at.ac.tuwien.infosys.aggr.events.query.EventQuerier;
 import at.ac.tuwien.infosys.aggr.events.query.EventQuerier.EventQueryListener;
 import at.ac.tuwien.infosys.aggr.events.query.EventStream;
 import at.ac.tuwien.infosys.events.query.EventQuerierMXQuery;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.Parallelization;
+import io.hummer.util.Util;
+import io.hummer.util.par.Parallelization;
 
 @org.junit.Ignore
 public class EventQuerierTest implements EventQueryListener {

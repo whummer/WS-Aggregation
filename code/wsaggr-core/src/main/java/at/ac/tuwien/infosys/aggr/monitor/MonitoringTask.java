@@ -18,6 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.monitor;
 
+import io.hummer.util.Util;
+import io.hummer.util.persist.Identifiable;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.request.InvocationResult;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,12 +34,8 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.flow.FlowManager;
 import at.ac.tuwien.infosys.aggr.flow.FlowNode.DependencyUpdatedInfo;
-import at.ac.tuwien.infosys.util.Identifiable;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
-import at.ac.tuwien.infosys.util.Util;
 
 public class MonitoringTask implements Identifiable {
 

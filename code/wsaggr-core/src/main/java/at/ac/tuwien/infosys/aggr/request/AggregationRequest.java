@@ -18,6 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.persist.Identifiable;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,19 +41,15 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.flow.FlowManager;
 import at.ac.tuwien.infosys.aggr.flow.FlowManager.InputDataDependency;
+import at.ac.tuwien.infosys.aggr.monitor.MonitoringSpecification;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput.RequestInputs;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
-import at.ac.tuwien.infosys.aggr.monitor.MonitoringSpecification;
-import at.ac.tuwien.infosys.util.Configuration;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion.AssertionEvaluationTarget;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion.AssertionEvaluationTime;
 import at.ac.tuwien.infosys.aggr.waql.DataDependency;
 import at.ac.tuwien.infosys.aggr.waql.PreprocessorEngine;
 import at.ac.tuwien.infosys.aggr.waql.PreprocessorFactory;
-import at.ac.tuwien.infosys.util.Identifiable;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 @XmlSeeAlso({
 	RequestInput.class,

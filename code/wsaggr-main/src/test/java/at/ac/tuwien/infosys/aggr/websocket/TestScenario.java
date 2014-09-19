@@ -2,7 +2,7 @@ package at.ac.tuwien.infosys.aggr.websocket;
 
 import at.ac.tuwien.infosys.aggr.node.BrowserAggregatorNode;
 import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 public abstract class TestScenario {
 

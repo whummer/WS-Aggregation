@@ -20,8 +20,8 @@
 package at.ac.tuwien.infosys.aggr;
 
 import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.misc.PerformanceInterceptor;
+import io.hummer.util.Util;
+import io.hummer.util.misc.PerformanceInterceptor;
 
 public class Main {
 

@@ -18,29 +18,29 @@
  */
 package at.ac.tuwien.infosys.aggr.proxy;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.IAbstractNode.TerminateRequest;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.ws.WebServiceClient;
+import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager.ByteArray;
+import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
+import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
+import at.ac.tuwien.infosys.aggr.monitor.NotificationTask;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
-import at.ac.tuwien.infosys.ws.IAbstractNode.TerminateRequest;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.strategy.StrategyChain;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
-import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
-import at.ac.tuwien.infosys.aggr.monitor.NotificationTask;
-import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager.ByteArray;
-import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class AggregatorNodeProxy {
 	private static final String namespace = Configuration.NAMESPACE;

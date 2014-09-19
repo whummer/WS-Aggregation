@@ -26,8 +26,8 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
 
 import com.eviware.soapui.impl.wadl.inference.InferredSchema;
 import com.eviware.soapui.impl.wadl.inference.support.InferredSchemaImpl;

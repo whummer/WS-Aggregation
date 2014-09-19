@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 @XmlRootElement(name = FixedLoadShedder.JAXB_ELEMENT_NAME, namespace=Configuration.NAMESPACE)
 @XmlJavaTypeAdapter(EventBurstHandling.Adapter.class)

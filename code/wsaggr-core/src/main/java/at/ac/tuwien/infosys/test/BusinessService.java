@@ -18,6 +18,8 @@
  */
 package at.ac.tuwien.infosys.test;
 
+import io.hummer.util.xml.XMLUtil;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -28,7 +30,6 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.util.TestUtil;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 import at.ac.tuwien.infosys.ws.SoapService;
 
 @WebService

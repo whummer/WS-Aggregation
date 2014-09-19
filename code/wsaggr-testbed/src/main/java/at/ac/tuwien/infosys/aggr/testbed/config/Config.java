@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 /**
  * Representation of the configuration of the testbed. This files is an

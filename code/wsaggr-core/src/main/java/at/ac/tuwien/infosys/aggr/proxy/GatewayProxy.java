@@ -18,6 +18,12 @@
  */
 package at.ac.tuwien.infosys.aggr.proxy;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,11 +37,6 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyOptimizerVNS.OptimizationParameters;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 
 public class GatewayProxy {
 	private static final String namespace = Configuration.NAMESPACE;

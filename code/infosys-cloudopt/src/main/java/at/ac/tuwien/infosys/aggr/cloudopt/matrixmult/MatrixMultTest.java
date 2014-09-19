@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.matrixmult;
 
+import io.hummer.util.Configuration;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -32,7 +34,6 @@ import org.opt4j.core.Objective;
 import org.opt4j.core.Objective.Sign;
 
 import at.ac.tuwien.infosys.aggr.cloudopt.collaboration.ICollaborativeNode.MyString;
-import at.ac.tuwien.infosys.util.Configuration;
 import at.ac.tuwien.infosys.ws.DynamicWSClient;
 import at.ac.tuwien.infosys.ws.EndpointReference;
 import at.ac.tuwien.infosys.ws.IAbstractNode.TerminateRequest;

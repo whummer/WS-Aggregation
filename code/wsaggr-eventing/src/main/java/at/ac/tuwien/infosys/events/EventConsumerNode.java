@@ -19,6 +19,10 @@
 
 package at.ac.tuwien.infosys.events;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -35,9 +39,6 @@ import at.ac.tuwien.infosys.events.ws.EventSubscribeResponse;
 import at.ac.tuwien.infosys.events.ws.EventSubscriptionEndRequest;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
 import at.ac.tuwien.infosys.events.ws.WebServiceClientUtil;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace = WSEvent.NAMESPACE)
 public class EventConsumerNode extends AbstractNode implements EventSubscriber, NodeState {

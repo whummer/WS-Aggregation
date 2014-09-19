@@ -22,7 +22,7 @@
  */
 package at.ac.tuwien.infosys.aggr.testbed.messaging;
 
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.ws.EndpointReference;
 import at.ac.tuwien.infosys.ws.Service;
 
 /**

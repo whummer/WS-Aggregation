@@ -19,6 +19,7 @@
 
 package at.ac.tuwien.infosys.monitoring.esper;
 
+import io.hummer.util.Util;
 import net.esper.adapter.ws.AbstractInputWSAdapter;
 import net.esper.adapter.ws.SOAPEventInputAdapter;
 
@@ -26,7 +27,6 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.monitoring.config.NodeConfigInput;
-import at.ac.tuwien.infosys.util.Util;
 
 import com.espertech.esper.client.EPException;
 

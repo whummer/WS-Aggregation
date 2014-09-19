@@ -19,6 +19,16 @@
 
 package at.ac.tuwien.infosys.aggr.events.query;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.coll.DoubleHashSet;
+import io.hummer.util.perf.MemoryAgent;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -44,15 +54,6 @@ import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.util.ServiceClientFactory;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.coll.DoubleHashSet;
-import at.ac.tuwien.infosys.util.perf.MemoryAgent;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 
 @SuppressWarnings("unchecked")
 public class EventStoresManager {

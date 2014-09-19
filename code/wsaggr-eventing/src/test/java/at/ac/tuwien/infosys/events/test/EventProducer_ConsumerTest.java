@@ -27,8 +27,8 @@ import at.ac.tuwien.infosys.events.EventConsumerNode;
 import at.ac.tuwien.infosys.events.EventDistributorNode;
 import at.ac.tuwien.infosys.events.EventProducerNode;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
 
 @org.junit.Ignore
 public class EventProducer_ConsumerTest {	

@@ -18,6 +18,16 @@
  */
 package at.ac.tuwien.infosys.aggr.proxy;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.ws.request.RequestType;
+import io.hummer.util.xml.XMLUtil;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,18 +41,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Gateway;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class RegistryProxy {
 	
@@ -56,7 +58,7 @@ public class RegistryProxy {
 	private static Map<String, List<DataServiceNode>> cachedServiceNodes = new HashMap<String, List<DataServiceNode>>();
 	private static List<AggregatorNode> cachedAggregatorNodes = new LinkedList<AggregatorNode>();
 	private static Gateway cachedGateway = null;
-	private static Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(RegistryProxy.class);
+	private static Logger logger = Util.getLogger(RegistryProxy.class);
 	private static long nextCacheResetTime = 0;
 	private static final List<Integer> cacheResetIntervals = 
 			new LinkedList<Integer>(Arrays.asList(1000*10, 1000*20, 1000*10, 1000*20, 1000*30, 1000*60, 1000*60*10));

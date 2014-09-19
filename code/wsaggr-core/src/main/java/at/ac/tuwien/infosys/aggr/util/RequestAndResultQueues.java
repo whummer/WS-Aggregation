@@ -18,8 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.util;
 
-import java.util.HashMap;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.persist.Identifiable;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -28,9 +31,6 @@ import javax.jws.WebMethod;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.util.Invoker.InvokerTask;
-import at.ac.tuwien.infosys.util.Identifiable;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
 
 public class RequestAndResultQueues<RequestType extends Identifiable,ResultType> {
 

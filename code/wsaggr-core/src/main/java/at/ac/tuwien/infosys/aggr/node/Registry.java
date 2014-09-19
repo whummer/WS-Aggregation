@@ -18,6 +18,13 @@
  */
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.persist.IDocumentCache;
+import io.hummer.util.persist.IDocumentCache.CacheEntry;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,18 +52,12 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
 import at.ac.tuwien.infosys.aggr.util.Constants;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.IDocumentCache;
-import at.ac.tuwien.infosys.util.IDocumentCache.CacheEntry;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(name="Registry", serviceName="RegistryService", portName="RegistryPort", targetNamespace=Configuration.NAMESPACE)
 @Path("registry")
 public class Registry extends AbstractNode {
 
-	protected static Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(Registry.class);
+	protected static Logger logger = Util.getLogger(Registry.class);
 	
 	// for testing purposes
 	public int numServiceNodes = 0;

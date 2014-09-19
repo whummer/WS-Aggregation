@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
@@ -27,8 +30,6 @@ import at.ac.tuwien.infosys.events.EventTypeRepository;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfig;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringStartupConfig;
 import at.ac.tuwien.infosys.monitoring.config.NodeRepositoryNodeConfig;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
 
 public abstract class AbstractMonitoringService implements MonitoringService {
 
@@ -66,7 +67,7 @@ public abstract class AbstractMonitoringService implements MonitoringService {
 	
 	private DeploymentConfigFactory deploymentConfigFactory;
 
-	private static final Util UTIL = new Util();
+	private static final Util util = new Util();
 
 	public AbstractMonitoringService(MonitoringEngineInternal engine){
 		this.engine = engine;
@@ -131,7 +132,7 @@ public abstract class AbstractMonitoringService implements MonitoringService {
 		dConfig = this.deploymentConfigFactory.createConfig(config, nodeRepository);
 		
 		if(LOGGER.isInfoEnabled()){
-			final String deplConfig = UTIL.toString(dConfig, true);
+			final String deplConfig = util.xml.toString(dConfig, true);
 			LOGGER.info("Active Deployment Config:\n" + deplConfig);
 		}
 		LOGGER.debug("Configuring engine.");						
@@ -147,16 +148,16 @@ public abstract class AbstractMonitoringService implements MonitoringService {
 	}	
 
 	public static MonitoringStartupConfig parseMonitoringStartupConfig(InputStream stream) throws Exception {
-		final String fileContent = UTIL.readFile(stream);
-		MonitoringStartupConfig mConfig = UTIL.toJaxbObject(
-				MonitoringStartupConfig.class, UTIL.toElement(fileContent));
+		final String fileContent = util.io.readFile(stream);
+		MonitoringStartupConfig mConfig = util.xml.toJaxbObject(
+				MonitoringStartupConfig.class, util.xml.toElement(fileContent));
 		return mConfig;
 	}
 	
 	public static MonitoringConfig parseMonitoringConfig(InputStream stream) throws Exception {
-		final String fileContent = UTIL.readFile(stream);
-		MonitoringConfig mConfig = UTIL.toJaxbObject(
-				MonitoringConfig.class, UTIL.toElement(fileContent));
+		final String fileContent = util.io.readFile(stream);
+		MonitoringConfig mConfig = util.xml.toJaxbObject(
+				MonitoringConfig.class, util.xml.toElement(fileContent));
 		return mConfig;
 	}
 

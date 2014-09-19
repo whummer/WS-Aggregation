@@ -1,5 +1,8 @@
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -11,26 +14,24 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
-import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator;
 import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager.ByteArray;
+import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator;
 import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
 import at.ac.tuwien.infosys.aggr.flow.FlowManager;
 import at.ac.tuwien.infosys.aggr.monitor.DataServiceMonitor;
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
-import at.ac.tuwien.infosys.aggr.monitor.NotificationTask;
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification.EventStreamIdSOAPHeader;
+import at.ac.tuwien.infosys.aggr.monitor.NotificationTask;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode.AggregatorException;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo;
+import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponse;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponseConstructor;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
-import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
 import at.ac.tuwien.infosys.aggr.strategy.StrategyChain;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
 import at.ac.tuwien.infosys.aggr.util.Invoker;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace = Configuration.NAMESPACE)
 public interface IAggregatorNode {

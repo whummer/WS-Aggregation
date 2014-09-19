@@ -1,8 +1,8 @@
 package at.ac.tuwien.infosys.aggr.websocket;
 
-import org.w3c.dom.Element;
+import io.hummer.util.Util;
 
-import at.ac.tuwien.infosys.util.Util;
+import org.w3c.dom.Element;
 
 public interface StatisticsData {
 	

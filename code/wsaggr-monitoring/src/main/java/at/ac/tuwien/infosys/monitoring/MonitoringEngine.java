@@ -19,10 +19,6 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
-import java.util.concurrent.Executor;
-
-import at.ac.tuwien.infosys.events.Event;
-import at.ac.tuwien.infosys.events.EventTypeRepository;
 
 public interface MonitoringEngine {
 	

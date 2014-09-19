@@ -41,11 +41,11 @@ import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.events.EventReceiverService;
 import at.ac.tuwien.infosys.events.query.EventQuerierMXQuery;
 import at.ac.tuwien.infosys.events.test.EventingTestServiceStarter;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.Parallelization;
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.ResultType;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.par.Parallelization;
+import io.hummer.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult.ResultType;
+import io.hummer.util.ws.EndpointReference;
 
 @org.junit.Ignore
 public class HighFrequencyEventsTest implements EventQueryListener {

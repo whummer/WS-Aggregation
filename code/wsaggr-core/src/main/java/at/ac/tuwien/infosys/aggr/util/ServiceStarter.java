@@ -18,6 +18,13 @@
  */
 package at.ac.tuwien.infosys.aggr.util;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.perf.MemoryAgent;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import java.io.File;
 import java.net.BindException;
 import java.net.URL;
@@ -35,11 +42,6 @@ import at.ac.tuwien.infosys.aggr.node.BrowserAggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.Gateway;
 import at.ac.tuwien.infosys.aggr.node.OptimizerNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.perf.MemoryAgent;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class ServiceStarter {
 
@@ -248,7 +250,21 @@ public class ServiceStarter {
 				"</wsa:ServiceName>" +
 			"</wsa:EndpointReference>"));
 		address = Configuration.getUrlWithVariableHost(Configuration.PROP_REGISTRY_URL, Configuration.PROP_BINDHOST, Configuration.PROP_HOST);
-		r.deploy(address);
+		AbstractNode.deploy(r, address
+//				,new Handler<MessageContext>() {
+//			public boolean handleMessage(MessageContext context) {
+//				System.out.println("Handler.handleMessage: " + context);
+//				return true;
+//			}
+//			public boolean handleFault(MessageContext context) {
+//				System.out.println("Handler.handleFault: " + context);
+//				return true;
+//			}
+//			public void close(MessageContext context) {
+//				System.out.println("Handler.close: " + context);
+//			}
+//		}
+		);
 		System.out.println("Started registry, SOAP/WSDL: " + address + " , REST/WADL: " + r.getWadlURL());
 	}
 

@@ -64,11 +64,11 @@
 
 	<dependencies>
 	
-		<dependency>
-			<groupId>at.ac.tuwien.infosys</groupId>
-			<artifactId>InfosysTools</artifactId>
-			<version>1-SNAPSHOT</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>at.ac.tuwien.infosys</groupId> -->
+<!-- 			<artifactId>InfosysTools</artifactId> -->
+<!-- 			<version>1-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>at.ac.tuwien.infosys</groupId>
 			<artifactId>infosys-xmltools</artifactId>

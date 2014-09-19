@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
+import io.hummer.util.persist.Identifiable;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +37,6 @@ import at.ac.tuwien.infosys.aggr.request.AbstractOutput;
 import at.ac.tuwien.infosys.monitoring.config.Constants;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfigSet;
 import at.ac.tuwien.infosys.monitoring.config.Outputs;
-import at.ac.tuwien.infosys.util.Identifiable;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name=DeploymentNodeConfig.NAME_ELEMENT, namespace=Constants.NAMESPACE)
 @XmlSeeAlso({AbstractInput.class, AbstractOutput.class})

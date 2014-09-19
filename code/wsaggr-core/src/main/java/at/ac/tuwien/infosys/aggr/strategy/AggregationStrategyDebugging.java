@@ -18,12 +18,13 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;

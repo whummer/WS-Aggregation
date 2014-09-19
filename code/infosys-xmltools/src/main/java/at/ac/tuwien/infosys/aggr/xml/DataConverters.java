@@ -19,6 +19,10 @@
 
 package at.ac.tuwien.infosys.aggr.xml;
 
+import io.hummer.util.Util;
+import io.hummer.util.io.IOUtil;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,9 +60,6 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-
 public class DataConverters {
 
 	private static final Util util = new Util();
@@ -74,7 +75,7 @@ public class DataConverters {
 
 		@Override
 		public StructuredQName getFunctionQName() {
-			return new StructuredQName("wsaggr", at.ac.tuwien.infosys.util.Configuration.NAMESPACE, "csvToXML");
+			return new StructuredQName("wsaggr", io.hummer.util.Configuration.NAMESPACE, "csvToXML");
 		}
 
 		@Override
@@ -152,7 +153,7 @@ public class DataConverters {
 
 		@Override
 		public StructuredQName getFunctionQName() {
-			return new StructuredQName("wsaggr", at.ac.tuwien.infosys.util.Configuration.NAMESPACE, "toTable");
+			return new StructuredQName("wsaggr", io.hummer.util.Configuration.NAMESPACE, "toTable");
 		}
 
 		@Override
@@ -239,7 +240,7 @@ public class DataConverters {
 
 		@Override
 		public StructuredQName getFunctionQName() {
-			return new StructuredQName("wsaggr", at.ac.tuwien.infosys.util.Configuration.NAMESPACE, "jsonToXML");
+			return new StructuredQName("wsaggr", io.hummer.util.Configuration.NAMESPACE, "jsonToXML");
 		}
 
 		@Override
@@ -319,7 +320,7 @@ public class DataConverters {
 
 		@Override
 		public StructuredQName getFunctionQName() {
-			return new StructuredQName("wsaggr", at.ac.tuwien.infosys.util.Configuration.NAMESPACE, "pdfToXML");
+			return new StructuredQName("wsaggr", io.hummer.util.Configuration.NAMESPACE, "pdfToXML");
 		}
 
 		@Override
@@ -368,7 +369,7 @@ public class DataConverters {
 			};
 			return c;
 		}
-		
+
 		private Element doConvert(String pdfFileURL) throws Exception {
 			Util util = Util.getInstance();
 			String pdfName = UUID.randomUUID().toString() + ".pdf";
@@ -381,8 +382,9 @@ public class DataConverters {
 				is = url.openStream();
 				fos = new FileOutputStream(new File(pdfName));
 				
-				byte[] buffer = util.io.readBytes(is);
+				byte[] buffer = IOUtil.readBytes(is);
 				fos.write(buffer);
+				fos.close();
 				
 				new File(pdfName).deleteOnExit();
 				new File(htmlName).deleteOnExit();

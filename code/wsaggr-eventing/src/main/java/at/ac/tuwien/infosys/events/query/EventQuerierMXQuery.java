@@ -19,6 +19,11 @@
 
 package at.ac.tuwien.infosys.events.query;
 
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.perf.MemoryAgent;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
@@ -38,10 +43,6 @@ import at.ac.tuwien.infosys.aggr.events.query.EventBuffer;
 import at.ac.tuwien.infosys.aggr.events.query.EventQuerier;
 import at.ac.tuwien.infosys.aggr.events.query.EventStream;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.perf.MemoryAgent;
 import ch.ethz.mxquery.MXQueryGlobals;
 import ch.ethz.mxquery.bindings.WindowBuffer;
 import ch.ethz.mxquery.bindings.WindowSequenceIterator;
@@ -541,7 +542,7 @@ public class EventQuerierMXQuery implements EventQuerier {
 								((StringBuilder)result).append(event);
 							} else {
 								List<Element> res = ((List<Element>)result);
-								res.add(util.toElement(event));
+								res.add(util.xml.toElement(event));
 								if(maxItems > 0 && res.size() > maxItems)
 									res.remove(0);
 							}

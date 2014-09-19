@@ -19,14 +19,13 @@
 
 package at.ac.tuwien.infosys.events;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.events.Event;
-import at.ac.tuwien.infosys.events.EventTypeRepository;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
 import at.ac.tuwien.infosys.events.ws.WebServiceClientUtil;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 
 public class EventForwarderNode extends AbstractNode {
 

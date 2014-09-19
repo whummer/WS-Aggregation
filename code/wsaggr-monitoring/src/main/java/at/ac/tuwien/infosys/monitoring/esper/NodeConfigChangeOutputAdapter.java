@@ -22,8 +22,8 @@ package at.ac.tuwien.infosys.monitoring.esper;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.monitoring.config.NodeConfigChangeOutput;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
 
 import com.espertech.esper.client.EventBean;
 

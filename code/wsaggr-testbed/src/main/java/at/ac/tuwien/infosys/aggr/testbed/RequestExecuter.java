@@ -28,7 +28,7 @@ import javax.xml.ws.Endpoint;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 import at.ac.tuwien.infosys.ws.Service;
 
 import com.sun.grizzly.http.SelectorThread;

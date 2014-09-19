@@ -19,6 +19,11 @@
 
 package at.ac.tuwien.infosys.aggr.testbed;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -30,11 +35,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import com.amazonaws.services.ec2.model.Instance;
-
-import at.ac.tuwien.infosys.ws.Service;
-import at.ac.tuwien.infosys.ws.SoapService;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.testbed.config.Config;
@@ -45,8 +45,10 @@ import at.ac.tuwien.infosys.aggr.testbed.messaging.DeployServiceRequest;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.DeploySoapRequest;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.Request;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.StopRequestServerRequest;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.util.Util;
+import at.ac.tuwien.infosys.ws.Service;
+import at.ac.tuwien.infosys.ws.SoapService;
+
+import com.amazonaws.services.ec2.model.Instance;
 
 public class TestbedMain {
 	private static final Logger LOGGER = Util.getLogger(TestbedMain.class);
@@ -77,12 +79,12 @@ public class TestbedMain {
 
 		WebServiceClient client = WebServiceClient.getClient(new EndpointReference(new URL(gatewayUri)));
 
-		Util util = new Util();
+		XMLUtil xmlUtil = new XMLUtil();
 		for(TestRunConfig trc : testRunConfigs) {
-			RequestInput input = new RequestInput(util.xml.toElement(trc.request));
+			RequestInput input = new RequestInput(xmlUtil.toElement(trc.request));
 			Element result = client.invoke(input.getRequest()).getResultAsElement();
 			System.out.println("done request, result: ");
-			util.xml.print(result);
+			xmlUtil.print(result);
 		}
 	}
 	
@@ -211,7 +213,8 @@ public class TestbedMain {
 		
 		return null;
 	}
-	
+
+	@SuppressWarnings("all")
 	public Object createObjectFromClassname(String classname,
 			String path) {
 	
@@ -230,7 +233,7 @@ public class TestbedMain {
 			// Load the class. full qualified classname should be located in
 			// the directory "path"
 			Class<?> cls = cl.loadClass(classname);
-			
+
 			return (Object) cls.newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();

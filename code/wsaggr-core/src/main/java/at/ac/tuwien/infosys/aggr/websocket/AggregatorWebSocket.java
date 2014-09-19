@@ -1,5 +1,8 @@
 package at.ac.tuwien.infosys.aggr.websocket;
 
+import io.hummer.util.Util;
+import io.hummer.util.coll.BlockingMap;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +20,6 @@ import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode.AggregatorException;
 import at.ac.tuwien.infosys.aggr.node.BrowserAggregatorNode;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.coll.BlockingMap;
 
 public class AggregatorWebSocket implements WebSocket.OnTextMessage {
 
@@ -26,7 +27,7 @@ public class AggregatorWebSocket implements WebSocket.OnTextMessage {
 	
 	// LOW: write comments
 	// LOW: create new project
-	protected static final Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(AggregatorWebSocket.class);
+	protected static final Logger logger = Util.getLogger(AggregatorWebSocket.class);
 	
 	private Connection connection;
 	private BrowserAggregatorNode banode;

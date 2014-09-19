@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.xml;
 
+import io.hummer.util.Util;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
-import at.ac.tuwien.infosys.util.Util;
 import ch.ethz.mxquery.contextConfig.CompilerOptions;
 import ch.ethz.mxquery.contextConfig.Context;
 import ch.ethz.mxquery.datamodel.Source;
@@ -128,11 +129,11 @@ public class XQueryProcessorMXQuery extends XQueryProcessor {
 				resultObj = resultList.get(0);
 			
 			if(forceSingleResultElement) {
-				Element resultEl = util.createElement("result");
+				Element resultEl = util.xml.createElement("result");
 				if(resultObj instanceof List<?>) {
 					for(Object o : ((List<?>)resultObj)) {
 						if(o instanceof Element) {
-							util.appendChild(resultEl, (Element)o);
+							util.xml.appendChild(resultEl, (Element)o);
 						} else {
 							throw new Exception("Unexpected type of result list item: " + o);
 						}

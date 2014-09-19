@@ -19,14 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
-import org.apache.log4j.Logger;
-
 import at.ac.tuwien.infosys.monitoring.config.MonitoringStartupConfig;
-import at.ac.tuwien.infosys.util.Util;
 
 public class EucalyptusMonitoringService extends AbstractMonitoringService {
-	
-	private static final Logger LOGGER = Util.getLogger(EucalyptusMonitoringService.class);
 	
 	public EucalyptusMonitoringService(MonitoringEngineInternal engine) {
 		super(engine);

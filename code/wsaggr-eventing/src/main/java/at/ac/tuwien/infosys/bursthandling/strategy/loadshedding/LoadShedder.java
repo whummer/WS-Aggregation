@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 @XmlRootElement(name=LoadShedder.JAXB_ELEMENT_NAME, namespace=Configuration.NAMESPACE)
 @XmlJavaTypeAdapter(EventBurstHandling.Adapter.class)

@@ -29,8 +29,8 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.testbed.config.Config;
 import at.ac.tuwien.infosys.aggr.testbed.config.EC2Config;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
 
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2Client;

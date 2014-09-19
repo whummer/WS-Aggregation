@@ -53,7 +53,7 @@ import at.ac.tuwien.infosys.monitoring.config.NodeConfigInput;
 import at.ac.tuwien.infosys.monitoring.config.NodeConfigOutput;
 import at.ac.tuwien.infosys.monitoring.config.SOAPEventInput;
 import at.ac.tuwien.infosys.monitoring.config.SOAPEventOutput;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.espertech.esper.adapter.Adapter;
 import com.espertech.esper.adapter.AdapterSPI;

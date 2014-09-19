@@ -25,7 +25,7 @@ import at.ac.tuwien.infosys.aggr.node.AggregatorNode.AggregatorException;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 /**
  * @author andrea

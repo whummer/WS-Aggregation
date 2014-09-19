@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
 import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling;
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 @XmlRootElement(name="escalationRequest", namespace=Configuration.NAMESPACE)
 @XmlSeeAlso(EventBurstHandling.class)

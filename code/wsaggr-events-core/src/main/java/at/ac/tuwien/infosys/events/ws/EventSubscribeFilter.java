@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
+import io.hummer.util.xml.XMLUtil;
 
 
 @XmlRootElement(name = "Filter", namespace = WSEvent.NAMESPACE)

@@ -19,14 +19,14 @@
 
 package at.ac.tuwien.infosys.monitoring.config;
 
+import io.hummer.util.ws.EndpointReference;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import at.ac.tuwien.infosys.aggr.request.AbstractOutput;
-import at.ac.tuwien.infosys.monitoring.config.NonConstantOutput;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name=SOAPEventOutput.JAXB_ELEMENT_NAME)
 @XmlJavaTypeAdapter(AbstractOutput.Adapter.class)

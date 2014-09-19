@@ -43,10 +43,10 @@ import javax.management.remote.JMXServiceURL;
 import org.junit.Ignore;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.IterationResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.ResultType;
+import io.hummer.util.Util;
+import io.hummer.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult.IterationResult;
+import io.hummer.util.test.GenericTestResult.ResultType;
 import at.ac.tuwien.infosys.aggr.events.query.EventStream;
 import at.ac.tuwien.infosys.aggr.events.query.EventQuerier;
 import at.ac.tuwien.infosys.aggr.events.query.EventQuerier.EventQueryListener;

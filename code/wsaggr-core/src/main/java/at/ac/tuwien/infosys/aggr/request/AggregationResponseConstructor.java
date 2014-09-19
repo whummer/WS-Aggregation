@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Util;
+
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -40,7 +42,6 @@ import org.w3c.dom.Element;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponse.DebugInfo;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion.AssertionEvaluationTarget;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion.AssertionEvaluationTime;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion.AssertionResult;

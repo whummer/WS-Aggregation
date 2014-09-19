@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,8 +30,6 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.performance.GarbageCollector;
@@ -86,7 +87,7 @@ public class AggregationStrategySimple extends AggregationStrategy {
 			AggregatorNode minNode = null;
 			for(AggregatorNode a : allNodes) {
 				if(!nodes.contains(a)) {
-					if(util.net.isPortOpen(a)) {
+					if(util.net.isPortOpen(a.getEPR().getAddress())) {
 						aggregatorToLastUsageTime.put(a, System.currentTimeMillis());
 						masterSuggestions.add(a);
 						return;

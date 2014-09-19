@@ -19,20 +19,20 @@
 
  package at.ac.tuwien.infosys.events.schema;
 
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.ws.request.RequestType;
+
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
 import org.w3c.dom.Element;
-
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 
 public class XmlSchemaInferenceDotNet extends XmlSchemaInference {
 

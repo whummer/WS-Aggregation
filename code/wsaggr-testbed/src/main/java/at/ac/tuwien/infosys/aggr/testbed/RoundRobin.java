@@ -35,8 +35,8 @@ import at.ac.tuwien.infosys.aggr.testbed.config.AggregatorConfig;
 import at.ac.tuwien.infosys.aggr.testbed.config.Config;
 import at.ac.tuwien.infosys.aggr.testbed.config.TestRunConfig;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.DeployServiceRequest;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
+import io.hummer.util.Util;
+import io.hummer.util.xml.XMLUtil;
 
 /**
  * @author Daniel Domberger

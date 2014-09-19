@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.monitor;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +28,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
@@ -35,8 +37,6 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponse;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
 
 @XmlRootElement(name="Event", namespace=Configuration.NAMESPACE)

@@ -27,7 +27,7 @@ import at.ac.tuwien.infosys.events.EventReceiverService;
 import at.ac.tuwien.infosys.events.schema.ESDSchema;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 @org.junit.Ignore
 public class EventSchemaTest {

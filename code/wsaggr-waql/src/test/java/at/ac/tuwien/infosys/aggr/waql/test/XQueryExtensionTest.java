@@ -19,6 +19,11 @@
 
 package at.ac.tuwien.infosys.aggr.waql.test;
 
+import io.hummer.util.Util;
+import io.hummer.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult.IterationResult;
+import io.hummer.util.test.GenericTestResult.ResultType;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -29,17 +34,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import at.ac.tuwien.infosys.aggr.waql.DataDependency;
-import at.ac.tuwien.infosys.aggr.waql.PreprocessorEngine;
-import at.ac.tuwien.infosys.aggr.waql.PreprocessorFactory;
-
 import org.junit.Ignore;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.IterationResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.ResultType;
+import at.ac.tuwien.infosys.aggr.waql.DataDependency;
+import at.ac.tuwien.infosys.aggr.waql.PreprocessorEngine;
+import at.ac.tuwien.infosys.aggr.waql.PreprocessorFactory;
 import at.ac.tuwien.infosys.aggr.xml.XQueryProcessor;
 
 @Ignore

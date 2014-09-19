@@ -18,6 +18,8 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.Util;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -41,7 +43,6 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.InputTargetExtractor;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.waql.DataDependency;
 
 @XmlRootElement(name="Topology")
@@ -87,10 +88,10 @@ public class Topology {
 					Entry entry = (Entry)e;
 					b.append("<j:e>");
 					b.append("<k>");
-					b.append(util.toString(marshal(entry.getKey())));
+					b.append(util.xml.toString(marshal(entry.getKey())));
 					b.append("</k>");
 					b.append("<v>");
-					b.append(util.toString(marshal(entry.getValue())));
+					b.append(util.xml.toString(marshal(entry.getValue())));
 					b.append("</v>");
 					b.append("</j:e>");
 				}
@@ -100,31 +101,31 @@ public class Topology {
 				b.append("<j:list xmlns:j=\"" + NAMESPACE + "\">");
 				for(Object i : list) {
 					b.append("<j:i>");
-					b.append(util.toString(marshal(i)));
+					b.append(util.xml.toString(marshal(i)));
 					b.append("</j:i>");
 				}
 				b.append("</j:list>");
 			} else if(o instanceof Element) {
 				return (Element)o;
 			} else {
-				return util.toElement(o);
+				return util.xml.toElement(o);
 			}
-			return util.toElement(b.toString());
+			return util.xml.toElement(b.toString());
 		}
 		@Override
 		@SuppressWarnings("all")
 		public Object unmarshal(Object v) throws Exception {
 			Element e = (Element)v;
-			List<Element> children = util.getChildElements(e);
+			List<Element> children = util.xml.getChildElements(e);
 			if(NAMESPACE.equals(e.getNamespaceURI()) || (children.size() > 0 && 
 					NAMESPACE.equals(children.get(0).getNamespaceURI()))) {
 				if(e.getLocalName().equals("map") || (children.size() > 0 &&
 						children.get(0).getLocalName().equals("e"))) { // e = map entry
 					Map map = new HashMap();
 					for(Element entry : children) {
-						List<Element> keyAndValue = util.getChildElements(entry);
-						Object key = unmarshal(util.getChildElements(keyAndValue.get(0)).get(0));
-						Object value = unmarshal(util.getChildElements(keyAndValue.get(1)).get(0));
+						List<Element> keyAndValue = util.xml.getChildElements(entry);
+						Object key = unmarshal(util.xml.getChildElements(keyAndValue.get(0)).get(0));
+						Object value = unmarshal(util.xml.getChildElements(keyAndValue.get(1)).get(0));
 						map.put(key, value);
 					}
 					return map;
@@ -132,13 +133,13 @@ public class Topology {
 						children.get(0).getLocalName().equals("i"))) { // i = list item
 					List list = new LinkedList();
 					for(Element item : children) {
-						Object itemObj = unmarshal(util.getChildElements(item).get(0));
+						Object itemObj = unmarshal(util.xml.getChildElements(item).get(0));
 						list.add(itemObj);
 					}
 					return list;
 				} 
 			}
-			Object returnObj = util.toJaxbObject(e);
+			Object returnObj = util.xml.toJaxbObject(e);
 			if(returnObj instanceof AggregationRequest) {
 				AggregationRequest r = (AggregationRequest)returnObj;
 				for(AbstractInput i : r.getAllInputs()) {

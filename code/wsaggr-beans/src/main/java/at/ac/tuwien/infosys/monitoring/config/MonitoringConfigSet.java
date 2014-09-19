@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.monitoring.config;
 
+import io.hummer.util.persist.Identifiable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +28,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import at.ac.tuwien.infosys.util.Identifiable;
 
 @XmlRootElement(name=MonitoringConfigSet.NAME_ELEMENT, namespace=Constants.NAMESPACE)
 public class MonitoringConfigSet implements Identifiable{

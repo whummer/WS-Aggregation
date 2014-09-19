@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.xml;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,12 +61,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-
 public class XQueryProcessorSaxon extends XQueryProcessor {
 
-	private static final Util Util = new Util();
+	private static final Util util = new Util();
 	private static final ErrorListener noopErrorListener = new NoopErrorListener();
 	private static class NoopErrorListener implements ErrorListener {
 		public void warning(TransformerException exception) throws TransformerException { }
@@ -71,7 +71,7 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 		public void error(TransformerException exception) throws TransformerException { }
 	};
 	
-	private static final Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(XQueryProcessor.class);
+	private static final Logger logger = Util.getLogger(XQueryProcessor.class);
 	private static Processor processor;
 	private static XQueryCompiler compiler;
 	private static final Map<String,XQueryExecutable> cache = new HashMap<String,XQueryExecutable>();
@@ -112,7 +112,7 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 		}
 		if(source != null)
 			eval.setSource(source);
-		Document result = Util.xml.newDocument();
+		Document result = util.xml.newDocument();
 		Destination dest = new DOMDestination(result);
 		eval.setDestination(dest);
 
@@ -199,19 +199,19 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 		try {
 			result = execute(theSource, exec, variables);
 		} catch (Exception e) {
-			theSource = new DOMSource(Util.xml.clone((Element)source));
+			theSource = new DOMSource(util.xml.clone((Element)source));
 			result = execute(theSource, exec, variables);
 		}
 		if(forceSingleResultElement) {
 			if(!(result instanceof Element)) {
-				Element resultEl = Util.xml.toElement("<result/>");
+				Element resultEl = util.xml.toElement("<result/>");
 				if(result instanceof List<?>) {
 					for(Object o : ((List<?>)result)) {
 						if(o instanceof Element) {
-							Util.xml.appendChild(resultEl, (Element)o);
+							util.xml.appendChild(resultEl, (Element)o);
 						} else if(o instanceof NodeWrapper) {
 							Element e = (Element)((NodeWrapper)o).getUnderlyingNode();
-							Util.xml.appendChild(resultEl, e);
+							util.xml.appendChild(resultEl, e);
 						} else {
 							throw new Exception("Unexpected type of result list item: " + o);
 						}
@@ -225,15 +225,15 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 				} else if(result instanceof NodeWrapper) {
 					resultEl = (Element)((NodeWrapper)result).getUnderlyingNode();
 				} else if(result instanceof TinyDocumentImpl) {
-					resultEl = Util.xml.toElement((TinyDocumentImpl)result);
+					resultEl = util.xml.toElement((TinyDocumentImpl)result);
 				} else if(result == null) {
-					String string = Util.xml.toString((Element)source);
+					String string = util.xml.toString((Element)source);
 					if(string.length() > 1000) {
 						string = string.substring(0, 1000) + " ... [truncated]";
 					}
 					throw new EmptyQueryResultException("Received empty result for query: " + exec.getUnderlyingCompiledQuery().getExpression() + "; Node was: " + (source instanceof Element ? string : source));
 				} else {
-					throw new Exception("Expected result type: single element, string, or list of elements/strings. Got: " + result + "; XQuery was: " + exec.getUnderlyingCompiledQuery().getExpression() + "; Node was: " + (source instanceof Element ? Util.xml.toString((Element)source) : source));
+					throw new Exception("Expected result type: single element, string, or list of elements/strings. Got: " + result + "; XQuery was: " + exec.getUnderlyingCompiledQuery().getExpression() + "; Node was: " + (source instanceof Element ? util.xml.toString((Element)source) : source));
 				}
 				result = resultEl;
 			}
@@ -271,7 +271,7 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 		
 		String ns = "myNS";
 		
-		Document d = Util.xml.newDocument();
+		Document d = util.xml.newDocument();
 		Element request = d.createElementNS(ns, "request");
 		request.setPrefix("tns");
 		request.setAttribute("xmlns:tns", ns);
@@ -343,7 +343,7 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 		query = "declare namespace wsa=\"" + Configuration.NAMESPACE + "\";" +
 				"wsa:csvToXML(/)";
 		
-		request = Util.xml.toElement("<csv>1,2,3\n1,2,3\n1,2,3\n1,2,3</csv");
+		request = util.xml.toElement("<csv>1,2,3\n1,2,3\n1,2,3\n1,2,3</csv");
 
 		query = "declare namespace wsa=\"" + Configuration.NAMESPACE + "\";" +
 				"every $x in wsa:csvToXML(/)/row satisfies count($x/col) >= 3";
@@ -374,18 +374,18 @@ public class XQueryProcessorSaxon extends XQueryProcessor {
 		if(result instanceof List<?>) {
 			for(Object o : ((List<?>)result)) {
 				if(o instanceof Element)
-					Util.xml.print((Element)o);
+					util.xml.print((Element)o);
 				else
 					System.out.println(o);
 			}
 		} else if(result instanceof Element) {
-			System.out.println(Util.xml.toString((Element)result));
+			System.out.println(util.xml.toString((Element)result));
 		} else if(result instanceof Document) {
-			System.out.println(Util.xml.toString(((Document)result).getDocumentElement()));
+			System.out.println(util.xml.toString(((Document)result).getDocumentElement()));
 		} else if(result instanceof TinyDocumentImpl) {
-			System.out.println(Util.xml.toString(Util.xml.toElement((TinyDocumentImpl)result)));
+			System.out.println(util.xml.toString(util.xml.toElement((TinyDocumentImpl)result)));
 		} else if(result instanceof NodeWrapper) {
-			System.out.println(Util.xml.toString((Element)((NodeWrapper)result).getUnderlyingNode()));
+			System.out.println(util.xml.toString((Element)((NodeWrapper)result).getUnderlyingNode()));
 		} else {
 			System.out.println(result);
 		}

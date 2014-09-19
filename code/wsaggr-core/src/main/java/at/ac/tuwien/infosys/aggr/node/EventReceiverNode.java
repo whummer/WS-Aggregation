@@ -18,8 +18,8 @@
  */
 package at.ac.tuwien.infosys.aggr.node;
 
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.AbstractNode;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
 
 public class EventReceiverNode extends AbstractNode {
 

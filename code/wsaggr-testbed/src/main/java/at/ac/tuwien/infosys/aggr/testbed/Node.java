@@ -36,7 +36,7 @@ import at.ac.tuwien.infosys.aggr.testbed.messaging.Request;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.StartAggregatorRequest;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.StartGatewayRequest;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.TerminateRequest;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.GetConsoleOutputRequest;
@@ -125,7 +125,7 @@ public class Node {
 		try {
 			String host = instance.getPublicDnsName();
 			int port = Config.requestPort;
-			new Socket(InetAddress.getByName(host), port);
+			new Socket(InetAddress.getByName(host), port).close();
 			return instance.getPublicDnsName();
 		} catch (Exception e) {
 			String host = null;

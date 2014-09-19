@@ -51,21 +51,15 @@
 
 	<dependencies>
 	
-		<!-- start: json to XML -->
-		<!-- TODO: should already be provided by InfosysTools -->
-<!-- 	    <dependency> -->
-<!-- 			<groupId>org.apache.commons</groupId> -->
-<!-- 			<artifactId>commons-io</artifactId> -->
-<!-- 			<version>2.0.1</version> -->
-<!-- 			<type>jar</type> -->
-<!-- 			<scope>compile</scope> -->
-<!-- 	    </dependency> -->
-		<!-- end: json to XML -->
-		
+<!-- 		<dependency> -->
+<!-- 			<groupId>at.ac.tuwien.infosys</groupId> -->
+<!-- 			<artifactId>InfosysTools</artifactId> -->
+<!-- 			<version>1-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 		<dependency>
-			<groupId>at.ac.tuwien.infosys</groupId>
-			<artifactId>InfosysTools</artifactId>
-			<version>1-SNAPSHOT</version>
+			<groupId>io.hummer</groupId>
+			<artifactId>utils-xml</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 
 		<dependency>

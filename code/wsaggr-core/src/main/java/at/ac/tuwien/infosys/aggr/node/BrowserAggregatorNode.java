@@ -18,6 +18,10 @@
  */
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.coll.BlockingMap;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,9 +47,6 @@ import at.ac.tuwien.infosys.aggr.util.Invoker;
 import at.ac.tuwien.infosys.aggr.websocket.AggregatorWebSocket;
 import at.ac.tuwien.infosys.aggr.websocket.EventStreamData;
 import at.ac.tuwien.infosys.aggr.websocket.WebSocketServer;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.coll.BlockingMap;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace=Configuration.NAMESPACE)
 @XmlRootElement

@@ -30,8 +30,8 @@ import at.ac.tuwien.infosys.events.EventTypeRepository;
 import at.ac.tuwien.infosys.events.LoggerEventConsumerNode;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringStartupConfig;
 import at.ac.tuwien.infosys.monitoring.events.stock.StockTickSendEvent;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
 
 @org.junit.Ignore
 public class MonitoringServiceTest extends LocalMonitoringService {

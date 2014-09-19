@@ -19,6 +19,15 @@
 
 package at.ac.tuwien.infosys.events.test;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult.IterationResult;
+import io.hummer.util.test.GenericTestResult.ResultType;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.xml.XMLUtil;
+
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +38,6 @@ import javax.xml.ws.Endpoint;
 import org.junit.Ignore;
 
 import at.ac.tuwien.infosys.aggr.AggregationClient;
-import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.aggr.monitor.MonitoringSpecification;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
@@ -43,16 +51,9 @@ import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyUtil;
+import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.events.EventReceiverService;
 import at.ac.tuwien.infosys.test.TestServiceStarter;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.IterationResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.ResultType;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 
 @Ignore
 public class EventStreamMigrationTest {

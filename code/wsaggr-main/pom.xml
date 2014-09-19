@@ -41,11 +41,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>utils-repo</id>
+			<url>https://github.com/whummer/java-utils/raw/master/build/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
-			<groupId>at.ac.tuwien.infosys</groupId>
-			<artifactId>InfosysTools</artifactId>
-			<version>1-SNAPSHOT</version>
+			<groupId>io.hummer</groupId>
+			<artifactId>utils-ws</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>at.ac.tuwien.infosys</groupId>

@@ -19,6 +19,10 @@
 
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -26,9 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import at.ac.tuwien.infosys.aggr.strategy.TopologyOptimizerVNS;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyOptimizerVNS.OptimizationParameters;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace=Configuration.NAMESPACE)
 @XmlRootElement

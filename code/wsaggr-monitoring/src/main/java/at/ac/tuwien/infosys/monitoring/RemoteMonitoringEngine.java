@@ -19,14 +19,8 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
-import java.util.concurrent.Executor;
-
-import javax.help.UnsupportedOperationException;
-
-import at.ac.tuwien.infosys.events.Event;
-import at.ac.tuwien.infosys.events.EventTypeRepository;
+import io.hummer.util.ws.EndpointReference;
 import at.ac.tuwien.infosys.events.ws.WebServiceClientUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class RemoteMonitoringEngine implements MonitoringEngine {
 

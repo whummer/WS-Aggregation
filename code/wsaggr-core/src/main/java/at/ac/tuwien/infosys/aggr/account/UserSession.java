@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.account;
 
+import io.hummer.util.persist.AbstractGenericDAO;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,7 +32,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import at.ac.tuwien.infosys.aggr.util.Constants;
-import at.ac.tuwien.infosys.util.AbstractGenericDAO;
 
 @Entity
 public class UserSession {

@@ -18,6 +18,19 @@
  */
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.test.TestUtil;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.ws.request.RequestType;
+import io.hummer.util.xml.JAXBTypes;
+
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -55,8 +68,12 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.AggregationClient;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
+import at.ac.tuwien.infosys.aggr.account.CredentialsValidation;
+import at.ac.tuwien.infosys.aggr.account.User;
+import at.ac.tuwien.infosys.aggr.account.UserSession;
+import at.ac.tuwien.infosys.aggr.account.UsernameSOAPHeader;
+import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator;
+import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification.EventStreamIdSOAPHeader;
 import at.ac.tuwien.infosys.aggr.node.Registry.RegistryException;
@@ -67,41 +84,27 @@ import at.ac.tuwien.infosys.aggr.proxy.GatewayProxy;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponse;
-import at.ac.tuwien.infosys.aggr.request.SavedQueryInput;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
+import at.ac.tuwien.infosys.aggr.request.SavedQueryInput;
 import at.ac.tuwien.infosys.aggr.strategy.StrategyChain;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyOptimizerVNS;
-import at.ac.tuwien.infosys.aggr.strategy.TopologyUtil;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyOptimizerVNS.OptimizationParameters;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.xml.JAXBTypes;
+import at.ac.tuwien.infosys.aggr.strategy.TopologyUtil;
 import at.ac.tuwien.infosys.aggr.util.Constants;
 import at.ac.tuwien.infosys.aggr.util.Invoker.InvokerTask;
+import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
 import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues.RequestWorker;
-import at.ac.tuwien.infosys.aggr.account.CredentialsValidation;
-import at.ac.tuwien.infosys.aggr.account.User;
-import at.ac.tuwien.infosys.aggr.account.UserSession;
-import at.ac.tuwien.infosys.aggr.account.UsernameSOAPHeader;
-import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator;
-import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
 
 @WebService(targetNamespace=Configuration.NAMESPACE)
 @Path("gateway")
 public class Gateway extends AbstractNode implements RequestWorker<AggregationRequest, AggregationResponse> {
 
-	private static Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(Gateway.class);
+	private static Logger logger = Util.getLogger(Gateway.class);
 	public static final String REGISTRY_FEATURE_GATEWAY = "__gateway_feature__";
 
 	private static Util util = new Util();
+	private static TestUtil testUtil = new TestUtil();
 	private StrategyChain strategyChain;
 	private RequestAndResultQueues<AggregationRequest, AggregationResponse> queues = 
 		new RequestAndResultQueues<AggregationRequest, AggregationResponse>(this);
@@ -244,7 +247,7 @@ public class Gateway extends AbstractNode implements RequestWorker<AggregationRe
 			}
 			int socketTestRetries = 3;
 			for(int i = 0; i < socketTestRetries; i ++) {
-				if(util.net.isPortOpen(master.getEPR())) {
+				if(util.net.isPortOpen(master.getEPR().getAddress())) {
 					break;
 				}
 				/* previous master aggregator suggestion was invalid
@@ -281,7 +284,7 @@ public class Gateway extends AbstractNode implements RequestWorker<AggregationRe
 
 					WebServiceClient client = WebServiceClient.getClient(master.getEPR());
 					InvocationRequest aggrRequest = new RequestInput(util.xml.toElement(request)).getRequest();
-					if(!util.test.isNullOrTrue(request.getTimeout())) {
+					if(!testUtil.isNullOrTrue(request.getTimeout())) {
 						aggrRequest.timeout = false;
 					}
 					logger.info("Selected master aggregator: " + master.getEPR().getAddress());
@@ -1052,7 +1055,7 @@ public class Gateway extends AbstractNode implements RequestWorker<AggregationRe
 			logger.info("Could not find existing gateway, setting new main gateway: " + address);
 		}
 		if(gatewayEPR != null) {
-			if(util.net.isPortOpen(gatewayEPR)) {
+			if(util.net.isPortOpen(gatewayEPR.getAddress())) {
 				logger.debug("Existing gateway found, adding/updating secondary gateway: " + address);
 				hasMainGateway = true;
 			} else {

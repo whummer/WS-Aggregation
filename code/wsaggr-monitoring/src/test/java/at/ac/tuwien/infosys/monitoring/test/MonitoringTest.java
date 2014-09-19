@@ -22,7 +22,7 @@ package at.ac.tuwien.infosys.monitoring.test;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfig;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 @org.junit.Ignore
 public class MonitoringTest {
@@ -32,7 +32,7 @@ public class MonitoringTest {
 	public static void main(String[] args) throws Exception {
 		
 		final MonitoringConfig config = util.xml.toJaxbObject(MonitoringConfig.class, 
-				util.xml.toElement(util.readFile(MonitoringTest.class.getResourceAsStream(
+				util.xml.toElement(util.io.readFile(MonitoringTest.class.getResourceAsStream(
 						"monitoringTest.xml"))));
 		
 		System.out.println(config.toString());

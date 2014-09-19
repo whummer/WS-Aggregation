@@ -26,7 +26,7 @@ import java.io.InputStreamReader;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.testbed.config.Config;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 /**
  * Wrapper Class for the bootstrap script. Copying stuff from/to remote hosts

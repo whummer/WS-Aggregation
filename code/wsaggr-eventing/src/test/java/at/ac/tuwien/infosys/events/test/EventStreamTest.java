@@ -19,6 +19,14 @@
 
 package at.ac.tuwien.infosys.events.test;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult.IterationResult;
+import io.hummer.util.test.GenericTestResult.ResultType;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
@@ -47,8 +55,6 @@ import org.junit.Ignore;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.AggregationClient;
-import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
@@ -58,13 +64,8 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
 import at.ac.tuwien.infosys.aggr.testbed.TestbedMain;
+import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.test.TestServiceStarter;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.IterationResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.ResultType;
 
 @Ignore
 @WebService(name="Client", serviceName="Client", targetNamespace=Configuration.NAMESPACE)

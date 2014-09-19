@@ -30,7 +30,7 @@ import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import at.ac.tuwien.infosys.util.Configuration;
+import io.hummer.util.Configuration;
 
 /**
  * @author basic

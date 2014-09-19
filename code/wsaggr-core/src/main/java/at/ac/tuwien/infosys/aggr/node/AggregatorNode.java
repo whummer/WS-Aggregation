@@ -18,6 +18,19 @@
  */
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.coll.Pair;
+import io.hummer.util.misc.PerformanceInterceptor;
+import io.hummer.util.misc.PerformanceInterceptor.EventType;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.par.Parallelization;
+import io.hummer.util.perf.PerformanceProfiler;
+import io.hummer.util.test.TestUtil;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.request.InvocationResult;
+
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.LinkedList;
@@ -41,56 +54,44 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
+import at.ac.tuwien.infosys.aggr.events.query.EventQuerier;
+import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager;
+import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager.ByteArray;
+import at.ac.tuwien.infosys.aggr.events.query.EventStream;
+import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator;
+import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
 import at.ac.tuwien.infosys.aggr.flow.FlowManager;
 import at.ac.tuwien.infosys.aggr.flow.FlowNode.DependencyUpdatedInfo;
+import at.ac.tuwien.infosys.aggr.monitor.DataServiceMonitor;
+import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
+import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification.EventStreamIdSOAPHeader;
+import at.ac.tuwien.infosys.aggr.monitor.NotificationTask;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo;
-import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.UserDataRate;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.InputDataRate;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.InterAggregatorsDataRate;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.StreamDataRate;
+import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.UserDataRate;
 import at.ac.tuwien.infosys.aggr.proxy.AggregatorNodeProxy;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
+import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
+import at.ac.tuwien.infosys.aggr.request.AbstractInput.RequestInputs;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponse;
+import at.ac.tuwien.infosys.aggr.request.AggregationResponse.DebugInfo;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponseConstructor;
 import at.ac.tuwien.infosys.aggr.request.ConstantInput;
 import at.ac.tuwien.infosys.aggr.request.EventingInput;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery;
-import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
-import at.ac.tuwien.infosys.aggr.request.AbstractInput.RequestInputs;
-import at.ac.tuwien.infosys.aggr.request.AggregationResponse.DebugInfo;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
 import at.ac.tuwien.infosys.aggr.strategy.StrategyChain;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
-import at.ac.tuwien.infosys.aggr.monitor.DataServiceMonitor;
-import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
-import at.ac.tuwien.infosys.aggr.monitor.NotificationTask;
-import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification.EventStreamIdSOAPHeader;
-import at.ac.tuwien.infosys.util.Configuration;
 import at.ac.tuwien.infosys.aggr.util.Invoker;
-import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.util.Invoker.InvokerTask;
+import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
 import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues.RequestWorker;
-import at.ac.tuwien.infosys.aggr.events.query.EventQuerier;
-import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager;
-import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator;
-import at.ac.tuwien.infosys.aggr.events.query.EventStoresManager.ByteArray;
-import at.ac.tuwien.infosys.aggr.events.query.EventStream;
-import at.ac.tuwien.infosys.aggr.events.query.EventingQueryCoordinator.ActiveQueryResult;
-import at.ac.tuwien.infosys.util.coll.Pair;
-import at.ac.tuwien.infosys.util.misc.PerformanceInterceptor;
-import at.ac.tuwien.infosys.util.misc.PerformanceInterceptor.EventType;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.par.Parallelization;
-import at.ac.tuwien.infosys.util.perf.PerformanceProfiler;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 
 @WebService(targetNamespace=Configuration.NAMESPACE, endpointInterface = "at.ac.tuwien.infosys.aggr.node.IAggregatorNode")
 @XmlRootElement
@@ -101,9 +102,10 @@ public class AggregatorNode extends AbstractNode
 	private static final int READ_TIMEOUT_VERYLONG_MS = 1000*60*60;
 	private static final boolean AUTO_START_MEM_PROFILING = true;
 	private static final PerformanceProfiler memProfiler = new PerformanceProfiler();
-	protected static final Logger logger = at.ac.tuwien.infosys.util.Util.getLogger(AggregatorNode.class);
-	
+	protected static final Logger logger = Util.getLogger(AggregatorNode.class);
+
 	protected Util util = new Util();
+	protected TestUtil testUtil = new TestUtil();
 	private StrategyChain strategyChain;
 	private Invoker invoker;
 	private RequestAndResultQueues<AggregationRequest, AggregationResponse> queues;
@@ -572,7 +574,7 @@ public class AggregatorNode extends AbstractNode
 							RequestInput input = new RequestInput();
 							input.setTheContent(message);
 							InvokerTask task = new InvokerTask(partnersRequestID, partner, input, 
-									util.test.isNullOrTrue(theRequest.getTimeout()));
+									testUtil.isNullOrTrue(theRequest.getTimeout()));
 							invoker.addRequest(task);
 							sentRequests ++;
 							partnersRequestCount ++;
@@ -604,7 +606,7 @@ public class AggregatorNode extends AbstractNode
 
 							if(logger.isDebugEnabled()) logger.debug("Processing input: " + input);
 							InvokerTask request = new InvokerTask(dataServicesRequestID, node, input,
-									util.test.isNullOrTrue(theRequest.getTimeout()));
+									testUtil.isNullOrTrue(theRequest.getTimeout()));
 							invoker.addRequest(request);
 							sentRequests ++;
 							dataServicesRequestCount ++;
@@ -704,7 +706,7 @@ public class AggregatorNode extends AbstractNode
 			Parallelization.warnIfNoResultAfter(ref, "Waiting for result " + (i+1) + " of " + requestCount, 5000);
 			
 			AggregationResponse r = null;
-			if(util.test.isNullOrTrue(requestObject.getTimeout())) {
+			if(testUtil.isNullOrTrue(requestObject.getTimeout())) {
 				r = resultList.poll(READ_TIMEOUT_MS, TimeUnit.MILLISECONDS);
 			} else {
 				r = resultList.poll(READ_TIMEOUT_VERYLONG_MS, TimeUnit.MILLISECONDS);

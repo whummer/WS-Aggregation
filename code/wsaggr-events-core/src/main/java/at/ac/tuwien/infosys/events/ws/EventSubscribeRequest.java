@@ -19,14 +19,14 @@
 
 package at.ac.tuwien.infosys.events.ws;
 
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name = "Subscribe", namespace = WSEvent.NAMESPACE)
 @XmlSeeAlso(EventSubscribeResponse.class)

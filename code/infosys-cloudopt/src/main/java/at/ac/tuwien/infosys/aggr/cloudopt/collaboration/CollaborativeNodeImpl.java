@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.collaboration;
 
+import io.hummer.util.Configuration;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +29,6 @@ import javax.jws.WebService;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.util.Configuration;
 import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.ws.EndpointReference;
 

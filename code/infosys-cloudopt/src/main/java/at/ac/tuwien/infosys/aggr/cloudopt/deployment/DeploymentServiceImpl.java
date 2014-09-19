@@ -19,10 +19,11 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.deployment;
 
+import io.hummer.util.Configuration;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,8 @@ import javax.xml.ws.Service;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.aggr.cloudopt.collaboration.ICollaborativeNode.MyString;
-import at.ac.tuwien.infosys.aggr.cloudopt.collaboration.ICollaborativeNode.NodeURI;
 import at.ac.tuwien.infosys.aggr.cloudopt.matrixmult.IMatrixMultService;
 import at.ac.tuwien.infosys.aggr.cloudopt.matrixmult.MatrixMultServiceImpl;
-import at.ac.tuwien.infosys.util.Configuration;
 import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.ws.DynamicWSClient;
 import at.ac.tuwien.infosys.ws.EndpointReference;

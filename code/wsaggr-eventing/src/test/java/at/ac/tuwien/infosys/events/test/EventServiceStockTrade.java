@@ -33,10 +33,10 @@ import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.events.AbstractEventProducerTask;
 import at.ac.tuwien.infosys.events.EventProducerNode;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Configuration;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.xml.XMLUtil;
+import io.hummer.util.ws.EndpointReference;
 import at.ac.tuwien.infosys.ws.SoapService;
 
 @WebService(targetNamespace = Configuration.NAMESPACE)

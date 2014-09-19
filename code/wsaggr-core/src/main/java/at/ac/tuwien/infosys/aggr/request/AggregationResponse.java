@@ -18,6 +18,10 @@
  */
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -31,13 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.aggr.flow.FlowNodesDTO;
 import at.ac.tuwien.infosys.aggr.flow.FlowNode.DependencyUpdatedInfo;
+import at.ac.tuwien.infosys.aggr.flow.FlowNodesDTO;
 import at.ac.tuwien.infosys.aggr.flow.FlowNodesDTO.FlowEdge;
 import at.ac.tuwien.infosys.aggr.flow.FlowNodesDTO.FlowNode;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.util.DebugAssertion.AssertionResult;
 
 @XmlRootElement(name="result",namespace=Configuration.NAMESPACE)
@@ -179,7 +180,7 @@ public class AggregationResponse {
 		if(!(r instanceof Element))
 			return null;
 		Element e = (Element)r;
-		return Util.getInstance().toJaxbObject(clazz, e);
+		return Util.getInstance().xml.toJaxbObject(clazz, e);
 	}
 	
 	public Element getResultAsElement() throws Exception {

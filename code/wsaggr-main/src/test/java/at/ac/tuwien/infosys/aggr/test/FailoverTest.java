@@ -19,21 +19,22 @@
 
 package at.ac.tuwien.infosys.aggr.test;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.WebServiceClient;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Ignore;
 
 import at.ac.tuwien.infosys.aggr.AggregationClient;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.test.TestServiceStarter;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
 
 @Ignore
 public class FailoverTest {

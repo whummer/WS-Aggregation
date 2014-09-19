@@ -18,14 +18,15 @@
  */
 package at.ac.tuwien.infosys.aggr.test;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.xml.XMLUtil;
+
 import org.junit.Ignore;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.AggregationClient;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @Ignore
 public class RemoteGatewayTest {

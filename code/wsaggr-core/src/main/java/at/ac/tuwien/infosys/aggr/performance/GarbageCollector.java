@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.performance;
 
+import io.hummer.util.Util;
+import io.hummer.util.coll.MapDelegator;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,9 +33,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.log4j.Logger;
-
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.coll.MapDelegator;
 
 public class GarbageCollector {
 

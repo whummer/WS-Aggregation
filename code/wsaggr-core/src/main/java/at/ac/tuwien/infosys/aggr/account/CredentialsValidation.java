@@ -19,15 +19,15 @@
 
 package at.ac.tuwien.infosys.aggr.account;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
-
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
 
 /**
  * This class is responsible for checking whether a service request 

@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.request.AbstractOutput;
 import at.ac.tuwien.infosys.events.EventTypeRepository;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.espertech.esper.adapter.AdapterState;
 import com.espertech.esper.adapter.AdapterStateManager;

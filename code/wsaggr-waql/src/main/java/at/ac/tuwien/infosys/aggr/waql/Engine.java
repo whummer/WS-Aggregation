@@ -16,6 +16,8 @@
 
 package at.ac.tuwien.infosys.aggr.waql;
 
+import io.hummer.util.Util;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,8 +28,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import at.ac.tuwien.infosys.util.Util;
 
 /**
  * The main implementation of a preprocessor engine.

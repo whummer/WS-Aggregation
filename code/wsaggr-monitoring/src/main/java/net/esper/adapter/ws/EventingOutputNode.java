@@ -26,8 +26,8 @@ import at.ac.tuwien.infosys.events.EventSubscriptionNode;
 import at.ac.tuwien.infosys.events.ws.DefaultEventSubscriptionManager;
 import at.ac.tuwien.infosys.events.ws.EventSubscriptionManager;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
 
 @WebService(targetNamespace = Configuration.NAMESPACE)
 public class EventingOutputNode extends EventSubscriptionNode implements EventSubscriptionManager{

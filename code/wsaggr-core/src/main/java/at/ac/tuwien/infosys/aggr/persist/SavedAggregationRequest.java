@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.aggr.persist;
 
+import io.hummer.util.Util;
+import io.hummer.util.persist.AbstractGenericDAO;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,8 +38,6 @@ import org.hibernate.criterion.Restrictions;
 
 import at.ac.tuwien.infosys.aggr.account.User;
 import at.ac.tuwien.infosys.aggr.util.Constants;
-import at.ac.tuwien.infosys.util.AbstractGenericDAO;
-import at.ac.tuwien.infosys.util.Util;
 
 @Entity
 public class SavedAggregationRequest {

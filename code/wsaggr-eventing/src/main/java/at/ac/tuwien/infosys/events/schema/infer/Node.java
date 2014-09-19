@@ -35,8 +35,8 @@ import at.ac.tuwien.infosys.events.schema.EventCorrelationSet;
 import at.ac.tuwien.infosys.events.schema.EventCorrelationSet.EventPropertySelector;
 import at.ac.tuwien.infosys.events.schema.EventCorrelationSet.EventPropertyValue;
 import at.ac.tuwien.infosys.events.schema.infer.BaselineNode.BaselineNodePath;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
+import io.hummer.util.Util;
+import io.hummer.util.xml.XMLUtil;
 
 public class Node {
 	BaselineNode basis;

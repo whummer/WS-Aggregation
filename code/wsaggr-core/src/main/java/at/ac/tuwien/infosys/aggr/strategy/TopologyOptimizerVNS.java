@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.Util;
+import io.hummer.util.coll.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,19 +48,16 @@ import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo;
-import at.ac.tuwien.infosys.aggr.performance.SortedAggregatorsList;
 import at.ac.tuwien.infosys.aggr.performance.AggregatorPerformanceInfo.StreamDataRate;
+import at.ac.tuwien.infosys.aggr.performance.SortedAggregatorsList;
 import at.ac.tuwien.infosys.aggr.performance.SortedAggregatorsList.PerformanceInfoListener;
 import at.ac.tuwien.infosys.aggr.proxy.AggregatorNodeProxy;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
+import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.EventingInput;
-import at.ac.tuwien.infosys.aggr.request.AbstractInput.InputWrapper;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
-import at.ac.tuwien.infosys.aggr.strategy.TopologySolution;
 import at.ac.tuwien.infosys.aggr.strategy.TopologySolution.SolutionListener;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.coll.Pair;
 import at.ac.tuwien.infosys.aggr.waql.DataDependency;
 
 public class TopologyOptimizerVNS extends Thread implements PerformanceInfoListener {
@@ -852,7 +852,7 @@ public class TopologyOptimizerVNS extends Thread implements PerformanceInfoListe
 				in.setServiceURL(dataServices.get((int)(Math.random() * (double)dataServices.size())).getEPR().getAddress());
 				in.setServiceURL(in.getServiceURL()
 						+ ("#foo" + i));
-				in.setTheContent(Util.getInstance().toElement(
+				in.setTheContent(util.xml.toElement(
 						"<config><wse:Filter xmlns:wse=\"http://schemas.xmlsoap.org/ws/2004/08/eventing\">" +
 						i + "</wse:Filter></config>"));
 				r1.getAllInputs().add(in);
@@ -866,13 +866,13 @@ public class TopologyOptimizerVNS extends Thread implements PerformanceInfoListe
 			for(int i = 0; i < numInputs; i ++) {
 				int serv = (int)(Math.random() * (double)serviceNodes.size());
 				int req = (int)(Math.random() * (double)requests.size());
-				AggregationRequest request = util.toJaxbObject(AggregationRequest.class, util.toElement(requests.get(req)));
+				AggregationRequest request = util.xml.toJaxbObject(AggregationRequest.class, util.xml.toElement(requests.get(req)));
 				request.setRequestID(requestID);
 				request.getAllInputs().get(0).setExternalID("" + i);
 				request.getAllInputs().get(0).request = request;
 				request.getQueries().addPreparationQuery("" + i, "$input");
 				if(i < numDependencies) {
-					Element content = Util.getInstance().toElement("<el>$" + (i + 1) + "{//foo/bar}</el>");
+					Element content = util.xml.toElement("<el>$" + (i + 1) + "{//foo/bar}</el>");
 					request.getAllInputs().get(0).setTheContent(content);
 				}
 				AggregatorNode a = aggregators.get(aggr);

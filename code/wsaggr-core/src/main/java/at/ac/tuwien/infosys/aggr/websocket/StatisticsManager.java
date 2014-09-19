@@ -1,5 +1,7 @@
 package at.ac.tuwien.infosys.aggr.websocket;
 
+import io.hummer.util.Util;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -7,7 +9,6 @@ import java.util.TreeMap;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.node.BrowserAggregatorNode;
-import at.ac.tuwien.infosys.util.Util;
 
 public class StatisticsManager {
 	

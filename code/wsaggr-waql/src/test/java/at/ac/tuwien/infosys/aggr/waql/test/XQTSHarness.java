@@ -16,6 +16,8 @@
 
 package at.ac.tuwien.infosys.aggr.waql.test;
 
+import io.hummer.util.Util;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -32,7 +34,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.waql.MalformedQueryException;
 import at.ac.tuwien.infosys.aggr.waql.PreprocessorFactory;
 
@@ -115,6 +116,7 @@ public class XQTSHarness
 				}
 			}
 		}
+		file.close();
 		System.out.println("Result of XML Query Test Suite:");
 		for (ResultType result : ResultType.values())
 			System.out.printf("\t %15s = %d\n", result, counter[result.ordinal()]);

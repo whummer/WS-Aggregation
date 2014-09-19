@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +30,6 @@ import javax.xml.namespace.QName;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.monitoring.config.NodeRepositoryNodeConfig;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class EucalyptusNodeRepository implements NodeRepository{
 
@@ -41,7 +42,7 @@ public class EucalyptusNodeRepository implements NodeRepository{
 		try {
 			final EndpointReference e = new EndpointReference(node.getEndTo());
 			e.addReferenceParameter(
-					UTIL.toElement(String.format("<nodeId>%s</nodeId>", node.getIdentifier())));			
+					UTIL.xml.toElement(String.format("<nodeId>%s</nodeId>", node.getIdentifier())));			
 			Registry.getRegistryProxy().addDataServiceNode(FEATURE, e);
 		} catch (Exception e) {
 			e.printStackTrace();

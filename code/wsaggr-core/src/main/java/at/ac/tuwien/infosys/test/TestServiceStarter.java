@@ -18,6 +18,9 @@
  */
 package at.ac.tuwien.infosys.test;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
+
 import java.net.BindException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,11 +28,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 
 import com.sun.net.httpserver.HttpServer;
 

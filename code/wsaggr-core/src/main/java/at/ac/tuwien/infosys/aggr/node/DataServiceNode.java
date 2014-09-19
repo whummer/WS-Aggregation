@@ -18,15 +18,15 @@
  */
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
-
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 
 @XmlRootElement
 public class DataServiceNode extends AbstractNode implements Serializable {

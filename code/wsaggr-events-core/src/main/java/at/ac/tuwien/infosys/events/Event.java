@@ -19,13 +19,13 @@
 
 package at.ac.tuwien.infosys.events;
 
+import io.hummer.util.persist.Identifiable;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import at.ac.tuwien.infosys.util.Identifiable;
 
 public class Event implements Identifiable {
 

@@ -19,13 +19,14 @@
 
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import java.net.URL;
 
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class InputTargetExtractor {
 

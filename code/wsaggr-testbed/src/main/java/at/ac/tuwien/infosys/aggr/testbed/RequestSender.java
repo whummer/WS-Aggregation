@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.testbed.config.Config;
 import at.ac.tuwien.infosys.aggr.testbed.messaging.Request;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 
 public class RequestSender {

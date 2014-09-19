@@ -19,6 +19,10 @@
 
 package at.ac.tuwien.infosys.events;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -33,10 +37,7 @@ import javax.jws.soap.SOAPBinding.Use;
 
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.ws.AbstractNode;
 import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
 
 @WebService(targetNamespace=Configuration.NAMESPACE)
 public class EventReceiverService extends AbstractNode {

@@ -19,11 +19,11 @@
 
 package at.ac.tuwien.infosys.aggr.util;
 
-import org.apache.log4j.Logger;
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.persist.IDocumentCache.DocumentCache;
 
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.IDocumentCache.DocumentCache;
+import org.apache.log4j.Logger;
 
 public class Constants {
 

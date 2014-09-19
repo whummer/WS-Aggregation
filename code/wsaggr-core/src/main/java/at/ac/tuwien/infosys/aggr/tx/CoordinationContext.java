@@ -19,10 +19,10 @@
 
 package at.ac.tuwien.infosys.aggr.tx;
 
+import io.hummer.util.ws.EndpointReference;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name="CoordinationContext", namespace=CoordinationContext.NS_WS_COORDINATION)
 public class CoordinationContext {

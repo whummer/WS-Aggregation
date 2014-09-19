@@ -23,8 +23,8 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 public class DefaultEventSubscriptionManager extends
 		AbstractEventSubscriptionManager implements EventSubscriptionManagerProcessor {

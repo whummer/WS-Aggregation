@@ -39,9 +39,9 @@ import at.ac.tuwien.infosys.aggr.strategy.TopologySolution;
 import at.ac.tuwien.infosys.aggr.strategy.TopologySolution.SolutionListener;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyOptimizerVNS.OptimizationParameters;
 import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
-import at.ac.tuwien.infosys.util.test.GenericTestResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.IterationResult;
-import at.ac.tuwien.infosys.util.test.GenericTestResult.ResultType;
+import io.hummer.util.test.GenericTestResult;
+import io.hummer.util.test.GenericTestResult.IterationResult;
+import io.hummer.util.test.GenericTestResult.ResultType;
 
 @Ignore
 public class OptimizationAlgorithmTest implements SolutionListener {

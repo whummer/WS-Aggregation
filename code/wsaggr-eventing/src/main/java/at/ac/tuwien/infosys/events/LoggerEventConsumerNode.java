@@ -27,8 +27,8 @@ import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.events.EventConsumerNode;
 import at.ac.tuwien.infosys.events.EventTypeRepository;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 @WebService(targetNamespace = WSEvent.NAMESPACE)
 public class LoggerEventConsumerNode extends EventConsumerNode {

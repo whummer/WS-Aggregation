@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -36,8 +39,6 @@ import at.ac.tuwien.infosys.aggr.request.AbstractOutput;
 import at.ac.tuwien.infosys.monitoring.config.Constants;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfig;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfigSet;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 
 @WebService(targetNamespace = Constants.NAMESPACE)
 public class MonitoringServiceNode extends AbstractNode {

@@ -19,11 +19,12 @@
 
 package at.ac.tuwien.infosys.monitoring.esper;
 
+import io.hummer.util.Util;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
 import at.ac.tuwien.infosys.monitoring.config.LoggerOutput;
-import at.ac.tuwien.infosys.util.Util;
 
 import com.espertech.esper.client.EventBean;
 
@@ -45,7 +46,7 @@ public class LoggerOutputAdapter extends AbstractOutputAdapter<LoggerOutput> {
 	public void processEvent(EventBean event) {
 		try{
 			Object toSenEvent = event.getUnderlying();
-			String message = UTIL.toString(toSenEvent);		
+			String message = UTIL.xml.toString(toSenEvent);		
 			LOGGER.log(priority, message);
 		}
 		catch (Exception e) {

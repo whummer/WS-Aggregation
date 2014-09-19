@@ -37,7 +37,7 @@ import at.ac.tuwien.infosys.events.schema.ESDObject;
 import at.ac.tuwien.infosys.events.schema.ESDSchema;
 import at.ac.tuwien.infosys.events.schema.ESDSequence;
 import at.ac.tuwien.infosys.events.schema.XmlSchemaInference.SchemaSet;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 public class EventSchemaValidator {
 

@@ -18,6 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.request.InvocationRequest;
+import io.hummer.util.ws.request.RequestType;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,10 +37,6 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.waql.QueryPreprocessor;
 import at.ac.tuwien.infosys.aggr.xml.XQueryProcessor;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
-import at.ac.tuwien.infosys.ws.request.InvocationRequest;
-import at.ac.tuwien.infosys.ws.request.RequestType;
 
 @XmlRootElement(name=RequestInput.JAXB_ELEMENT_NAME)
 @XmlJavaTypeAdapter(AbstractInput.Adapter.class)

@@ -19,6 +19,18 @@
 
 package at.ac.tuwien.infosys.aggr.events.query;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.coll.Pair;
+import io.hummer.util.par.GlobalThreadPool;
+import io.hummer.util.test.TestUtil;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationResult;
+import io.hummer.util.xml.ElementWrapper;
+import io.hummer.util.xml.XMLUtil;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -39,12 +51,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.AggregationClient;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
-import at.ac.tuwien.infosys.aggr.events.query.EventStream;
 import at.ac.tuwien.infosys.aggr.flow.FlowManager;
 import at.ac.tuwien.infosys.aggr.flow.FlowManager.InputDataDependency;
 import at.ac.tuwien.infosys.aggr.flow.FlowNode.DependencyUpdatedInfo;
-import at.ac.tuwien.infosys.ws.AbstractNode;
+import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
+import at.ac.tuwien.infosys.aggr.monitor.MonitoringSpecification;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
@@ -52,30 +63,20 @@ import at.ac.tuwien.infosys.aggr.performance.EventTransferRateMeasurer;
 import at.ac.tuwien.infosys.aggr.performance.GarbageCollector;
 import at.ac.tuwien.infosys.aggr.proxy.AggregatorNodeProxy;
 import at.ac.tuwien.infosys.aggr.request.AbstractInput;
+import at.ac.tuwien.infosys.aggr.request.AbstractInput.DependencyUpdateMode;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponseConstructor;
 import at.ac.tuwien.infosys.aggr.request.ConstantInput;
 import at.ac.tuwien.infosys.aggr.request.EventingInput;
 import at.ac.tuwien.infosys.aggr.request.InputTargetExtractor;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
-import at.ac.tuwien.infosys.aggr.request.AbstractInput.DependencyUpdateMode;
 import at.ac.tuwien.infosys.aggr.request.WAQLQuery.PreparationQuery;
 import at.ac.tuwien.infosys.aggr.strategy.Topology;
 import at.ac.tuwien.infosys.aggr.strategy.TopologyInitializer;
-import at.ac.tuwien.infosys.aggr.monitor.ModificationNotification;
-import at.ac.tuwien.infosys.aggr.monitor.MonitoringSpecification;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 import at.ac.tuwien.infosys.aggr.util.Invoker;
 import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues.RequestWorker;
-import at.ac.tuwien.infosys.util.coll.Pair;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
-import at.ac.tuwien.infosys.util.xml.ElementWrapper;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 public class EventingQueryCoordinator implements EventQuerier.EventQueryListener, RequestWorker<ModificationNotification, Object> {
 
@@ -539,7 +540,7 @@ public class EventingQueryCoordinator implements EventQuerier.EventQueryListener
 									// (maybe input needs to be forwarded according to the topology!)
 									AbstractNode target = InputTargetExtractor.extractDataSourceNode((RequestInput)input);
 									owner.getInvoker().addRequest(new Invoker.InvokerTask(invokerTaskID, target,
-											(RequestInput)input, util.test.isNullOrTrue(r.getTimeout())));
+											(RequestInput)input, new TestUtil().isNullOrTrue(r.getTimeout())));
 									invokerTasks ++;
 									
 								} else {

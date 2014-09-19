@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.events.Event;
 import at.ac.tuwien.infosys.monitoring.config.SOAPEventInput;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.espertech.esper.client.EPException;
 

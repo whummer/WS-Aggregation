@@ -18,6 +18,11 @@
  */
 package at.ac.tuwien.infosys.aggr.strategy;
 
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import java.net.URL;
 import java.util.List;
 
@@ -28,10 +33,6 @@ import org.w3c.dom.Element;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name="strategy")
 public class AggregationStrategyPerRequest extends AggregationStrategy {

@@ -41,19 +41,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<grizzly.version>1.9.18-i</grizzly.version>
+		<javax.mail.version>1.4.1</javax.mail.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>at.ac.tuwien.infosys</groupId>
-			<artifactId>InfosysTools</artifactId>
-			<version>1-SNAPSHOT</version>
+			<groupId>io.hummer</groupId>
+			<artifactId>utils-cloud</artifactId>
+			<version>1.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>at.ac.tuwien.infosys</groupId>
-			<artifactId>infosys-xmltools</artifactId>
-			<version>1-SNAPSHOT</version>
-		</dependency>
+	
 		<dependency>
 			<groupId>at.ac.tuwien.infosys</groupId>
 			<artifactId>wsaggr-core</artifactId>
@@ -72,6 +69,11 @@
 			<version>${grizzly.version}</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>${javax.mail.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>

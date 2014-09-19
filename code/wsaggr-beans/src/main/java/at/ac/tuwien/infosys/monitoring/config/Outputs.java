@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring.config;
 
+import io.hummer.util.Util;
+import io.hummer.util.xml.XMLUtil;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,8 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.request.AbstractOutput;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 @XmlRootElement(name="outputs")
 public class Outputs {

@@ -19,12 +19,13 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.matrixmult;
 
+import io.hummer.util.Configuration;
+
 import javax.jws.WebService;
 
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.aggr.cloudopt.collaboration.CollaborativeNodeImpl;
-import at.ac.tuwien.infosys.util.Configuration;
 
 /**
  * @author basic

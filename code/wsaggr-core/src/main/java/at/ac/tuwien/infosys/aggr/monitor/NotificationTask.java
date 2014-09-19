@@ -19,10 +19,10 @@
 
 package at.ac.tuwien.infosys.aggr.monitor;
 
+import io.hummer.util.ws.EndpointReference;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name="listener")
 public class NotificationTask {

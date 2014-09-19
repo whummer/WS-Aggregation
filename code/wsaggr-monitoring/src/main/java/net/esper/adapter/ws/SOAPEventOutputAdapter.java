@@ -23,8 +23,8 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.events.ws.WebServiceClientUtil;
 import at.ac.tuwien.infosys.monitoring.config.SOAPEventOutput;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
 
 import com.espertech.esper.client.EventBean;
 

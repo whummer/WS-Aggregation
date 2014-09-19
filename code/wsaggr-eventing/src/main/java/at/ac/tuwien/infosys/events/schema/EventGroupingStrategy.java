@@ -32,9 +32,9 @@ import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.events.schema.EventCorrelationSet.EventPropertySelector;
 import at.ac.tuwien.infosys.events.schema.infer.EventSchemaInference.SchemaInferenceConfig;
-import at.ac.tuwien.infosys.util.NotImplementedException;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.par.GlobalThreadPool;
+import io.hummer.util.NotImplementedException;
+import io.hummer.util.Util;
+import io.hummer.util.par.GlobalThreadPool;
 
 public class EventGroupingStrategy 
 implements 

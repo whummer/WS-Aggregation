@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 @XmlSeeAlso({
 	ESDAll.class, 

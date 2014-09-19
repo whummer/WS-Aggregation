@@ -1,5 +1,7 @@
 package at.ac.tuwien.infosys.aggr.events.query;
 
+import io.hummer.util.ws.EndpointReference;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,8 +9,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.w3c.dom.Element;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class EventStream implements Serializable {
 

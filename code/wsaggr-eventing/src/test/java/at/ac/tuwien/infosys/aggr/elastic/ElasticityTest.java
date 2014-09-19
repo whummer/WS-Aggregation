@@ -1,5 +1,10 @@
 package at.ac.tuwien.infosys.aggr.elastic;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.AbstractNode;
+import io.hummer.util.ws.EndpointReference;
+
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,10 +28,6 @@ import at.ac.tuwien.infosys.aggr.util.ServiceStarter;
 import at.ac.tuwien.infosys.events.EventReceiverListener;
 import at.ac.tuwien.infosys.events.EventReceiverService;
 import at.ac.tuwien.infosys.events.test.EventServiceStockTrade;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.AbstractNode;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @Ignore
 public class ElasticityTest implements EventReceiverListener {

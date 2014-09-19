@@ -19,6 +19,10 @@
 
 package at.ac.tuwien.infosys.events;
 
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,9 +42,6 @@ import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
 import at.ac.tuwien.infosys.events.ws.EventSubscribeFilter;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 
 public abstract class AbstractEventProducerTask extends TimerTask implements Serializable {
 	private static final long serialVersionUID = 655288298620712088L;

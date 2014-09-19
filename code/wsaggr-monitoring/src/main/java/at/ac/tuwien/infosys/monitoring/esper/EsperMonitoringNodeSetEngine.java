@@ -25,7 +25,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfigSet;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Util;
 
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPStatement;

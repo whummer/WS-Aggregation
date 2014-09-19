@@ -19,11 +19,11 @@
 
 package at.ac.tuwien.infosys.events.ws;
 
+import io.hummer.util.ws.EndpointReference;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlRootElement(name = "SubscribeResponse", namespace = WSEvent.NAMESPACE)
 public class EventSubscribeResponse {

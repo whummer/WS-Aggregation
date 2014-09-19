@@ -19,6 +19,9 @@
 
 package at.ac.tuwien.infosys.aggr.performance;
 
+import io.hummer.util.Util;
+import io.hummer.util.xml.ElementWrapper;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -27,9 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Element;
-
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.ElementWrapper;
 
 public class EventTransferRateMeasurer<T> {
 	

@@ -19,10 +19,10 @@
 
 package at.ac.tuwien.infosys.aggr.account;
 
+import io.hummer.util.NotImplementedException;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import at.ac.tuwien.infosys.util.NotImplementedException;
 
 /**
  * This class is responsible for monitoring user limits, such as

@@ -19,6 +19,8 @@
 
 package at.ac.tuwien.infosys.aggr.request;
 
+import io.hummer.util.ws.EndpointReference;
+
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -30,7 +32,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.waql.DataDependency;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @XmlJavaTypeAdapter(AbstractInput.Adapter.class)
 @XmlType(name=NonConstantInput.JAXB_ELEMENT_NAME)

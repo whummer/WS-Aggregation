@@ -19,10 +19,9 @@
 
 package at.ac.tuwien.infosys.monitoring;
 
-import at.ac.tuwien.infosys.aggr.testbed.messaging.TerminateRequest;
+import io.hummer.util.ws.EndpointReference;
 import at.ac.tuwien.infosys.events.ws.WebServiceClientUtil;
 import at.ac.tuwien.infosys.monitoring.config.MonitoringConfig;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 
 public class RemoteMonitoringService implements MonitoringService{

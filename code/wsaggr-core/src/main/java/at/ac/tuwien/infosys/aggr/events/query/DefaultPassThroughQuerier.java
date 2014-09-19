@@ -1,12 +1,13 @@
 package at.ac.tuwien.infosys.aggr.events.query;
 
+import io.hummer.util.NotImplementedException;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.request.NonConstantInput;
-import at.ac.tuwien.infosys.util.NotImplementedException;
 
 public class DefaultPassThroughQuerier implements EventQuerier {
 

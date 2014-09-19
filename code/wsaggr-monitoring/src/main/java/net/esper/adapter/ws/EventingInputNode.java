@@ -19,6 +19,8 @@
 
 package net.esper.adapter.ws;
 
+import io.hummer.util.ws.AbstractNode;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -28,8 +30,8 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import at.ac.tuwien.infosys.aggr.testbed.messaging.TerminateRequest;
 import at.ac.tuwien.infosys.events.ws.WSEvent;
-import at.ac.tuwien.infosys.ws.AbstractNode;
 
 @WebService(targetNamespace = WSEvent.NAMESPACE)
 public class EventingInputNode extends AbstractNode {

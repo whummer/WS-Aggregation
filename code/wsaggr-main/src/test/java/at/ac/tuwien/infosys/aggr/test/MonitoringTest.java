@@ -18,6 +18,10 @@
  */
 package at.ac.tuwien.infosys.aggr.test;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.Util;
+import io.hummer.util.ws.EndpointReference;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,17 +30,14 @@ import java.net.InetSocketAddress;
 import org.junit.Ignore;
 import org.w3c.dom.Element;
 
+import at.ac.tuwien.infosys.aggr.AggregationClient;
+import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
+import at.ac.tuwien.infosys.test.TestServiceStarter;
+
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-
-import at.ac.tuwien.infosys.aggr.AggregationClient;
-import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
-import at.ac.tuwien.infosys.test.TestServiceStarter;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.util.Util;
 
 @Ignore
 @SuppressWarnings("all")
@@ -46,7 +47,7 @@ public class MonitoringTest implements HttpHandler {
 
 	public static void main(String[] args) throws Exception {
 		
-		String in = util.readFile(MonitoringTest.class.getResourceAsStream("monitoringTest.xml"));
+		String in = util.io.readFile(MonitoringTest.class.getResourceAsStream("monitoringTest.xml"));
 		Element element = util.xml.toElement(in);
 		
 		AggregationRequest request = util.xml.toJaxbObject(AggregationRequest.class, element);

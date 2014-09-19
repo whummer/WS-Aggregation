@@ -18,6 +18,12 @@
  */
 package at.ac.tuwien.infosys.aggr.monitor;
 
+import io.hummer.util.Util;
+import io.hummer.util.test.TestUtil;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.ws.WebServiceClient;
+import io.hummer.util.ws.request.InvocationResult;
+
 import java.net.ConnectException;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,12 +34,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-import at.ac.tuwien.infosys.aggr.waql.UnresolvedDependencyException;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.ws.WebServiceClient;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.DataServiceNode;
 import at.ac.tuwien.infosys.aggr.node.EventReceiverNode;
@@ -42,13 +45,12 @@ import at.ac.tuwien.infosys.aggr.request.AbstractInput;
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.request.AggregationResponse;
 import at.ac.tuwien.infosys.aggr.request.InputTargetExtractor;
-import at.ac.tuwien.infosys.ws.request.InvocationResult;
 import at.ac.tuwien.infosys.aggr.request.RequestInput;
 import at.ac.tuwien.infosys.aggr.util.Invoker;
-import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
-import at.ac.tuwien.infosys.util.Util;
 import at.ac.tuwien.infosys.aggr.util.Invoker.InvokerTask;
+import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues;
 import at.ac.tuwien.infosys.aggr.util.RequestAndResultQueues.RequestWorker;
+import at.ac.tuwien.infosys.aggr.waql.UnresolvedDependencyException;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
 
 public class DataServiceMonitor extends TimerTask implements RequestWorker<MonitoringTask, Void> {
@@ -62,6 +64,7 @@ public class DataServiceMonitor extends TimerTask implements RequestWorker<Monit
 	
 	protected AggregatorNode owner;
 	private Util util = new Util();
+	private TestUtil testUtil = new TestUtil();
 	private Timer timer;
 	private Invoker invoker = Invoker.getInstance();
 	private RequestAndResultQueues<MonitoringTask, Void> queues = new RequestAndResultQueues<MonitoringTask,Void>(this/*, 10, 100*/);
@@ -238,7 +241,7 @@ public class DataServiceMonitor extends TimerTask implements RequestWorker<Monit
 			for(AbstractInput ai : generated) {
 				RequestInput in = (RequestInput)ai;
 				InvokerTask request = new InvokerTask(requestID, task.inputTo, in,
-						util.test.isNullOrTrue(task.getRequest().getTimeout()));
+						testUtil.isNullOrTrue(task.getRequest().getTimeout()));
 				invoker.addRequest(request);
 				AggregationResponse response = invoker.getResponse(requestID);
 				response = new AggregationResponse(response, task.originalRequest);

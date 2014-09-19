@@ -19,24 +19,21 @@
 
 package at.ac.tuwien.infosys.aggr.cloudopt.matrixmult;
 
+import io.hummer.util.Configuration;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import at.ac.tuwien.infosys.aggr.cloudopt.OptimizationGoal;
 import at.ac.tuwien.infosys.aggr.cloudopt.ProvidesProperty;
 import at.ac.tuwien.infosys.aggr.cloudopt.collaboration.ICollaborativeNode;
 import at.ac.tuwien.infosys.aggr.cloudopt.constraints.HardConstraints;
 import at.ac.tuwien.infosys.aggr.cloudopt.constraints.SoftConstraints;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 @WebService(targetNamespace=Configuration.NAMESPACE)
 @SoftConstraints({"numTasks", ""})

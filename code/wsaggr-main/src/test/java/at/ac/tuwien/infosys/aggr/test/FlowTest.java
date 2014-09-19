@@ -34,9 +34,9 @@ import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
 import at.ac.tuwien.infosys.aggr.test.FlowTest.TestSuite.TestRun;
 import at.ac.tuwien.infosys.aggr.xml.XPathProcessor;
 import at.ac.tuwien.infosys.test.TestServiceStarter;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.ws.EndpointReference;
-import at.ac.tuwien.infosys.util.Util;
+import io.hummer.util.Configuration;
+import io.hummer.util.ws.EndpointReference;
+import io.hummer.util.Util;
 
 @Ignore
 public class FlowTest {

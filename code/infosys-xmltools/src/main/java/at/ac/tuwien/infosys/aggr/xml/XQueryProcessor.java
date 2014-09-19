@@ -18,13 +18,13 @@
  */
 package at.ac.tuwien.infosys.aggr.xml;
 
+import io.hummer.util.Util;
+
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import at.ac.tuwien.infosys.util.Util;
 
 public abstract class XQueryProcessor {
 

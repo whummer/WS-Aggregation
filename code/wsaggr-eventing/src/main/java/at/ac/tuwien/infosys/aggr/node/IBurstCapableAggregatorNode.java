@@ -1,5 +1,7 @@
 package at.ac.tuwien.infosys.aggr.node;
 
+import io.hummer.util.Configuration;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -13,7 +15,6 @@ import at.ac.tuwien.infosys.bursthandling.strategy.EventBurstHandling.EventBurst
 import at.ac.tuwien.infosys.events.request.EscalationRequest;
 import at.ac.tuwien.infosys.events.request.PauseEscalationRequest;
 import at.ac.tuwien.infosys.events.request.StopEscalationRequest;
-import at.ac.tuwien.infosys.util.Configuration;
 
 @WebService(targetNamespace = Configuration.NAMESPACE)
 public interface IBurstCapableAggregatorNode extends Escalation,

@@ -19,10 +19,10 @@
 
 package at.ac.tuwien.infosys.aggr.robust;
 
+import io.hummer.util.ws.EndpointReference;
 import at.ac.tuwien.infosys.aggr.node.AggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
 import at.ac.tuwien.infosys.aggr.proxy.RegistryProxy;
-import at.ac.tuwien.infosys.ws.EndpointReference;
 
 public class FailoverManager {
 

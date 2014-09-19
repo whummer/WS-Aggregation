@@ -22,15 +22,15 @@
  */
 package at.ac.tuwien.infosys.aggr.testbed.config;
 
+import io.hummer.util.Configuration;
+import io.hummer.util.xml.XMLUtil;
+
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 
 import org.w3c.dom.Element;
 
 import at.ac.tuwien.infosys.aggr.request.AggregationRequest;
-import at.ac.tuwien.infosys.util.Configuration;
-import at.ac.tuwien.infosys.util.Util;
-import at.ac.tuwien.infosys.util.xml.XMLUtil;
 
 /**
  * @author Daniel Domberger
@@ -48,15 +48,15 @@ public class TestRunConfig {
 	}
 	
 	public AggregationRequest createAggregationRequest() throws Exception {
-		Util util = new Util();
+		XMLUtil xmlUtil = new XMLUtil();
 		if(request instanceof Element) {
 			Element e = (Element)request;
 			if(e.getNodeName().endsWith("createTopology")) {
-				e = util.xml.getChildElements(e, "request").get(0);
-				e = util.xml.changeRootElementName(e, "tns:aggregate xmlns:tns=\"" + Configuration.NAMESPACE + "\"");
+				e = xmlUtil.getChildElements(e, "request").get(0);
+				e = xmlUtil.changeRootElementName(e, "tns:aggregate xmlns:tns=\"" + Configuration.NAMESPACE + "\"");
 			}
 			if(e.getNodeName().endsWith("aggregate")) {
-				return util.xml.toJaxbObject(AggregationRequest.class, e);
+				return xmlUtil.toJaxbObject(AggregationRequest.class, e);
 			}
 		}
 		throw new RuntimeException("Unexpected request type: " + request);

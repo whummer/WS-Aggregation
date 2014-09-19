@@ -11,7 +11,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/aggregation.css" />
 	<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" /> 
-	
+
 	<script type="text/javascript" src="js/md5-min.js"></script>
 
 	<script type="text/javascript" src="configuration.js"></script>
@@ -29,8 +29,9 @@
 	<script type="text/javascript" src="js/browserAggregate.js"></script>
 	<script type="text/javascript" src="js/aggregation_new.js"></script>
 	<script type="text/javascript" src="js/account.js"></script>
-	<script type="text/javascript" src="crossdomain/dojo.js.uncompressed.js"></script>
-	<script type="text/javascript" src="crossdomain/FlashXMLHttpRequest.js"></script>
+
+	<!--<script type="text/javascript" src="crossdomain/dojo.js.uncompressed.js"></script>
+	<script type="text/javascript" src="crossdomain/FlashXMLHttpRequest.js"></script>-->
 
 	<script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
 	<script language="javascript" type="text/javascript" src="js/jqplot.highlighter.min.js"></script>
@@ -88,9 +89,8 @@
 	<script type="text/javascript">/* <![CDATA[ */
 	$(document).ready(function(){
 
-		$("#tabs").tabs({ disabled: [0,1,2,3,4  ,6] });
-		$('#tabs').tabs('select', 7);
-		$("#tabs").tabs({ disabled: [0,1,2,3,4  ,6] });
+		var res = $("#tabs").tabs({ disabled: [0,1,2,3,4,6] });
+		//console.log("tabs ", res);
 
 		$("#requestDialog").dialog({ autoOpen: false, width: 600 })
 
@@ -145,14 +145,15 @@
 		//alert(document.getElementById("browserAggregatorIFrame"))
 		//$("#browserAggregatorIFrame").executeXQuery("<events><event>1</event></events>", 
 		//		eventingQuery, $("#browserAggregatorFrame").xqueryCallback);
-		executeXQuery("<events><event>1 <foo  bar> & </event></events>", 
-				eventingQuery, function(result) { alert(result)} );
+		
+		//executeXQuery("<events><event>1 <foo  bar> & </event></events>", 
+		//		eventingQuery, function(result) { alert(result)} );
 		
 	});
 	/* ]]> */</script>
 
 	<script type="text/javascript">/* <![CDATA[ */
-		InitFlash("flashLoaded");
+		//InitFlash("flashLoaded");
 		//window.addEventListener('load', wsaggrInitialize, false);
 	/* ]]> */</script>
 
