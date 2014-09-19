@@ -158,6 +158,10 @@
             <name>jboss-repo</name>
             <url>https://repository.jboss.org/nexus/</url>
         </repository>
+		<repository>
+			<id>utils-repo-github</id>
+			<url>https://github.com/whummer/java-utils/raw/master/build/</url>
+		</repository>
         <repository>
             <id>infosys-repo</id>
             <name>infosys-repo</name>
