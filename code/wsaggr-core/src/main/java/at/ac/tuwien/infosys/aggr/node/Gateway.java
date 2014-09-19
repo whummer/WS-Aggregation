@@ -958,6 +958,10 @@ public class Gateway extends AbstractNode implements RequestWorker<AggregationRe
 	}
 
 	@WebMethod(exclude=true)
+	public void deploy(String url) throws Exception {
+		deploy(url, new Handler[0]);
+	}
+	@WebMethod(exclude=true)
 	public void deploy(String url, Handler<?> ... handlers) throws Exception {
 		deploy(this, url, handlers);
 		Runnable r = new Runnable() {
@@ -970,6 +974,7 @@ public class Gateway extends AbstractNode implements RequestWorker<AggregationRe
 			}
 		};
 		GlobalThreadPool.executePeriodically(r, 60*1000, 5*1000);
+		Gateway.addGatewayToRegistry(Gateway.this);
 	}
 
 	@Override

@@ -22,10 +22,10 @@ package at.ac.tuwien.infosys.aggr.account;
 import io.hummer.util.Configuration;
 import io.hummer.util.Util;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
@@ -61,13 +61,15 @@ public class CredentialsValidationHandler implements SOAPHandler<SOAPMessageCont
 	@Override
 	@SuppressWarnings("all")
 	public boolean handleMessage(SOAPMessageContext ctx) {
+
 		/* check only inbound messages */
 		if(isOutboundMessage(ctx))
 			return true;
-		
+
 		AuthInfo auth = extractAuthInfoFromMessage(ctx);
 		String msg = CredentialsValidation.getErrorForMessage(
 				auth.operation, auth.username, auth.sessionID);
+
 		if(msg == null)
 			return true;
 		logger.warn(msg + "\nMessage context map was: " + new HashMap(ctx));
@@ -96,10 +98,14 @@ public class CredentialsValidationHandler implements SOAPHandler<SOAPMessageCont
 	protected AuthInfo extractAuthInfoFromMessage(SOAPMessageContext ctx) {
 		AuthInfo auth = new AuthInfo();
 		
-		Map<String,Object> map = new HashMap<String, Object>();
-		for(String s : ctx.keySet()) {
-			map.put(s, ctx.get(s));
-		}
+		// NOTE: Do *NOT* call keySet() on the context, because
+		// it internally resets a fallback mechanism, see 
+		// com.sun.xml.ws.handler.MessageContextImpl !!!
+		
+//		Map<String,Object> map = new HashMap<String, Object>();
+//		for(String s : ctx.keySet()) {
+//			map.put(s, ctx.get(s));
+//		}
 		Object operation = ctx.get("javax.xml.ws.wsdl.operation");
 		if(operation != null) {
 			auth.operation = (QName)operation;
@@ -108,7 +114,7 @@ public class CredentialsValidationHandler implements SOAPHandler<SOAPMessageCont
 		String username = null;
 		String sessionID = null;
 
-		List<?> headers = (List<?>)map.get("com.sun.xml.ws.api.message.HeaderList");
+		List<?> headers = (List<?>)ctx.get("com.sun.xml.ws.api.message.HeaderList");
 		if(headers != null && !headers.isEmpty()) {
 			username = getUsername(headers);
 			sessionID = getSessionID(headers);
@@ -161,7 +167,7 @@ public class CredentialsValidationHandler implements SOAPHandler<SOAPMessageCont
 	}
 	@Override
 	public Set<QName> getHeaders() {
-		return Collections.emptySet();
+		return new HashSet<QName>(Arrays.asList(HEADER_USERNAME, HEADER_SESSION_ID));
 	}
 
 }
