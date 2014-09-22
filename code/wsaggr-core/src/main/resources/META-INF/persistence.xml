@@ -4,7 +4,7 @@
     http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
    <persistence-unit name="WS-Aggregation_MySQL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-   		<class>at.ac.tuwien.infosys.util.IDocumentCache$CacheEntry</class>
+   		<class>io.hummer.util.persist.IDocumentCache$CacheEntry</class>
     	<properties>
   	 		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
   	 		<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/wsaggr?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;charSet=UTF8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8" />
@@ -27,7 +27,7 @@
 
 	<persistence-unit name="WS-Aggregation_HSQLDB" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-   		<class>at.ac.tuwien.infosys.util.IDocumentCache$CacheEntry</class>
+   		<class>io.hummer.util.persist.IDocumentCache$CacheEntry</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="update"/>

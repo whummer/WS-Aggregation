@@ -3,9 +3,9 @@
 
 	<property name="mainClass" value="at.ac.tuwien.infosys.aggr.util.ServiceStarter"/>
 	<property name="mavenRepo" value="${user.home}/.m2/repository"/>
-	<property name="toolName" value="InfosysTools"/>
-	<property name="toolVersion" value="1-SNAPSHOT"/>
-	<property name="toolPath" value="at/ac/tuwien/infosys"/>
+	<property name="toolName" value="utils-misc"/>
+	<property name="toolVersion" value="1.0.0"/>
+	<property name="toolPath" value="io/hummer"/>
 
     <target name="build" />
 
