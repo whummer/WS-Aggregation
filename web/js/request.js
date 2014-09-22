@@ -57,6 +57,7 @@ function ajaxRequest(url, body, callback, faultCallback) {
 
 	xhr.onload = function() {
 		var returnValue = xhr.responseXML ? xhr.responseXML : xhr.responseText;
+		//console.log("AJAX result: ", returnValue);
 		
 		if(returnValue) {
 			/* check if the return value contains a SOAP message
