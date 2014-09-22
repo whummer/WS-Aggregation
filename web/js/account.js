@@ -14,7 +14,9 @@ function wsaggrLogin() {
 
 	wsaggrSetLoading(true);
 	invokeSOAP(url, request, function(result) {
-		result = stringToXML(result);
+		if(typeof result == "string") {
+			result = stringToXML(result);
+		}
 		var body = getBodyFromSoapEnvelope(result);
 		var success = wsaggrGetChildElements(body, "success")[0];
 		wsaggrSetLoading(false);

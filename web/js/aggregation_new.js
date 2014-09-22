@@ -156,6 +156,9 @@ function xmlToString(xml) {
 }
 
 function stringToXML(string) {
+	if(typeof string !== "string" && string.childNodes) {
+		return string;
+	}
 	var xmlDoc = null;
 	if (window.DOMParser) {
 		var parser = new DOMParser();
