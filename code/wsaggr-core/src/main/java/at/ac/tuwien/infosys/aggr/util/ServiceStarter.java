@@ -42,6 +42,7 @@ import at.ac.tuwien.infosys.aggr.node.BrowserAggregatorNode;
 import at.ac.tuwien.infosys.aggr.node.Gateway;
 import at.ac.tuwien.infosys.aggr.node.OptimizerNode;
 import at.ac.tuwien.infosys.aggr.node.Registry;
+import at.ac.tuwien.infosys.aggr.proxy.GatewayProxy;
 
 public class ServiceStarter {
 
@@ -199,7 +200,7 @@ public class ServiceStarter {
 		String bindurl = Configuration.getUrlWithVariableHost(Configuration.PROP_GATEWAY_URL, Configuration.PROP_BINDHOST, Configuration.PROP_HOST);
 		String url = epr.getAddress();
 		String wsdlURL = url.endsWith("?wsdl") ? url : (url + "?wsdl");
-		System.out.println("Starting gateway, SOAP/WSDL: " + wsdlURL + " , REST/WADL: " + gateway.getWadlURL());
+		logger.info("Starting gateway, SOAP/WSDL: " + wsdlURL + " , REST/WADL: " + gateway.getWadlURL());
 		/* the deploy operation automatically adds the aggregator to the registry.. */
 		gateway.deploy(bindurl, new CredentialsValidationHandler());
 		return gateway;
@@ -250,22 +251,8 @@ public class ServiceStarter {
 				"</wsa:ServiceName>" +
 			"</wsa:EndpointReference>"));
 		address = Configuration.getUrlWithVariableHost(Configuration.PROP_REGISTRY_URL, Configuration.PROP_BINDHOST, Configuration.PROP_HOST);
-		AbstractNode.deploy(r, address
-//				,new Handler<MessageContext>() {
-//			public boolean handleMessage(MessageContext context) {
-//				System.out.println("Handler.handleMessage: " + context);
-//				return true;
-//			}
-//			public boolean handleFault(MessageContext context) {
-//				System.out.println("Handler.handleFault: " + context);
-//				return true;
-//			}
-//			public void close(MessageContext context) {
-//				System.out.println("Handler.close: " + context);
-//			}
-//		}
-		);
-		System.out.println("Started registry, SOAP/WSDL: " + address + " , REST/WADL: " + r.getWadlURL());
+		AbstractNode.deploy(r, address);
+		logger.info("Started registry, SOAP/WSDL: " + address + " , REST/WADL: " + r.getWadlURL());
 	}
 
 	public static void stopHSQLDBServer() {
